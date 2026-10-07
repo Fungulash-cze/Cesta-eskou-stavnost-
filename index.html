@@ -504,25 +504,44 @@
     }
     .fact-text {
         font-size: 0.85rem;
-   .player {
-        /* Na mobilu panáčka zmenšíme a ukotvíme k nohám, aby stál přesně nad bodem */
-        transform: scale(0.65);
-        transform-origin: center bottom;
-        margin-top: -42px;
-        margin-left: -16px;
-    }
-    .node-year {
-        font-size: 0.55rem;
-        margin-bottom: 0.3rem;
-    }
-    .node-label {
-        font-size: 0.65rem;
-        margin-top: 0.4rem;
-        white-space: normal;
-        max-width: 120px;
-        text-align: center;
-        line-height: 1.15;
-    }
+   .node {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+       .player {
+                transform: scale(0.75);
+                margin-top: -46px;
+                margin-left: -12px;
+            }
+            .node-core {
+                width: 24px;
+                height: 24px;
+                border-width: 3px;
+            }
+            .node-label {
+                font-size: 0.65rem;
+                margin-top: 0.4rem;
+                white-space: normal;
+                max-width: 110px;
+                text-align: center;
+                line-height: 1.15;
+            }
+            .node-year {
+                font-size: 0.55rem;
+                margin-top: 0.2rem;
+            }
+
+        .player.walking { animation: walk 0.2s steps(2) infinite; }
+        @keyframes walk {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-6px); }
+        }
     </style>
 </head>
 <body>
@@ -961,10 +980,10 @@
                 node.style.left = `${item.x}px`;
                 node.style.top = `${item.y}px`;
                 
-                node.innerHTML = `
-                    <div class="node-year">${item.year}</div>
+              node.innerHTML = `
                     <div class="node-core"></div>
                     <div class="node-label">${item.title}</div>
+                    <div class="node-year">${item.year}</div>
                 `;
                 
                 node.addEventListener('click', () => {
@@ -1064,12 +1083,12 @@
             player.classList.add('walking');
             
             const isMobile = window.innerWidth <= 800;
-            const baseScale = isMobile ? 0.65 : 1;
+            const currentScale = isMobile ? 0.75 : 1;
 
             if (timeline[index].x < timeline[currentIndex].x) {
-                player.style.transform = `scale(${-baseScale}, ${baseScale})`;
+                player.style.transform = `scale(${-currentScale}, ${currentScale})`;
             } else if (timeline[index].x > timeline[currentIndex].x) {
-                player.style.transform = `scale(${baseScale}, ${baseScale})`;
+                player.style.transform = `scale(${currentScale}, ${currentScale})`;
             }
 
             currentIndex = index;
