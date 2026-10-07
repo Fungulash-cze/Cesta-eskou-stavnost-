@@ -225,6 +225,7 @@
             border-color: var(--text-main);
         }
 
+        /* Uspořádání uzlu: Bod nahoře, pod ním název a letopočet */
         .node {
             position: absolute;
             transform: translate(-50%, -50%);
@@ -279,7 +280,7 @@
             50% { opacity: 0.7; }
         }
 
-        /* Nový panáček pro PC: stojí nohama přesně nad středem milníku */
+        /* Nový kompaktní panáček */
         .player {
             position: absolute;
             top: 50%;
@@ -599,3 +600,536 @@
                             { name: "T. G. Masaryk", term: "1918–1920" }
                         ] 
                     },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Karel Kramář", term: "1918–1919" },
+                            { name: "Vlastimil Tusar", term: "1919–1920" }
+                        ] 
+                    }
+                ],
+                parliament: "Revoluční národní shromáždění. Jednokomorové. Původně mělo 256 členů, po rozšíření 270. Poslanci nebyli voleni, nýbrž kooptováni na základě tzv. Švehlova klíče, který kopíroval výsledky voleb do říšské rady z roku 1911.",
+                courts: "Byla plně převzata soustava z dob Rakouska-Uherska. Na vrcholu stál Nejvyšší soud se sídlem v Brně a Nejvyšší správní soud v Praze. Dále fungovaly 4 vrchní soudy a desítky krajských a okresních soudů.",
+                fact: "Základní text Recepční normy sepsal Alois Rašín údajně během jediné noci z 27. na 28. října a zákon měl pouhých pět článků.",
+                isLaw: true 
+            },
+            { 
+                year: "1920–1938", x: 1000, y: 1000, 
+                title: "Ústavní listina ČSR", 
+                act: "Zákon č. 121/1920 Sb.", 
+                desc: "Ústavní listina definitivně ukotvila Československo jako moderní parlamentní republiku s dvoukomorovým parlamentem. Vycházela převážně z modelu francouzské Třetí republiky a amerického ústavního vzoru.", 
+                bullets: [
+                    "Striktní dělba moci na moc zákonodárnou, výkonnou a soudní.", 
+                    "Zřízení Ústavního soudu (vůbec prvního na světě, společně s Rakouskem).", 
+                    "Všeobecné a rovné hlasovací právo nově přiznáno i ženám."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezidenti", icon: "P", 
+                        members: [
+                            { name: "T. G. Masaryk", term: "1920–1935" },
+                            { name: "Edvard Beneš", term: "1935–1938" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Vlastimil Tusar", term: "1920" },
+                            { name: "Jan Černý", term: "1920–21, 1926" },
+                            { name: "Edvard Beneš", term: "1921–1922" },
+                            { name: "Antonín Švehla", term: "1922–26, 1926–29" },
+                            { name: "František Udržal", term: "1929–1932" },
+                            { name: "Jan Malypetr", term: "1932–1935" },
+                            { name: "Milan Hodža", term: "1935–1938" },
+                            { name: "Jan Syrový", term: "1938" }
+                        ] 
+                    }
+                ],
+                parliament: "Národní shromáždění republiky Československé. Dvoukomorové. Poslanecká sněmovna měla 300 poslanců (voleni na 6 let, aktivní volební právo od 21 let). Senát tvořilo 150 senátorů (voleni na 8 let, volební právo od 26 let).",
+                courts: "Nezávislé soudnictví. Vznikl Ústavní soud (7 členů). Dále fungovaly: 1 Nejvyšší soud, 1 Nejvyšší správní soud, 1 Volební soud. Pod nimi působily 4 vrchní soudy, 37 krajských soudů a 423 soudů okresních.",
+                fact: "Součástí ústavního pořádku byl i tzv. Jazykový zákon (č. 122/1920 Sb.), který stanovil jako státní a oficiální jazyk umělý 'jazyk československý'.",
+                isLaw: true 
+            },
+            { 
+                year: "1938–1939", x: 1000, y: 1500, 
+                title: "Mnichovská dohoda", 
+                act: "Zánik první republiky", 
+                desc: "Odstoupení pohraničních území nacistickému Německu. Ústavní systém první republiky se zhroutil a započalo období tzv. druhé republiky s ústupem od demokratických principů k autoritativnímu řízení.", 
+                bullets: [
+                    "Protiústavní změna státních hranic bez souhlasu Národního shromáždění.", 
+                    "Ztráta zhruba 30 % území i obyvatelstva.",
+                    "Přijetí zmocňovacího zákona (parlament rezignoval na svou moc)."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezidenti", icon: "P", 
+                        members: [
+                            { name: "Edvard Beneš", term: "1938 (abdikoval)" },
+                            { name: "Emil Hácha", term: "1938–1939" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Jan Syrový", term: "1938" },
+                            { name: "Rudolf Beran", term: "1938–1939" }
+                        ] 
+                    }
+                ],
+                parliament: "Národní shromáždění bylo paralyzováno. Ztratilo desítky poslanců z odtržených území. Přijetím zmocňovacího zákona (č. 330/1938 Sb.) přešla zákonodárná moc formou nařízení přímo na vládu a prezidenta.",
+                courts: "Soudní soustava formálně zůstala zachována, avšak její teritoriální působnost se drasticky omezila ztrátou Sudet a části Slovenska i Podkarpatské Rusi.",
+                fact: "Ačkoliv byla ústavní kontinuita formálně zachována, reálně došlo ke zrušení parlamentarismu a zavedení vlády tvrdé ruky.",
+                isLaw: false 
+            },
+            { 
+                year: "1939–1945", x: 1600, y: 1500, 
+                title: "Protektorát a Exil", 
+                act: "Okupace a ztráta suverenity", 
+                desc: "Zánik samostatné státnosti a formální i faktické podřízení domácího právního řádu vůli říšského protektora. V Londýně se formuje exilová vláda.", 
+                bullets: [
+                    "Říšské právo bylo bezpodmínečně nadřazeno protektorátnímu.", 
+                    "Aplikace teorie právní kontinuity exilovou vládou.",
+                    "Likvidace občanských a lidských práv pro nepohodlné skupiny."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezidenti", icon: "P", 
+                        members: [
+                            { name: "Emil Hácha (Protektorát)", term: "1939–1945" },
+                            { name: "Edvard Beneš (Exil)", term: "1940–1945" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Rudolf Beran", term: "1939" },
+                            { name: "Alois Eliáš", term: "1939–1941" },
+                            { name: "Jaroslav Krejčí", term: "1942–1945" },
+                            { name: "Richard Bienert", term: "1945" },
+                            { name: "Jan Šrámek (Exil)", term: "1940–1945" }
+                        ] 
+                    },
+                    {
+                        role: "Říšští protektoři", icon: "Ř",
+                        members: [
+                            { name: "K. von Neurath", term: "1939–1943" },
+                            { name: "R. Heydrich (zast.)", term: "1941–1942" },
+                            { name: "K. Daluege (zast.)", term: "1942–1943" },
+                            { name: "Wilhelm Frick", term: "1943–1945" }
+                        ]
+                    }
+                ],
+                parliament: "Domácí parlament byl rozpuštěn. V exilu v Londýně byla roku 1940 zřízena Státní rada Československá (měla až 50 členů) jako poradní orgán prezidenta a kvazi-parlamentní těleso.",
+                courts: "Došlo k dualismu práva. Působily zde soudy německé (řešily záležitosti Říše a jejích občanů) a soudy protektorátní s omezenou kompetencí pouze pro obyvatelstvo bez říšského občanství.",
+                fact: "Prezident Emil Hácha byl k podpisu dokumentu vydávajícího zemi Říši donucen pod hrozbou masivního bombardování Prahy.",
+                isLaw: false 
+            },
+            { 
+                year: "1945–1948", x: 1600, y: 1000, 
+                title: "Třetí republika", 
+                act: "Obnova státnosti", 
+                desc: "Osvobození a obnova státu. Návrat k ústavnímu pořádku z doby před rokem 1938 byl modifikován tzv. dekrety prezidenta republiky, které představovaly mimořádnou zákonodárnou moc v době, kdy chyběl parlament.", 
+                bullets: [
+                    "Dekretální tvorba práva (znárodňovací a retribuční předpisy).", 
+                    "Obnovení právního pořádku Československa.", 
+                    "Zúžení politického spektra jen na strany tzv. Národní fronty."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezident", icon: "P", 
+                        members: [
+                            { name: "Edvard Beneš", term: "1945–1948" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Zdeněk Fierlinger", term: "1945–1946" },
+                            { name: "Klement Gottwald", term: "1946–1948" }
+                        ] 
+                    }
+                ],
+                parliament: "Nejprve Prozatímní národní shromáždění (300 členů, jednokomorové). Po volbách v roce 1946 jej nahradilo Ústavodárné národní shromáždění (300 členů), jehož hlavním úkolem bylo sepsat novou ústavu.",
+                courts: "Byla plně obnovena předválečná soustava soudů. K tomu navíc vznikl 1 Národní soud a 138 Mimořádných lidových soudů, určených k přísnému a rychlému trestání válečných zločinců a kolaborantů.",
+                fact: "Většina dekretů prezidenta republiky byla následně dodatečně ratihabována (schválena zákonem) Prozatímním národním shromážděním.",
+                isLaw: false 
+            },
+            { 
+                year: "1948–1960", x: 2400, y: 1000, 
+                title: "Ústava 9. května", 
+                act: "Ústavní zákon č. 150/1948 Sb.", 
+                desc: "Ústava přijatá krátce po únorovém převratu. Formálně zachovávala některé demokratické instituty, avšak fakticky zcela zničila dělbu moci a položila základy totalitního řízení státu.", 
+                bullets: [
+                    "Ústavní zakotvení pojmu 'lidová demokracie'.", 
+                    "Likvidace ochrany soukromého vlastnictví ve prospěch státního.", 
+                    "Asymetrický model státní správy."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezidenti", icon: "P", 
+                        members: [
+                            { name: "Edvard Beneš", term: "1948 (abdikoval)" },
+                            { name: "Klement Gottwald", term: "1948–1953" },
+                            { name: "Antonín Zápotocký", term: "1953–1957" },
+                            { name: "Antonín Novotný", term: "1957–1960" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Klement Gottwald", term: "1948" },
+                            { name: "Antonín Zápotocký", term: "1948–1953" },
+                            { name: "Viliam Široký", term: "1953–1960" }
+                        ] 
+                    }
+                ],
+                parliament: "Národní shromáždění republiky Československé. Jednokomorové. Tvořilo jej 300 poslanců, kteří se volili na 6 let na základě jednotné kandidátky Národní fronty (bez skutečné politické soutěže).",
+                courts: "Došlo k tzv. zlidovění soudnictví. O osudech lidí rozhodovali spolu s profesionály laičtí 'soudci z lidu'. Ústavní soud nebyl nikdy sestaven, Nejvyšší správní soud byl roku 1952 zrušen.",
+                fact: "Prezident Edvard Beneš tuto ústavu odmítl podepsat a na protest v červnu 1948 abdikoval. Ústavu následně podepsal Klement Gottwald.",
+                isLaw: true 
+            },
+            { 
+                year: "1960–1968", x: 3200, y: 1000, 
+                title: "Ústava ČSSR", 
+                act: "Ústavní zákon č. 100/1960 Sb.", 
+                desc: "Vysoce ideologický dokument. Znamenal úplné opuštění tradičních principů ústavnosti ve prospěch uplatnění doktríny jednoty státní moci v rukou pracujícího lidu pod taktovkou KSČ.", 
+                bullets: [
+                    "Výslovné zakotvení vedoucí úlohy KSČ (čl. 4).", 
+                    "Změna názvu státu na Československá socialistická republika.", 
+                    "Masivní centralizace moci a zrušení Sboru pověřenců."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezidenti", icon: "P", 
+                        members: [
+                            { name: "Antonín Novotný", term: "1960–1968" },
+                            { name: "Ludvík Svoboda", term: "1968" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Viliam Široký", term: "1960–1963" },
+                            { name: "Jozef Lenárt", term: "1963–1968" },
+                            { name: "Oldřich Černík", term: "1968" }
+                        ] 
+                    }
+                ],
+                parliament: "Národní shromáždění ČSSR. Jednokomorové těleso o 300 poslancích s funkčním obdobím zkráceným na 4 roky. Rozhodovalo výhradně podle směrnic ústředního výboru KSČ.",
+                courts: "Soudnictví bylo zcela podřízeno ideologii. Tvořil jej Nejvyšší soud, krajské a okresní soudy. Roku 1961 byly zřízeny i tzv. Místní lidové soudy pro rychlé řešení drobných provinění pracujících.",
+                fact: "Spolu s novou ústavou byl změněn i státní znak. Tradiční český lev ztratil zlatou korunku, dostal rudou hvězdu a pavézu s křiváňským ohněm.",
+                isLaw: true 
+            },
+            { 
+                year: "1968–1989", x: 3200, y: 500, 
+                title: "Zákon o federaci", 
+                act: "Ústavní zákon č. 143/1968 Sb.", 
+                desc: "Zásadní reforma formy státu, která přeměnila unitární Československo na federaci. Vytvořila Českou a Slovenskou socialistickou republiku jako dva rovnoprávné celky.", 
+                bullets: [
+                    "Zřízení dvoukomorového Federálního shromáždění.", 
+                    "Zavedení složitého mechanismu zákazu majorizace.", 
+                    "Vytvoření samostatných republikových vlád."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezidenti", icon: "P", 
+                        members: [
+                            { name: "Ludvík Svoboda", term: "1968–1975" },
+                            { name: "Gustáv Husák", term: "1975–1989" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Oldřich Černík", term: "1968–1970" },
+                            { name: "Lubomír Štrougal", term: "1970–1988" },
+                            { name: "Ladislav Adamec", term: "1988–1989" }
+                        ] 
+                    }
+                ],
+                parliament: "Federální shromáždění. Sněmovna lidu (200 poslanců). Sněmovna národů (150 poslanců - 75 z ČR, 75 ze SR). Dále fungovaly republikové národní rady (Česká měla 200 poslanců, Slovenská 150).",
+                courts: "Struktura se federalizovala: existoval 1 Nejvyšší soud ČSSR a vedle něj Nejvyšší soud ČSR a SSR. Formálně byl zakotven Ústavní soud, ale do roku 1989 reálně nevznikl.",
+                fact: "Federalizace byla jedinou významnou politickou reformou z období Pražského jara, která přežila srpnovou vojenskou invazi.",
+                isLaw: true 
+            },
+            { 
+                year: "1989–1992", x: 4000, y: 500, 
+                title: "Sametová revoluce", 
+                act: "Pád totalitního režimu", 
+                desc: "Konec mocenského monopolu KSČ. Následovaly okamžité ústavní změny realizované formou novel. Tyto kroky plynule demontovaly komunistický stát a připravily půdu pro svobodné volby.", 
+                bullets: [
+                    "Vypuštění článku o vedoucí úloze KSČ a marxismu-leninismu.", 
+                    "Přijetí Listiny základních práv a svobod (1991).",
+                    "Odstranění cenzury a obnova plurality politických stran."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezident", icon: "P", 
+                        members: [
+                            { name: "Václav Havel", term: "1989–1992" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Marián Čalfa", term: "1989–1992" },
+                            { name: "Jan Stráský", term: "1992" }
+                        ] 
+                    }
+                ],
+                parliament: "Ústavní architektura se nezměnila, zůstalo Federální shromáždění. Změnilo se však složení – odstoupivší komunistické poslance nahradili v procesu zvaném 'kooptace' zástupci demokratické opozice.",
+                courts: "Byl zahájen návrat k nezávislosti soudní moci. Zrušily se Místní lidové soudy i deformovaný dohled prokuratury nad soudy. Postupně se formovaly standardní záruky nezávislosti soudců.",
+                fact: "Václav Havel byl v prosinci 1989 zvolen prezidentem ještě původním, komunisty ovládaným Federálním shromážděním.",
+                isLaw: false 
+            },
+            { 
+                year: "1993–nyní", x: 4000, y: 1000, 
+                title: "Ústava ČR", 
+                act: "Ústavní zákon č. 1/1993 Sb.", 
+                desc: "Aktuálně platný základní zákon, vzniklý jako reakce na rozpad federace. Představuje plnohodnotný návrat k principům liberální demokracie, právnímu státu, dělbě moci a lidským právům.", 
+                bullets: [
+                    "Definice ČR jako svrchovaného demokratického státu.", 
+                    "Návrat ke klasické dělbě moci a brzdám/protiváhám.", 
+                    "Zřízení silného a nezávislého Ústavního soudu."
+                ],
+                leaders: [
+                    { 
+                        role: "Prezidenti", icon: "P", 
+                        members: [
+                            { name: "Václav Havel", term: "1993–2003" },
+                            { name: "Václav Klaus", term: "2003–2013" },
+                            { name: "Miloš Zeman", term: "2013–2023" },
+                            { name: "Petr Pavel", term: "2023–nyní" }
+                        ] 
+                    },
+                    { 
+                        role: "Předsedové vlád", icon: "V", 
+                        members: [
+                            { name: "Václav Klaus", term: "1993–1998" },
+                            { name: "Josef Tošovský", term: "1998" },
+                            { name: "Miloš Zeman", term: "1998–2002" },
+                            { name: "Vladimír Špidla", term: "2002–2004" },
+                            { name: "Stanislav Gross", term: "2004–2005" },
+                            { name: "Jiří Paroubek", term: "2005–2006" },
+                            { name: "Mirek Topolánek", term: "2006–2009" },
+                            { name: "Jan Fischer", term: "2009–2010" },
+                            { name: "Petr Nečas", term: "2010–2013" },
+                            { name: "Jiří Rusnok", term: "2013–2014" },
+                            { name: "Bohuslav Sobotka", term: "2014–2017" },
+                            { name: "Andrej Babiš", term: "2017–2021" },
+                            { name: "Petr Fiala", term: "2021–nyní" }
+                        ] 
+                    }
+                ],
+                parliament: "Parlament České republiky má dvě komory. Poslanecká sněmovna: 200 poslanců volených na 4 roky poměrným systémem. Senát: 81 senátorů volených na 6 let většinovým systémem.",
+                courts: "Ústavní soud tvoří 15 soudců volených na 10 let. Článkovou soustavu tvoří 1 Nejvyšší soud, 1 Nejvyšší správní soud, 2 vrchní soudy, 8 krajských soudů a 86 okresních/obvodních soudů.",
+                fact: "Ačkoliv Ústava počítala se Senátem již od roku 1993, horní komora byla naplněna a zahájila činnost až na podzim roku 1996.",
+                isLaw: true 
+            }
+        ];
+
+        const gameView = document.getElementById('game-view');
+        const world = document.getElementById('world');
+        const player = document.getElementById('player');
+        const codex = document.getElementById('codex');
+        const btnPrev = document.getElementById('btn-prev');
+        const btnNext = document.getElementById('btn-next');
+        const partyHud = document.getElementById('party-hud');
+        let currentIndex = 0;
+        let lines = [];
+
+        function initMap() {
+            for (let i = 0; i < timeline.length - 1; i++) {
+                const p1 = timeline[i];
+                const p2 = timeline[i+1];
+                
+                if (p1.x !== p2.x) {
+                    const hLine = document.createElement('div');
+                    hLine.className = 'path-line';
+                    hLine.style.height = '8px';
+                    hLine.style.width = `${Math.abs(p2.x - p1.x)}px`;
+                    hLine.style.left = `${Math.min(p1.x, p2.x)}px`;
+                    hLine.style.top = `${p1.y - 4}px`;
+                    world.appendChild(hLine);
+                    lines.push({ element: hLine, index: i });
+                }
+                
+                if (p1.y !== p2.y) {
+                    const vLine = document.createElement('div');
+                    vLine.className = 'path-line';
+                    vLine.style.width = '8px';
+                    vLine.style.height = `${Math.abs(p2.y - p1.y)}px`;
+                    vLine.style.left = `${p2.x - 4}px`;
+                    vLine.style.top = `${Math.min(p1.y, p2.y)}px`;
+                    world.appendChild(vLine);
+                    lines.push({ element: vLine, index: i });
+                }
+            }
+
+            timeline.forEach((item, index) => {
+                const node = document.createElement('div');
+                node.className = `node ${item.isLaw ? 'is-law' : ''}`;
+                node.style.left = `${item.x}px`;
+                node.style.top = `${item.y}px`;
+                
+                node.innerHTML = `
+                    <div class="node-core"></div>
+                    <div class="node-label">${item.title}</div>
+                    <div class="node-year">${item.year}</div>
+                `;
+                
+                node.addEventListener('click', () => {
+                    if(currentIndex !== index) goTo(index);
+                });
+                
+                item.element = node;
+                world.appendChild(node);
+            });
+        }
+
+        function updateUI() {
+            btnPrev.disabled = currentIndex === 0;
+            btnNext.disabled = currentIndex === timeline.length - 1;
+
+            timeline.forEach((item, i) => {
+                item.element.classList.toggle('active', i === currentIndex);
+            });
+
+            lines.forEach(lineObj => {
+                if (lineObj.index < currentIndex) lineObj.element.classList.add('visited');
+                else lineObj.element.classList.remove('visited');
+            });
+
+            const data = timeline[currentIndex];
+            
+            partyHud.innerHTML = '';
+            if (data.leaders && data.leaders.length > 0) {
+                data.leaders.forEach(group => {
+                    const card = document.createElement('div');
+                    card.className = 'leader-card';
+                    
+                    let membersHtml = '';
+                    group.members.forEach(member => {
+                        membersHtml += `
+                            <div class="leader-item">
+                                <span class="l-name">${member.name}</span>
+                                <span class="l-term">${member.term}</span>
+                            </div>
+                        `;
+                    });
+
+                    card.innerHTML = `
+                        <div class="leader-avatar">${group.icon}</div>
+                        <div class="leader-info">
+                            <div class="leader-role">${group.role}</div>
+                            <div class="leader-list">
+                                ${membersHtml}
+                            </div>
+                        </div>
+                    `;
+                    partyHud.appendChild(card);
+                });
+                partyHud.style.display = 'flex';
+                partyHud.scrollTop = 0;
+            } else {
+                partyHud.style.display = 'none';
+            }
+
+            document.getElementById('c-type').textContent = data.isLaw ? "TYP: ÚSTAVNÍ PRAMEN" : "TYP: UDÁLOST";
+            document.getElementById('c-title').textContent = data.title;
+            
+            const actEl = document.getElementById('c-act');
+            if(data.act) {
+                actEl.textContent = data.act;
+                actEl.style.display = 'block';
+            } else {
+                actEl.style.display = 'none';
+            }
+            
+            document.getElementById('c-desc').textContent = data.desc;
+            
+            const bulletsEl = document.getElementById('c-bullets');
+            bulletsEl.innerHTML = '';
+            data.bullets.forEach(b => {
+                const li = document.createElement('li');
+                li.textContent = b;
+                bulletsEl.appendChild(li);
+            });
+
+            document.getElementById('c-parl-content').textContent = data.parliament;
+            document.getElementById('c-court-content').textContent = data.courts;
+
+            const factBox = document.getElementById('c-fact-box');
+            if(data.fact) {
+                document.getElementById('c-fact-content').textContent = data.fact;
+                factBox.style.display = 'block';
+            } else {
+                factBox.style.display = 'none';
+            }
+            
+            codex.scrollTop = 0;
+        }
+
+        function goTo(index) {
+            if (index < 0 || index >= timeline.length) return;
+            
+            player.classList.add('walking');
+            
+            const isMobile = window.innerWidth <= 800;
+            const currentScale = isMobile ? 0.75 : 1;
+
+            if (timeline[index].x < timeline[currentIndex].x) {
+                player.style.transform = `scale(${-currentScale}, ${currentScale})`;
+            } else if (timeline[index].x > timeline[currentIndex].x) {
+                player.style.transform = `scale(${currentScale}, ${currentScale})`;
+            }
+
+            currentIndex = index;
+            
+            const targetX = timeline[currentIndex].x;
+            const targetY = timeline[currentIndex].y;
+            
+            const viewWidth = gameView.clientWidth;
+            const viewHeight = gameView.clientHeight;
+            
+            world.style.transform = `translate(calc(${viewWidth / 2}px - ${targetX}px), calc(${viewHeight / 2}px - ${targetY}px))`;
+
+            setTimeout(() => {
+                player.classList.remove('walking');
+                updateUI();
+            }, 600);
+        }
+
+        function move(direction) {
+            goTo(currentIndex + direction);
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'd') move(1);
+            if (e.key === 'ArrowLeft' || e.key === 'a') move(-1);
+        });
+
+        window.addEventListener('resize', () => {
+            world.style.transition = 'none';
+            const targetX = timeline[currentIndex].x;
+            const targetY = timeline[currentIndex].y;
+            world.style.transform = `translate(calc(${gameView.clientWidth / 2}px - ${targetX}px), calc(${gameView.clientHeight / 2}px - ${targetY}px))`;
+            setTimeout(() => { world.style.transition = 'transform 0.6s steps(20)'; }, 50);
+        });
+
+        initMap();
+        world.style.transition = 'none';
+        
+        setTimeout(() => {
+            const viewWidth = gameView.clientWidth;
+            const viewHeight = gameView.clientHeight;
+            world.style.transform = `translate(calc(${viewWidth / 2}px - ${timeline[0].x}px), calc(${viewHeight / 2}px - ${timeline[0].y}px))`;
+            
+            setTimeout(() => {
+                world.style.transition = 'transform 0.6s steps(20)';
+                updateUI();
+            }, 100);
+        }, 50);
+    </script>
+</body>
+</html>
