@@ -283,10 +283,10 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            z-index: 10;
+            z-index: 20;
             width: 32px;
             height: 32px;
-            margin-top: -16px;
+            margin-top: -48px;
             margin-left: -16px;
             background-color: transparent;
             box-shadow: 
@@ -295,6 +295,7 @@
                 0px 24px 0 8px var(--text-main),
                 16px 24px 0 8px var(--text-main);
             transition: transform 0.1s;
+            pointer-events: none;
         }
 
         .player.walking { animation: walk 0.2s steps(2) infinite; }
@@ -503,14 +504,24 @@
     }
     .fact-text {
         font-size: 0.85rem;
+   .player {
+        /* Na mobilu panáčka zmenšíme a ukotvíme k nohám, aby stál přesně nad bodem */
+        transform: scale(0.65);
+        transform-origin: center bottom;
+        margin-top: -42px;
+        margin-left: -16px;
     }
-            .node-year {
-        font-size: 0.5rem;
+    .node-year {
+        font-size: 0.55rem;
+        margin-bottom: 0.3rem;
     }
-    
     .node-label {
-        font-size: 0.8rem;
-        margin-top: 0.5rem;
+        font-size: 0.65rem;
+        margin-top: 0.4rem;
+        white-space: normal;
+        max-width: 120px;
+        text-align: center;
+        line-height: 1.15;
     }
     </style>
 </head>
@@ -1047,16 +1058,18 @@
             
             codex.scrollTop = 0;
         }
-
         function goTo(index) {
             if (index < 0 || index >= timeline.length) return;
             
             player.classList.add('walking');
             
+            const isMobile = window.innerWidth <= 800;
+            const baseScale = isMobile ? 0.65 : 1;
+
             if (timeline[index].x < timeline[currentIndex].x) {
-                player.style.transform = 'scaleX(-1)';
+                player.style.transform = `scale(${-baseScale}, ${baseScale})`;
             } else if (timeline[index].x > timeline[currentIndex].x) {
-                player.style.transform = 'scaleX(1)';
+                player.style.transform = `scale(${baseScale}, ${baseScale})`;
             }
 
             currentIndex = index;
@@ -1074,7 +1087,6 @@
                 updateUI();
             }, 600);
         }
-
         function move(direction) {
             goTo(currentIndex + direction);
         }
