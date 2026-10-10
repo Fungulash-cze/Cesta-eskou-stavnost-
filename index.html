@@ -1048,12 +1048,14 @@
                     hl.style.height = '8px'; hl.style.width = `${Math.abs(p2.x - p1.x)}px`;
                     hl.style.left = `${Math.min(p1.x, p2.x)}px`; hl.style.top = `${p1.y - 4}px`;
                     world.appendChild(hl);
+                    lines.push({ element: hl, index: i }); // OPRAVA
                 }
                 if (p1.y !== p2.y) {
                     let vl = document.createElement('div'); vl.className = 'path-line'; vl.id = `line-v-${i}`;
                     vl.style.width = '8px'; vl.style.height = `${Math.abs(p2.y - p1.y)}px`;
                     vl.style.left = `${p2.x - 4}px`; vl.style.top = `${Math.min(p1.y, p2.y)}px`;
                     world.appendChild(vl);
+                    lines.push({ element: vl, index: i }); // OPRAVA
                 }
             }
 
