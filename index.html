@@ -526,6 +526,18 @@
                     line-height: 1.5;
                     color: var(--text-main);
                 }
+                /* KVÍZ A TLAČÍTKA */
+                .modal-options { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+                .modal-btn { background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); font-size: 0.9rem; padding: 1.2rem; text-align: left; cursor: pointer; transition: 0.1s; line-height: 1.4; }
+                .modal-btn:hover { background: var(--accent); color: var(--bg-base); border-color: var(--accent); }
+                .wrong { background: #c42b2b !important; color: white !important; border-color: #c42b2b !important; animation: shake 0.3s; }
+                @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        
+                /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
+                .secret-item { position: absolute; transform: translate(-50%, -50%); z-index: 15; width: 64px; height: 64px; cursor: pointer; animation: floatItem 2s infinite alternate; }
+                .secret-item img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px var(--accent)); transition: 0.2s; border-radius: 50%; }
+                .secret-item:hover img { filter: drop-shadow(0 0 20px #fff); transform: scale(1.1); }
+                @keyframes floatItem { from { margin-top: 0px; } to { margin-top: -15px; } }
         /* ZVĚTŠENÁ KARTA (LIGHTBOX) */
                 .card-lightbox {
                     position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000;
@@ -621,7 +633,6 @@
             <button class="btn" id="btn-prev" onclick="move(-1)">[A] VLEVO</button>
             <button class="btn" id="btn-next" onclick="move(1)">[D] VPRAVO</button>
         </div>
-    </div>
 <!-- INVENTÁŘ -->
         <div class="inventory-hud">
             <div class="inv-title">INVENTÁŘ</div>
@@ -672,6 +683,18 @@
         </div>
     </div>
     <script>
+       // Zcela samostatné tajné prameny ležící volně na mapě
+        const secretItems = [
+            { 
+                id: 'c_rovnost', x: 550, y: 1050, 
+                icon: '<img src="korunka s pozadim.jpg">', 
+                cardImg: 'karta slechta.jpg',
+                cardText: '<strong>Zákon č. 61/1918 Sb., kterým se zrušují šlechtictví, řády a tituly.</strong><br><br>Republika se tímto radikálním krokem odstřihla od rakousko-uherské tradice. Bývalá aristokracie ztratila svá privilegia a stala se rovnou ostatním občanům.<br><br><span style="color: var(--text-muted);"><em>§ 1. Šlechtictví a řády, jakož i veškerá z nich plynoucí práva se zrušují, rovněž tak tituly, pokud byly udělovány jako pouhá vyznamenání. V platnosti zůstávají takové tituly, na které lze splněním předepsaných podmínek nabýti právního nároku (titul doktorský, inženýrský atd.), pak tituly, jež vyjadřují skutečně zastávanou úřední hodnost, a vyznamenání udělovaná vysokými školami (čestné doktoráty a pod.).</em></span>',
+                q: 'Co udělalo Národní shromáždění už v prosinci 1918 se starou aristokracií?', 
+                opts: ['A) Uvalilo na ně milionářskou daň.', 'B) Zrušilo šlechtické tituly a řády.', 'C) Zabavilo jim hrady a zámky.'], 
+                correct: 1, solved: false 
+            }
+        ];
         const timeline = [
             { 
                 year: "1918–1920", x: 400, y: 1000, 
@@ -688,18 +711,6 @@
                 courts: "Byla plně převzata soustava z dob Rakouska-Uherska. Na vrcholu stál Nejvyšší soud se sídlem v Brně a Nejvyšší správní soud v Praze. Dále fungovaly 4 vrchní soudy a desítky krajských a okresních soudů.",
                 fact: "Základní text Recepční normy sepsal Alois Rašín údajně během jediné noci z 27. na 28. října a zákon měl pouhých pět článků.",
                 isLaw: true 
-            },
-            { 
-                type: 'item', year: "1918", x: 700, y: 700, 
-                title: "TAJNÝ PRAMEN", act: "", 
-                desc: "Zodpověz otázku a odhal jednu z podstatných událostí revolučních let.", 
-                bullets: [],
-                icon: '<img src="korunka.png" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">', 
-                cardImg: 'karta slechta.png',
-                cardText: '<strong>Zákon č. 61/1918 Sb., kterým se zrušují šlechtictví, řády a tituly.</strong><br><br>Republika se tímto radikálním krokem odstřihla od rakousko-uherské tradice. Bývalá aristokracie ztratila svá privilegia a stala se rovnou ostatním občanům.<br><br>§ 1. Šlechtictví a řády, jakož i veškerá z nich plynoucí práva se zrušují, rovněž tak tituly, pokud byly udělovány jako pouhá vyznamenání. V platnosti zůstávají takové tituly, na které lze splněním předepsaných podmínek nabýti právního nároku (titul doktorský, inženýrský atd.), pak tituly, jež vyjadřují skutečně zastávanou úřední hodnost, a vyznamenání udělovaná vysokými školami (čestné doktoráty a pod.). Bývalí šlechtici nesmějí užívati svého rodného jména s přídomkem nebo dodatkem, vyznačujícím šlechtictví.',
-                q: 'Co udělalo Národní shromáždění už v prosinci 1918 se starou aristokracií?', 
-                opts: ['A) Uvalilo na ně milionářskou daň z majetku.', 'B) Zákonem zrušilo všechny šlechtické tituly a řády.', 'C) Zabavilo jim bez náhrady všechny hrady a zámky.'], 
-                correct: 1, solved: false 
             },
             { 
                 year: "1920–1938", x: 1000, y: 1000, 
@@ -873,26 +884,44 @@
         let isQuizOpen = false;
         let currentQuizItem = null;
         function initMap() {
+            // Vykreslí hlavní trasu
             for (let i = 0; i < timeline.length - 1; i++) {
                 const p1 = timeline[i]; const p2 = timeline[i+1];
-                const isDashed = p1.type === 'item' || p2.type === 'item';
-                
                 if (p1.x !== p2.x) {
                     let hl = document.createElement('div'); hl.className = 'path-line'; hl.id = `line-h-${i}`;
-                    if (isDashed) { hl.style.height = '4px'; hl.style.backgroundColor = 'transparent'; hl.style.borderTop = '4px dashed var(--text-muted)'; } 
-                    else { hl.style.height = '8px'; }
-                    hl.style.width = `${Math.abs(p2.x - p1.x)}px`; hl.style.left = `${Math.min(p1.x, p2.x)}px`; hl.style.top = `${p1.y - (isDashed?2:4)}px`;
+                    hl.style.height = '8px'; hl.style.width = `${Math.abs(p2.x - p1.x)}px`;
+                    hl.style.left = `${Math.min(p1.x, p2.x)}px`; hl.style.top = `${p1.y - 4}px`;
                     world.appendChild(hl);
                 }
                 if (p1.y !== p2.y) {
                     let vl = document.createElement('div'); vl.className = 'path-line'; vl.id = `line-v-${i}`;
-                    if (isDashed) { vl.style.width = '4px'; vl.style.backgroundColor = 'transparent'; vl.style.borderLeft = '4px dashed var(--text-muted)'; } 
-                    else { vl.style.width = '8px'; }
-                    vl.style.height = `${Math.abs(p2.y - p1.y)}px`; vl.style.left = `${p2.x - (isDashed?2:4)}px`; vl.style.top = `${Math.min(p1.y, p2.y)}px`;
+                    vl.style.width = '8px'; vl.style.height = `${Math.abs(p2.y - p1.y)}px`;
+                    vl.style.left = `${p2.x - 4}px`; vl.style.top = `${Math.min(p1.y, p2.y)}px`;
                     world.appendChild(vl);
                 }
             }
 
+            // Vykreslí historické uzly
+            timeline.forEach((item, index) => {
+                const node = document.createElement('div');
+                node.className = `node ${item.isLaw ? 'is-law' : ''}`;
+                node.style.left = `${item.x}px`; node.style.top = `${item.y}px`;
+                node.innerHTML = `<div class="node-core">${getIconForYear(item.year)}</div><div class="node-label">${item.title}</div><div class="node-year">${item.year}</div>`;
+                item.element = node;
+                world.appendChild(node);
+            });
+
+            // Vykreslí tajné symboly (korunku)
+            secretItems.forEach(item => {
+                const sItem = document.createElement('div');
+                sItem.className = 'secret-item';
+                sItem.style.left = `${item.x}px`; sItem.style.top = `${item.y}px`;
+                sItem.innerHTML = item.icon;
+                sItem.onclick = () => openQuiz(item);
+                item.element = sItem;
+                world.appendChild(sItem);
+            });
+            }
             timeline.forEach((item, index) => {
                 const node = document.createElement('div');
                 node.className = `node ${item.isLaw ? 'is-law' : ''}`;
@@ -1012,7 +1041,7 @@
             codex.scrollTop = 0;
         }
 
-        function goTo(index) {
+           function goTo(index) {
             if (index < 0 || index >= timeline.length) return;
             
             player.classList.add('walking');
@@ -1034,10 +1063,6 @@
             setTimeout(() => {
                 player.classList.remove('walking');
                 updateUI();
-                // Otevření kvízu po dojezdu na korunku
-                if (timeline[currentIndex].type === 'item' && !timeline[currentIndex].solved) {
-                    openQuiz(timeline[currentIndex]);
-                }
             }, 600);
         }
 
@@ -1072,7 +1097,7 @@
             if (chosenIdx === correctIdx) {
                 closeQuiz();
                 currentQuizItem.solved = true;
-                currentQuizItem.element.style.filter = "grayscale(100%) opacity(0.3)"; // Korunka po vyřešení zšedne
+                currentQuizItem.element.style.display = "none"; // Schová korunku z mapy
                 inventory.push(currentQuizItem);
                 renderInventory();
                 currentQuizItem = null;
