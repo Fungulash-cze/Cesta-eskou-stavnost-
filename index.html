@@ -112,6 +112,7 @@
             border-left: 6px solid var(--accent);
             box-shadow: -12px 0px 0px rgba(0,0,0,0.5);
             padding: 2.5rem;
+            padding-bottom: 12rem; /* PŘIDÁNO: Místo pro posouvání nad inventářem */
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -119,7 +120,7 @@
             z-index: 50;
             transition: background-color 0.5s step-end, border-color 0.5s step-end;
         }
-
+        
         .codex::-webkit-scrollbar { width: 16px; }
         .codex::-webkit-scrollbar-track { background: var(--bg-panel); border-left: 4px solid var(--text-muted); }
         .codex::-webkit-scrollbar-thumb { background: var(--accent); border: 4px solid var(--bg-panel); }
@@ -148,7 +149,7 @@
 
         .controls {
             position: absolute;
-            bottom: 2rem;
+            bottom: 13rem; /* Tlačítka se zvednou nad inventář */
             left: 2rem;
             z-index: 100;
             display: flex;
@@ -498,7 +499,7 @@
                     inset: 0;
                     background: rgba(0,0,0,0.85);
                     z-index: 2000;
-                    display: flex;
+                    display: none;
                     justify-content: center;
                     align-items: center;
                 }
@@ -526,6 +527,126 @@
                     line-height: 1.5;
                     color: var(--text-main);
                 }
+                /* KVÍZ A TLAČÍTKA */
+                .modal-options { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+                .modal-btn { background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); font-size: 0.9rem; padding: 1.2rem; text-align: left; cursor: pointer; transition: 0.1s; line-height: 1.4; }
+                .modal-btn:hover { background: var(--accent); color: var(--bg-base); border-color: var(--accent); }
+                .wrong { background: #c42b2b !important; color: white !important; border-color: #c42b2b !important; animation: shake 0.3s; }
+                @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+                .correct { background: #2ea043 !important; color: white !important; border-color: #2ea043 !important; }
+                
+                /* OBRAZOVKA ODMĚNY - fixní malá velikost */
+                .reward-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
+                .reward-title { font-family: var(--font-ui); color: var(--accent); font-size: 1.5rem; margin-bottom: 1.5rem; text-shadow: 2px 2px 0 #000; animation: floatItem 2s infinite alternate; text-align: center; }
+                
+                .reward-content { position: relative; width: 300px; height: 420px; cursor: pointer; transition: transform 0.2s; border-radius: 8px; }
+                .reward-content:hover { transform: scale(1.05); }
+                .reward-card { width: 100%; height: 100%; object-fit: cover; display: block; box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); border: 4px solid var(--text-muted); border-radius: 8px; transition: 0.2s; }
+                .reward-content:hover .reward-card { border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
+                
+                .reward-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 0.75rem; line-height: 1.3; overflow-y: auto; text-shadow: 1px 1px 0 #000; padding-right: 5px; word-wrap: break-word; }
+                .reward-text::-webkit-scrollbar { width: 4px; } .reward-text::-webkit-scrollbar-track { background: transparent; } .reward-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
+                
+                .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.1rem; }
+                /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
+                .secret-item { 
+                    position: absolute; 
+                    transform: translate(-50%, -50%); 
+                    z-index: 15; 
+                    width: 120px; 
+                    height: 120px; 
+                    cursor: pointer; 
+                    animation: floatItem 2s infinite alternate; 
+                }
+                .secret-item img { 
+                    width: 100%; 
+                    height: 100%; 
+                    object-fit: contain; 
+                    filter: drop-shadow(0 0 10px var(--accent)); 
+                    transition: 0.2s; 
+                    border-radius: 50%; 
+                }
+                .secret-item:hover img { 
+                    filter: drop-shadow(0 0 20px #fff); 
+                    transform: scale(1.1); 
+                }
+                /* Vyřešená korunka s fajfkou */
+                .secret-item.solved {
+                    cursor: default;
+                    animation: none;
+                    filter: grayscale(0.3);
+                }
+                .secret-item.solved img {
+                    filter: drop-shadow(0 0 10px #2ea043);
+                }
+                .check-badge {
+                    position: absolute;
+                    bottom: -5px;
+                    right: -5px;
+                    background-color: #2ea043;
+                    color: white;
+                    font-family: var(--font-ui);
+                    font-size: 0.8rem;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 3px solid var(--bg-base);
+                    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+                }
+                @keyframes floatItem { 
+                    from { margin-top: 0px; } 
+                    to { margin-top: -15px; } 
+                }
+        
+                /* ZVĚTŠENÁ KARTA (LIGHTBOX) Z INVENTÁŘE - s opraveným z-indexem */
+                .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
+                .card-lightbox-content { position: relative; max-height: 80vh; max-width: 90vw; }
+                .card-lightbox-img { height: 80vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); border: 4px solid var(--text-muted); border-radius: 8px;}
+                
+                .card-lightbox-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 1.3rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 10px; word-wrap: break-word; }
+                .card-lightbox-text::-webkit-scrollbar { width: 8px; } .card-lightbox-text::-webkit-scrollbar-track { background: transparent; } .card-lightbox-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+                
+                .close-lightbox { margin-top: 1.5rem; background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; transition: 0.2s; box-shadow: 4px 4px 0 rgba(0,0,0,0.8);}
+                .close-lightbox:hover { border-color: var(--accent); color: var(--bg-base); background-color: var(--accent); transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.8);}
+        
+                /* VYSOUVACÍ INVENTÁŘ (omezený pouze na levý kontejner) */
+             .inventory-hud { 
+            position: absolute; /* absolute ho "zavře" pouze do levé mapové části */
+            bottom: 0; 
+            left: 0; 
+            width: 100%; /* Roztažení přesně od hrany do hrany levého panelu */
+            height: 12rem; 
+            background-color: rgba(33, 38, 45, 0.95); 
+            border-top: 6px solid var(--text-muted); 
+            z-index: 9000; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 2rem; 
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.5); 
+            transform: translateY(9.5rem); /* Zasunuto pod spodní okraj */
+            transition: all 0.3s ease-in-out; 
+        }
+        
+        /* Oživení inventáře po najetí myši */
+        .inventory-hud:hover { 
+            transform: translateY(0); 
+            border-top-color: var(--accent); 
+        }
+        
+        .inv-title { font-family: var(--font-ui); font-size: 1rem; color: var(--accent); width: 150px; line-height: 1.5; text-shadow: 2px 2px 0px #000; }
+        .inv-slots { display: flex; gap: 1.5rem; flex: 1; overflow-x: auto; padding: 1rem 0; align-items: center; height: 100%; }
+        
+        /* Obal pro kartu a jméno v inventáři */
+        .inv-card-wrapper { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transition: opacity 0.3s; opacity: 0.5; }
+        .inventory-hud:hover .inv-card-wrapper { opacity: 1; }
+        .inv-card-name { font-family: var(--font-ui); font-size: 0.55rem; color: var(--accent); text-align: center; max-width: 90px; line-height: 1.3; }
+        
+        .card { width: 70px; height: 98px; background-color: var(--bg-base); border: 3px solid var(--text-muted); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; box-shadow: 4px 4px 0px rgba(0,0,0,0.6); flex-shrink: 0; transition: transform 0.1s, border-color 0.1s; border-radius: 4px; }
+        .card:hover { transform: translateY(-5px); border-color: var(--text-main); }
+        .card:active { transform: translateY(0px); box-shadow: 2px 2px 0px rgba(0,0,0,0.6); }
         @media (max-width: 800px) {
             body { flex-direction: column; }
             .game-view { height: 50vh; flex: none; }
@@ -534,7 +655,7 @@
             h1 { font-size: 0.8rem; margin-bottom: 0.2rem; }
             .subtitle { font-size: 0.6rem; }
             .party-hud { top: 0.5rem; right: 0.5rem; min-width: auto; max-width: 55%; padding: 0.5rem; gap: 0.5rem; border-width: 2px; transform: scale(0.7); transform-origin: top right; }
-            .controls { bottom: 0.5rem; left: 0; width: 100%; justify-content: center; gap: 0.5rem; }
+            .controls { bottom: 9rem; left: 0; width: 100%; justify-content: center; gap: 0.5rem; }
             .btn { padding: 0.5rem 1rem; font-size: 0.6rem; border-width: 2px; }
             .player { transform: scale(0.75);  margin-top: -140px;   margin-left: -64px; }
             .node-core { width: 24px; height: 24px; border-width: 3px; }
@@ -559,7 +680,7 @@
     </style>
 </head>
 <body data-theme="rep">
-        <div class="modal-overlay" id="welcome-modal">
+        <div class="modal-overlay" id="welcome-modal" style="display: flex;">
         <div class="modal-box">
             <div class="modal-title">Archivářská edice: Připravované funkce</div>
             <div class="modal-text">
@@ -596,7 +717,14 @@
             <button class="btn" id="btn-prev" onclick="move(-1)">[A] VLEVO</button>
             <button class="btn" id="btn-next" onclick="move(1)">[D] VPRAVO</button>
         </div>
-    </div>
+
+        <!-- INVENTÁŘ JE NYNÍ DOLE UVNITŘ HERNÍ ČÁSTI -->
+        <div class="inventory-hud">
+            <div class="inv-title">INVENTÁŘ</div>
+            <div class="inv-slots" id="inv-slots"></div>
+        </div>
+
+    </div> <!-- TOTO JE SPRÁVNÝ KONEC game-view -->
 
     <div class="codex" id="codex">
         <div class="c-type" id="c-type">SYS.INFO</div>
@@ -621,8 +749,56 @@
             <p class="fact-text" id="c-fact-content">Zajímavost</p>
         </div>
     </div>
+<!-- Zvětšená karta -->
+    <div class="card-lightbox" id="card-lightbox">
+        <div class="reward-title" id="lightbox-card-name"></div> <!-- PŘIDÁNO: Jméno karty z inventáře -->
+        <div class="card-lightbox-content">
+            <img src="" id="lightbox-img" class="card-lightbox-img" alt="Karta">
+            <div class="card-lightbox-text" id="lightbox-text"></div>
+        </div>
+        <button class="close-lightbox" onclick="closeCardDetail()">ZAVŘÍT [X]</button>
+    </div>
 
+    <!-- Kvíz -->
+    <div class="modal-overlay" id="quiz-modal">
+        <div class="modal-box">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="modal-title" style="margin-bottom:0;">ZÁZNAM NALEZEN</div>
+                <button onclick="closeQuiz()" style="background:transparent; border:none; color:var(--text-muted); font-family:var(--font-ui); font-size:1.5rem; cursor:pointer;">[X]</button>
+            </div>
+            <div class="modal-text" id="quiz-q" style="margin-top: 1.5rem;">Otázka?</div>
+            <div class="modal-options" id="quiz-opts"></div>
+        </div>
+    </div>
+    <!-- Obrazovka s odměnou (Získaná karta) -->
+    <div class="reward-overlay" id="reward-overlay">
+        <div class="reward-title" id="reward-card-name">ZÍSKÁN NOVÝ PRAMEN!</div>
+        
+        <!-- Obal karty, který drží rozměry a text -->
+        <div class="reward-content" onclick="collectReward()">
+            <img src="" id="reward-img" class="reward-card" alt="Získaná karta">
+            <div class="reward-text" id="reward-text"></div>
+        </div>
+        
+        <div class="reward-hint">[ KLIKNUTÍM NA KARTU JI PŘESUNEŠ DO INVENTÁŘE ]</div>
+    </div>
     <script>
+       // Zcela samostatné tajné prameny ležící volně na mapě
+        const secretItems = [
+            { 
+                id: 'c_rovnost',
+                x: 250, 
+                y: 850,
+                icon: '<img src="korunka.png">', 
+                cardName: 'Zrušení šlechtictví',
+                cardImg: 'karta slechta.png',
+                cardText: '<strong>Zákon č. 61/1918 Sb., kterým se zrušují šlechtictví, řády a tituly.</strong><br><br>Republika se tímto radikálním krokem odstřihla od rakousko-uherské tradice. Bývalá aristokracie ztratila svá privilegia a stala se rovnou ostatním občanům.<br><br><span style="color: var(--text-muted);"><em>§ 1. Šlechtictví a řády, jakož i veškerá z nich plynoucí práva se zrušují, rovněž tak tituly, pokud byly udělovány jako pouhá vyznamenání. V platnosti zůstávají takové tituly, na které lze splněním předepsaných podmínek nabýti právního nároku (titul doktorský, inženýrský atd.), pak tituly, jež vyjadřují skutečně zastávanou úřední hodnost, a vyznamenání udělovaná vysokými školami (čestné doktoráty a pod.).</em></span>',
+                q: 'Co udělalo Národní shromáždění už v prosinci 1918 se starou aristokracií?', 
+                opts: ['A) Uvalilo na ně milionářskou daň.', 'B) Zrušilo šlechtické tituly a řády.', 'C) Zabavilo jim hrady a zámky.'], 
+                correct: 1, solved: false 
+            }
+        ];
+
         const timeline = [
             { 
                 year: "1918–1920", x: 400, y: 1000, 
@@ -808,56 +984,55 @@
         const partyHud = document.getElementById('party-hud');
         let currentIndex = 0;
         let lines = [];
-
+        let inventory = [];
+        let isQuizOpen = false;
+        let currentQuizItem = null;
         function initMap() {
             for (let i = 0; i < timeline.length - 1; i++) {
-                const p1 = timeline[i];
-                const p2 = timeline[i+1];
-                
+                const p1 = timeline[i]; const p2 = timeline[i+1];
                 if (p1.x !== p2.x) {
-                    const hLine = document.createElement('div');
-                    hLine.className = 'path-line';
-                    hLine.style.height = '8px';
-                    hLine.style.width = `${Math.abs(p2.x - p1.x)}px`;
-                    hLine.style.left = `${Math.min(p1.x, p2.x)}px`;
-                    hLine.style.top = `${p1.y - 4}px`;
-                    world.appendChild(hLine);
-                    lines.push({ element: hLine, index: i });
+                    let hl = document.createElement('div'); hl.className = 'path-line'; hl.id = `line-h-${i}`;
+                    hl.style.height = '8px'; hl.style.width = `${Math.abs(p2.x - p1.x)}px`;
+                    hl.style.left = `${Math.min(p1.x, p2.x)}px`; hl.style.top = `${p1.y - 4}px`;
+                    world.appendChild(hl);
                 }
-                
                 if (p1.y !== p2.y) {
-                    const vLine = document.createElement('div');
-                    vLine.className = 'path-line';
-                    vLine.style.width = '8px';
-                    vLine.style.height = `${Math.abs(p2.y - p1.y)}px`;
-                    vLine.style.left = `${p2.x - 4}px`;
-                    vLine.style.top = `${Math.min(p1.y, p2.y)}px`;
-                    world.appendChild(vLine);
-                    lines.push({ element: vLine, index: i });
+                    let vl = document.createElement('div'); vl.className = 'path-line'; vl.id = `line-v-${i}`;
+                    vl.style.width = '8px'; vl.style.height = `${Math.abs(p2.y - p1.y)}px`;
+                    vl.style.left = `${p2.x - 4}px`; vl.style.top = `${Math.min(p1.y, p2.y)}px`;
+                    world.appendChild(vl);
                 }
             }
 
             timeline.forEach((item, index) => {
                 const node = document.createElement('div');
                 node.className = `node ${item.isLaw ? 'is-law' : ''}`;
-                node.style.left = `${item.x}px`;
-                node.style.top = `${item.y}px`;
-                
-                node.innerHTML = `
-                    <div class="node-core">${getIconForYear(item.year)}</div>
-                    <div class="node-label">${item.title}</div>
-                    <div class="node-year">${item.year}</div>
-                `;
-                
-                node.addEventListener('click', () => {
-                    if(currentIndex !== index) goTo(index);
-                });
-                
+                node.style.left = `${item.x}px`; node.style.top = `${item.y}px`;
+                node.innerHTML = `<div class="node-core">${getIconForYear(item.year)}</div><div class="node-label">${item.title}</div><div class="node-year">${item.year}</div>`;
                 item.element = node;
                 world.appendChild(node);
             });
-        }
 
+            secretItems.forEach(item => {
+                const sItem = document.createElement('div');
+                sItem.className = 'secret-item';
+                
+                // Pokud už je prvek vyřešený, rovnou mu nahodíme třídu solved a fajfku
+                if (item.solved) {
+                    sItem.classList.add('solved');
+                    sItem.innerHTML = item.icon + '<div class="check-badge">✓</div>';
+                } else {
+                    sItem.innerHTML = item.icon;
+                    sItem.onclick = () => openQuiz(item);
+                }
+
+                sItem.style.left = `${item.x}px`; 
+                sItem.style.top = `${item.y}px`;
+                
+                item.element = sItem;
+                world.appendChild(sItem);
+            });
+        }
         function updateUI() {
             btnPrev.disabled = currentIndex === 0;
             btnNext.disabled = currentIndex === timeline.length - 1;
@@ -961,11 +1136,10 @@
             codex.scrollTop = 0;
         }
 
-        function goTo(index) {
+           function goTo(index) {
             if (index < 0 || index >= timeline.length) return;
             
             player.classList.add('walking');
-            
             const isMobile = window.innerWidth <= 800;
             const currentScale = isMobile ? 0.75 : 1;
 
@@ -976,14 +1150,10 @@
             }
 
             currentIndex = index;
+            const tx = timeline[currentIndex].x; const ty = timeline[currentIndex].y;
             
-            const targetX = timeline[currentIndex].x;
-            const targetY = timeline[currentIndex].y;
-            
-            const viewWidth = gameView.clientWidth;
-            const viewHeight = gameView.clientHeight;
-            
-            world.style.transform = `translate(calc(${viewWidth / 2}px - ${targetX}px), calc(${viewHeight / 2}px - ${targetY}px))`;
+            const viewWidth = gameView.clientWidth; const viewHeight = gameView.clientHeight;
+            world.style.transform = `translate(calc(${viewWidth / 2}px - ${tx}px), calc(${viewHeight / 2}px - ${ty}px))`;
 
             setTimeout(() => {
                 player.classList.remove('walking');
@@ -995,11 +1165,116 @@
             goTo(currentIndex + direction);
         }
 
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'd') move(1);
-            if (e.key === 'ArrowLeft' || e.key === 'a') move(-1);
+       window.addEventListener('keydown', (e) => {
+            if (isQuizOpen || document.getElementById('card-lightbox').style.display === 'flex' || document.getElementById('welcome-modal').style.display === 'flex') return;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') move(1);
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') move(-1);
         });
+// LOGIKA KVÍZU
+        function openQuiz(item) {
+            isQuizOpen = true; currentQuizItem = item;
+            document.getElementById('quiz-q').textContent = item.q;
+            const optsDiv = document.getElementById('quiz-opts'); optsDiv.innerHTML = '';
+            item.opts.forEach((optText, idx) => {
+                const btn = document.createElement('button'); btn.className = 'modal-btn'; btn.textContent = optText;
+                btn.onclick = (e) => checkAnswer(idx, item.correct, e.target);
+                optsDiv.appendChild(btn);
+            });
+            document.getElementById('quiz-modal').style.display = 'flex';
+        }
 
+       function closeQuiz() {
+            document.getElementById('quiz-modal').style.display = 'none'; 
+            isQuizOpen = false; 
+            currentQuizItem = null;
+        }
+
+        function checkAnswer(chosenIdx, correctIdx, btnEl) {
+            const allBtns = document.querySelectorAll('#quiz-opts .modal-btn');
+            
+            if (chosenIdx === correctIdx) {
+                btnEl.classList.add('correct');
+                allBtns.forEach(b => b.style.pointerEvents = 'none');
+                
+                setTimeout(() => {
+                    document.getElementById('quiz-modal').style.display = 'none'; 
+                    isQuizOpen = false;
+                    
+                    // Zobrazíme obrazovku se získanou kartou a texty
+                    document.getElementById('reward-img').src = currentQuizItem.cardImg;
+                    document.getElementById('reward-text').innerHTML = currentQuizItem.cardText; 
+                    document.getElementById('reward-card-name').textContent = "ZÍSKÁN PRAMEN: " + currentQuizItem.cardName; 
+                    
+                    document.getElementById('reward-overlay').style.display = 'flex';
+                }, 1000);
+            } else {
+                btnEl.classList.add('wrong');
+                setTimeout(() => btnEl.classList.remove('wrong'), 400);
+            }
+        }
+
+        // Tuto funkci zavolá kliknutí na velkou kartu na obrazovce odměny
+        function collectReward() {
+            document.getElementById('reward-overlay').style.display = 'none';
+            
+            currentQuizItem.solved = true;
+            
+            // KORUNKA ZŮSTANE NA MAPĚ, ALE OZNAČÍ SE JAKO VYŘEŠENÁ
+            const sItem = currentQuizItem.element;
+            sItem.classList.add('solved');
+            sItem.onclick = null; // Zruší možnost klikat na ni a spouštět kvíz znova
+            
+            // Přidáme k ní zelenou fajfku, pokud tam ještě není
+            if (!sItem.querySelector('.check-badge')) {
+                const badge = document.createElement('div');
+                badge.className = 'check-badge';
+                badge.textContent = '✓';
+                sItem.appendChild(badge);
+            }
+            
+            inventory.push(currentQuizItem); // Vloží kartu do inventáře
+            renderInventory(); // Překreslí spodní lištu
+            
+            currentQuizItem = null; 
+        }
+
+        // LOGIKA INVENTÁŘE A ZVĚTŠENÍ KARTY
+        // LOGIKA INVENTÁŘE A ZVĚTŠENÍ KARTY
+        function renderInventory() {
+            const invSlots = document.getElementById('inv-slots');
+            invSlots.innerHTML = '';
+            inventory.forEach(card => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'inv-card-wrapper';
+
+                const cardEl = document.createElement('div'); 
+                cardEl.className = 'card';
+                cardEl.onclick = () => openCardDetail(card);
+                cardEl.innerHTML = `
+                    <div style="width:100%; height:100%; overflow:hidden; border-radius: 2px;">
+                        <img src="${card.cardImg}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                `;
+
+                const nameEl = document.createElement('div');
+                nameEl.className = 'inv-card-name';
+                nameEl.textContent = card.cardName;
+
+                wrapper.appendChild(cardEl);
+                wrapper.appendChild(nameEl);
+                invSlots.appendChild(wrapper);
+            });
+        }
+
+        function openCardDetail(card) {
+            document.getElementById('lightbox-img').src = card.cardImg;
+            document.getElementById('lightbox-text').innerHTML = card.cardText;
+            document.getElementById('lightbox-card-name').textContent = card.cardName;
+            document.getElementById('card-lightbox').style.display = 'flex';
+        }
+        function closeCardDetail() {
+            document.getElementById('card-lightbox').style.display = 'none';
+        }
         window.addEventListener('resize', () => {
             world.style.transition = 'none';
             const targetX = timeline[currentIndex].x;
