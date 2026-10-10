@@ -544,7 +544,7 @@
                 .reward-card { width: 100%; height: 100%; object-fit: cover; display: block; box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); border: 4px solid var(--text-muted); border-radius: 8px; transition: 0.2s; }
                 .reward-content:hover .reward-card { border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
                 
-                .reward-text { position: absolute; bottom: 11%; left: 11%; right: 11%; height: 34%; color: var(--text-main); font-family: var(--font-text); font-size: 0.75rem; line-height: 1.3; overflow-y: auto; text-shadow: 1px 1px 0 #000; padding-right: 5px; word-wrap: break-word; }
+                .reward-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 0.75rem; line-height: 1.3; overflow-y: auto; text-shadow: 1px 1px 0 #000; padding-right: 5px; word-wrap: break-word; }
                 .reward-text::-webkit-scrollbar { width: 4px; } .reward-text::-webkit-scrollbar-track { background: transparent; } .reward-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
                 
                 .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.1rem; }
@@ -554,7 +554,7 @@
                 .card-lightbox-content { position: relative; max-height: 80vh; max-width: 90vw; }
                 .card-lightbox-img { height: 80vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); border: 4px solid var(--text-muted); border-radius: 8px;}
                 
-                .card-lightbox-text { position: absolute; bottom: 11%; left: 11%; right: 11%; height: 34%; color: var(--text-main); font-family: var(--font-text); font-size: 1.3rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 10px; word-wrap: break-word; }
+                .card-lightbox-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 1.3rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 10px; word-wrap: break-word; }
                 .card-lightbox-text::-webkit-scrollbar { width: 8px; } .card-lightbox-text::-webkit-scrollbar-track { background: transparent; } .card-lightbox-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
                 
                 .close-lightbox { margin-top: 1.5rem; background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; transition: 0.2s; box-shadow: 4px 4px 0 rgba(0,0,0,0.8);}
@@ -734,7 +734,9 @@
        // Zcela samostatné tajné prameny ležící volně na mapě
         const secretItems = [
             { 
-                id: 'c_rovnost', x: 550, y: 1050, 
+                id: 'c_rovnost',
+                x: 250, 
+                y: 850,
                 icon: '<img src="korunka.png">', 
                 cardName: 'Zrušení šlechtictví',
                 cardImg: 'karta slechta.png',
