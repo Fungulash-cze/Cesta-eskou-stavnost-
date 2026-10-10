@@ -884,7 +884,6 @@
         let isQuizOpen = false;
         let currentQuizItem = null;
         function initMap() {
-            // Vykreslí hlavní trasu
             for (let i = 0; i < timeline.length - 1; i++) {
                 const p1 = timeline[i]; const p2 = timeline[i+1];
                 if (p1.x !== p2.x) {
@@ -901,7 +900,6 @@
                 }
             }
 
-            // Vykreslí historické uzly
             timeline.forEach((item, index) => {
                 const node = document.createElement('div');
                 node.className = `node ${item.isLaw ? 'is-law' : ''}`;
@@ -911,7 +909,6 @@
                 world.appendChild(node);
             });
 
-            // Vykreslí tajné symboly (korunku)
             secretItems.forEach(item => {
                 const sItem = document.createElement('div');
                 sItem.className = 'secret-item';
@@ -920,22 +917,6 @@
                 sItem.onclick = () => openQuiz(item);
                 item.element = sItem;
                 world.appendChild(sItem);
-            });
-            }
-            timeline.forEach((item, index) => {
-                const node = document.createElement('div');
-                node.className = `node ${item.isLaw ? 'is-law' : ''}`;
-                node.style.left = `${item.x}px`; node.style.top = `${item.y}px`;
-                
-                if (item.type === 'item') {
-                    // Vykreslí korunku jako svítící kruhový odznak
-                    node.innerHTML = `<div class="node-core" style="width:48px; height:48px; padding:4px; border-radius:50%; border:3px solid var(--accent); box-shadow: 0 0 15px var(--accent);">${item.icon}</div><div class="node-label">${item.title}</div>`;
-                } else {
-                    node.innerHTML = `<div class="node-core">${getIconForYear(item.year)}</div><div class="node-label">${item.title}</div><div class="node-year">${item.year}</div>`;
-                }
-                
-                item.element = node;
-                world.appendChild(node);
             });
         }
         function updateUI() {
