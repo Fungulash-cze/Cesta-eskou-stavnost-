@@ -112,6 +112,7 @@
             border-left: 6px solid var(--accent);
             box-shadow: -12px 0px 0px rgba(0,0,0,0.5);
             padding: 2.5rem;
+            padding-bottom: 12rem; /* PŘIDÁNO: Místo pro posouvání nad inventářem */
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -119,7 +120,7 @@
             z-index: 50;
             transition: background-color 0.5s step-end, border-color 0.5s step-end;
         }
-
+        
         .codex::-webkit-scrollbar { width: 16px; }
         .codex::-webkit-scrollbar-track { background: var(--bg-panel); border-left: 4px solid var(--text-muted); }
         .codex::-webkit-scrollbar-thumb { background: var(--accent); border: 4px solid var(--bg-panel); }
@@ -534,51 +535,44 @@
                 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
                 .correct { background: #2ea043 !important; color: white !important; border-color: #2ea043 !important; }
                 
-                /* OBRAZOVKA ODMĚNY */
-                .reward-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 4000; display: none; justify-content: center; align-items: center; flex-direction: column; }
-                .reward-title { font-family: var(--font-ui); color: var(--accent); font-size: 1.5rem; margin-bottom: 2rem; text-shadow: 2px 2px 0 #000; animation: floatItem 2s infinite alternate;}
+                /* OBRAZOVKA ODMĚNY - fixní malá velikost */
+                .reward-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
+                .reward-title { font-family: var(--font-ui); color: var(--accent); font-size: 1.5rem; margin-bottom: 1.5rem; text-shadow: 2px 2px 0 #000; animation: floatItem 2s infinite alternate; text-align: center; }
                 
-                .reward-content { position: relative; width: 320px; cursor: pointer; transition: transform 0.2s; border-radius: 8px; }
+                .reward-content { position: relative; width: 300px; height: 420px; cursor: pointer; transition: transform 0.2s; border-radius: 8px; }
                 .reward-content:hover { transform: scale(1.05); }
-                .reward-card { width: 100%; height: auto; display: block; box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); border: 4px solid var(--text-muted); border-radius: 8px; transition: 0.2s; }
+                .reward-card { width: 100%; height: 100%; object-fit: cover; display: block; box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); border: 4px solid var(--text-muted); border-radius: 8px; transition: 0.2s; }
                 .reward-content:hover .reward-card { border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
                 
-                /* Zmenšený text pro malou kartu (odměnu) */
-                .reward-text { position: absolute; bottom: 13%; left: 14%; right: 14%; height: 30%; color: var(--text-main); font-family: var(--font-text); font-size: 0.65rem; line-height: 1.3; overflow-y: auto; text-shadow: 1px 1px 0 #000; padding-right: 4px; word-wrap: break-word; }
+                .reward-text { position: absolute; bottom: 11%; left: 11%; right: 11%; height: 34%; color: var(--text-main); font-family: var(--font-text); font-size: 0.75rem; line-height: 1.3; overflow-y: auto; text-shadow: 1px 1px 0 #000; padding-right: 5px; word-wrap: break-word; }
                 .reward-text::-webkit-scrollbar { width: 4px; } .reward-text::-webkit-scrollbar-track { background: transparent; } .reward-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
                 
-                .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.3rem; }
+                .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.1rem; }
         
-                /* ZVĚTŠENÁ KARTA (LIGHTBOX) Z INVENTÁŘE */
-                .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; display: none; justify-content: center; align-items: center; flex-direction: column; }
-                .card-lightbox-content { position: relative; max-height: 90vh; max-width: 90vw; }
-                .card-lightbox-img { height: 85vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+                /* ZVĚTŠENÁ KARTA (LIGHTBOX) Z INVENTÁŘE - s opraveným z-indexem */
+                .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
+                .card-lightbox-content { position: relative; max-height: 80vh; max-width: 90vw; }
+                .card-lightbox-img { height: 80vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); border: 4px solid var(--text-muted); border-radius: 8px;}
                 
-                /* Zvětšený text pro velkou kartu */
-                .card-lightbox-text { position: absolute; bottom: 13%; left: 14%; right: 14%; height: 30%; color: var(--text-main); font-family: var(--font-text); font-size: 1.4rem; line-height: 1.5; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 10px; word-wrap: break-word; }
+                .card-lightbox-text { position: absolute; bottom: 11%; left: 11%; right: 11%; height: 34%; color: var(--text-main); font-family: var(--font-text); font-size: 1.3rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 10px; word-wrap: break-word; }
                 .card-lightbox-text::-webkit-scrollbar { width: 8px; } .card-lightbox-text::-webkit-scrollbar-track { background: transparent; } .card-lightbox-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
                 
-                .close-lightbox { margin-top: 1.5rem; background: transparent; border: 2px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; }
-                .close-lightbox:hover { border-color: var(--accent); color: var(--accent); }
-                /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
-                .secret-item { position: absolute; transform: translate(-50%, -50%); z-index: 15; width: 64px; height: 64px; cursor: pointer; animation: floatItem 2s infinite alternate; }
-                .secret-item img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px var(--accent)); transition: 0.2s; border-radius: 50%; }
-                .secret-item:hover img { filter: drop-shadow(0 0 20px #fff); transform: scale(1.1); }
-                @keyframes floatItem { from { margin-top: 0px; } to { margin-top: -15px; } }
-               /* ZVĚTŠENÁ KARTA (LIGHTBOX) */
-                .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; display: none; justify-content: center; align-items: center; flex-direction: column; }
-                .card-lightbox-content { position: relative; max-height: 90vh; max-width: 90vw; }
-                .card-lightbox-img { height: 85vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
-                /* Upravený text v inventáři - menší font, větší padding */
-                .card-lightbox-text { position: absolute; bottom: 12%; left: 12%; right: 12%; height: 32%; color: var(--text-main); font-family: var(--font-text); font-size: 1.2rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 15px; }
-                .card-lightbox-text::-webkit-scrollbar { width: 8px; } .card-lightbox-text::-webkit-scrollbar-track { background: transparent; } .card-lightbox-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
-                .close-lightbox { margin-top: 1.5rem; background: transparent; border: 2px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; }
-                .close-lightbox:hover { border-color: var(--accent); color: var(--accent); }
-                /* INVENTÁŘ */
-                .inventory-hud { position: fixed; bottom: 0; left: 0; width: 100vw; height: 11rem; background-color: var(--bg-panel); border-top: 6px solid var(--accent); z-index: 9000; display: flex; align-items: center; padding: 0 2rem; box-shadow: 0 -10px 20px rgba(0,0,0,0.5); }
+                .close-lightbox { margin-top: 1.5rem; background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; transition: 0.2s; box-shadow: 4px 4px 0 rgba(0,0,0,0.8);}
+                .close-lightbox:hover { border-color: var(--accent); color: var(--bg-base); background-color: var(--accent); transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.8);}
+        
+                /* VYSOUVACÍ INVENTÁŘ */
+                .inventory-hud { position: fixed; bottom: 0; left: 0; width: 100vw; height: 12rem; background-color: rgba(33, 38, 45, 0.95); border-top: 6px solid var(--text-muted); z-index: 9000; display: flex; align-items: center; padding: 0 2rem; box-shadow: 0 -10px 20px rgba(0,0,0,0.5); transform: translateY(9.5rem); transition: all 0.3s ease-in-out; }
+                .inventory-hud:hover { transform: translateY(0); border-top-color: var(--accent); }
+                
                 .inv-title { font-family: var(--font-ui); font-size: 1rem; color: var(--accent); width: 150px; line-height: 1.5; text-shadow: 2px 2px 0px #000; }
                 .inv-slots { display: flex; gap: 1.5rem; flex: 1; overflow-x: auto; padding: 1rem 0; align-items: center; height: 100%; }
-                .card { width: 80px; height: 112px; background-color: var(--bg-base); border: 4px solid var(--text-muted); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; box-shadow: 6px 6px 0px rgba(0,0,0,0.6); flex-shrink: 0; transition: transform 0.1s, border-color 0.1s; }
+                
+                /* Obal pro kartu a jméno v inventáři */
+                .inv-card-wrapper { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; transition: opacity 0.3s; opacity: 0.5; }
+                .inventory-hud:hover .inv-card-wrapper { opacity: 1; }
+                .inv-card-name { font-family: var(--font-ui); font-size: 0.55rem; color: var(--accent); text-align: center; max-width: 90px; line-height: 1.3; }
+                
+                .card { width: 70px; height: 98px; background-color: var(--bg-base); border: 3px solid var(--text-muted); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; box-shadow: 4px 4px 0px rgba(0,0,0,0.6); flex-shrink: 0; transition: transform 0.1s, border-color 0.1s; border-radius: 4px; }
                 .card:hover { transform: translateY(-5px); border-color: var(--text-main); }
                 .card:active { transform: translateY(0px); box-shadow: 2px 2px 0px rgba(0,0,0,0.6); }
         @media (max-width: 800px) {
