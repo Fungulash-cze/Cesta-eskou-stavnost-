@@ -548,6 +548,32 @@
                 .reward-text::-webkit-scrollbar { width: 4px; } .reward-text::-webkit-scrollbar-track { background: transparent; } .reward-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
                 
                 .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.1rem; }
+                /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
+                .secret-item { 
+                    position: absolute; 
+                    transform: translate(-50%, -50%); 
+                    z-index: 15; 
+                    width: 120px; 
+                    height: 120px; 
+                    cursor: pointer; 
+                    animation: floatItem 2s infinite alternate; 
+                }
+                .secret-item img { 
+                    width: 100%; 
+                    height: 100%; 
+                    object-fit: contain; 
+                    filter: drop-shadow(0 0 10px var(--accent)); 
+                    transition: 0.2s; 
+                    border-radius: 50%; 
+                }
+                .secret-item:hover img { 
+                    filter: drop-shadow(0 0 20px #fff); 
+                    transform: scale(1.1); 
+                }
+                @keyframes floatItem { 
+                    from { margin-top: 0px; } 
+                    to { margin-top: -15px; } 
+                }
         
                 /* ZVĚTŠENÁ KARTA (LIGHTBOX) Z INVENTÁŘE - s opraveným z-indexem */
                 .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
