@@ -532,7 +532,14 @@
                 .modal-btn:hover { background: var(--accent); color: var(--bg-base); border-color: var(--accent); }
                 .wrong { background: #c42b2b !important; color: white !important; border-color: #c42b2b !important; animation: shake 0.3s; }
                 @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-        
+                .correct { background: #2ea043 !important; color: white !important; border-color: #2ea043 !important; }
+                
+                /* OBRAZOVKA ODMĚNY */
+                .reward-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 4000; display: none; justify-content: center; align-items: center; flex-direction: column; }
+                .reward-title { font-family: var(--font-ui); color: var(--accent); font-size: 1.5rem; margin-bottom: 2rem; text-shadow: 2px 2px 0 #000; animation: floatItem 2s infinite alternate;}
+                .reward-card { width: 300px; border: 4px solid var(--text-muted); box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); cursor: pointer; transition: 0.2s; border-radius: 8px; }
+                .reward-card:hover { transform: scale(1.05); border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
+                .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.3rem; }
                 /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
                 .secret-item { position: absolute; transform: translate(-50%, -50%); z-index: 15; width: 64px; height: 64px; cursor: pointer; animation: floatItem 2s infinite alternate; }
                 .secret-item img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px var(--accent)); transition: 0.2s; border-radius: 50%; }
@@ -689,6 +696,12 @@
             <div class="modal-text" id="quiz-q" style="margin-top: 1.5rem;">Otázka?</div>
             <div class="modal-options" id="quiz-opts"></div>
         </div>
+    </div>
+    <!-- Obrazovka s odměnou (Získaná karta) -->
+    <div class="reward-overlay" id="reward-overlay">
+        <div class="reward-title">ZÍSKÁN NOVÝ PRAMEN!</div>
+        <img src="" id="reward-img" class="reward-card" onclick="collectReward()" alt="Získaná karta">
+        <div class="reward-hint">[ KLIKNUTÍM NA KARTU JI PŘESUNEŠ DO INVENTÁŘE ]</div>
     </div>
     <script>
        // Zcela samostatné tajné prameny ležící volně na mapě
@@ -1077,26 +1090,46 @@
             document.getElementById('quiz-modal').style.display = 'flex';
         }
 
-        function closeQuiz() {
+       function closeQuiz() {
             document.getElementById('quiz-modal').style.display = 'none'; 
             isQuizOpen = false; 
-            // Odstraněno nulování currentQuizItem, aby přežil do vložení do inventáře
+            currentQuizItem = null;
         }
 
         function checkAnswer(chosenIdx, correctIdx, btnEl) {
+            // Zablokujeme všechna tlačítka, aby nešlo zuřivě klikat na více možností
+            const allBtns = document.querySelectorAll('#quiz-opts .modal-btn');
+            
             if (chosenIdx === correctIdx) {
-                document.getElementById('quiz-modal').style.display = 'none'; 
-                isQuizOpen = false;
+                btnEl.classList.add('correct');
+                allBtns.forEach(b => b.style.pointerEvents = 'none');
                 
-                currentQuizItem.solved = true;
-                currentQuizItem.element.style.display = "none"; // Schová korunku z mapy
-                inventory.push(currentQuizItem); // Nyní se karta úspěšně přidá
-                renderInventory();
-                currentQuizItem = null; // Vymazání paměti až PO uložení karty
+                // Počkáme 1 vteřinu, aby hráč viděl zelenou správnou odpověď
+                setTimeout(() => {
+                    document.getElementById('quiz-modal').style.display = 'none'; 
+                    isQuizOpen = false;
+                    
+                    // Zobrazíme obrazovku se získanou kartou
+                    document.getElementById('reward-img').src = currentQuizItem.cardImg;
+                    document.getElementById('reward-overlay').style.display = 'flex';
+                }, 1000);
             } else {
                 btnEl.classList.add('wrong');
                 setTimeout(() => btnEl.classList.remove('wrong'), 400);
             }
+        }
+
+        // Tuto funkci zavolá kliknutí na velkou kartu na obrazovce odměny
+        function collectReward() {
+            document.getElementById('reward-overlay').style.display = 'none';
+            
+            currentQuizItem.solved = true;
+            currentQuizItem.element.style.display = "none"; // Schová korunku natrvalo z mapy
+            
+            inventory.push(currentQuizItem); // Fyzicky vloží kartu do inventáře
+            renderInventory(); // Překreslí spodní lištu
+            
+            currentQuizItem = null; // Vyčistí paměť pro další úkoly
         }
 
         // LOGIKA INVENTÁŘE A ZVĚTŠENÍ KARTY
