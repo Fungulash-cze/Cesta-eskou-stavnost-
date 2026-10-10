@@ -498,7 +498,7 @@
                     inset: 0;
                     background: rgba(0,0,0,0.85);
                     z-index: 2000;
-                    display: flex;
+                    display: none;
                     justify-content: center;
                     align-items: center;
                 }
@@ -584,7 +584,7 @@
     </style>
 </head>
 <body data-theme="rep">
-        <div class="modal-overlay" id="welcome-modal">
+        <div class="modal-overlay" id="welcome-modal" style="display: flex;">
         <div class="modal-box">
             <div class="modal-title">Archivářská edice: Připravované funkce</div>
             <div class="modal-text">
@@ -909,12 +909,6 @@
                 world.appendChild(node);
             });
         }
-                
-                item.element = node;
-                world.appendChild(node);
-            });
-        }
-
         function updateUI() {
             btnPrev.disabled = currentIndex === 0;
             btnNext.disabled = currentIndex === timeline.length - 1;
@@ -1051,8 +1045,10 @@
             goTo(currentIndex + direction);
         }
 
-        window.addEventListener('keydown', (e) => {
-            if (isQuizOpen || document.getElementById('card-lightbox').style.display === 'flex') return;
+       window.addEventListener('keydown', (e) => {
+            if (isQuizOpen || document.getElementById('card-lightbox').style.display === 'flex' || document.getElementById('welcome-modal').style.display === 'flex') return;
+            if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') move(1);
+            if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') move(-1);
         });
 // LOGIKA KVÍZU
         function openQuiz(item) {
