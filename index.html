@@ -570,6 +570,32 @@
                     filter: drop-shadow(0 0 20px #fff); 
                     transform: scale(1.1); 
                 }
+                /* Vyřešená korunka s fajfkou */
+                .secret-item.solved {
+                    cursor: default;
+                    animation: none;
+                    filter: grayscale(0.3);
+                }
+                .secret-item.solved img {
+                    filter: drop-shadow(0 0 10px #2ea043);
+                }
+                .check-badge {
+                    position: absolute;
+                    bottom: -5px;
+                    right: -5px;
+                    background-color: #2ea043;
+                    color: white;
+                    font-family: var(--font-ui);
+                    font-size: 0.8rem;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 3px solid var(--bg-base);
+                    box-shadow: 0 0 10px rgba(0,0,0,0.8);
+                }
                 @keyframes floatItem { 
                     from { margin-top: 0px; } 
                     to { margin-top: -15px; } 
@@ -1154,22 +1180,20 @@
         }
 
         function checkAnswer(chosenIdx, correctIdx, btnEl) {
-            // Zablokujeme všechna tlačítka, aby nešlo zuřivě klikat na více možností
             const allBtns = document.querySelectorAll('#quiz-opts .modal-btn');
             
             if (chosenIdx === correctIdx) {
                 btnEl.classList.add('correct');
                 allBtns.forEach(b => b.style.pointerEvents = 'none');
                 
-                // Počkáme 1 vteřinu, aby hráč viděl zelenou správnou odpověď
                 setTimeout(() => {
                     document.getElementById('quiz-modal').style.display = 'none'; 
                     isQuizOpen = false;
                     
                     // Zobrazíme obrazovku se získanou kartou a texty
                     document.getElementById('reward-img').src = currentQuizItem.cardImg;
-                    document.getElementById('reward-text').innerHTML = currentQuizItem.cardText; // PŘIDÁNO
-                    document.getElementById('reward-card-name').textContent = "ZÍSKÁN PRAMEN: " + currentQuizItem.cardName; // PŘIDÁNO
+                    document.getElementById('reward-text').innerHTML = currentQuizItem.cardText; 
+                    document.getElementById('reward-card-name').textContent = "ZÍSKÁN PRAMEN: " + currentQuizItem.cardName; 
                     
                     document.getElementById('reward-overlay').style.display = 'flex';
                 }, 1000);
@@ -1184,12 +1208,22 @@
             document.getElementById('reward-overlay').style.display = 'none';
             
             currentQuizItem.solved = true;
-            currentQuizItem.element.style.display = "none"; // Schová korunku natrvalo z mapy
             
-            inventory.push(currentQuizItem); // Fyzicky vloží kartu do inventáře
+            // KORUNKA ZŮSTANE NA MAPĚ, ALE OZNAČÍ SE JAKO VYŘEŠENÁ
+            const sItem = currentQuizItem.element;
+            sItem.classList.add('solved');
+            sItem.onclick = null; // Zruší možnost klikat na ni a spouštět kvíz znova
+            
+            // Přidáme k ní zelenou fajfku
+            const badge = document.createElement('div');
+            badge.className = 'check-badge';
+            badge.textContent = '✓';
+            sItem.appendChild(badge);
+            
+            inventory.push(currentQuizItem); // Vloží kartu do inventáře
             renderInventory(); // Překreslí spodní lištu
             
-            currentQuizItem = null; // Vyčistí paměť pro další úkoly
+            currentQuizItem = null; 
         }
 
         // LOGIKA INVENTÁŘE A ZVĚTŠENÍ KARTY
