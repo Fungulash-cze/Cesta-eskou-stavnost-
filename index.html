@@ -1214,11 +1214,13 @@
             sItem.classList.add('solved');
             sItem.onclick = null; // Zruší možnost klikat na ni a spouštět kvíz znova
             
-            // Přidáme k ní zelenou fajfku
-            const badge = document.createElement('div');
-            badge.className = 'check-badge';
-            badge.textContent = '✓';
-            sItem.appendChild(badge);
+            // Přidáme k ní zelenou fajfku, pokud tam ještě není
+            if (!sItem.querySelector('.check-badge')) {
+                const badge = document.createElement('div');
+                badge.className = 'check-badge';
+                badge.textContent = '✓';
+                sItem.appendChild(badge);
+            }
             
             inventory.push(currentQuizItem); // Vloží kartu do inventáře
             renderInventory(); // Překreslí spodní lištu
