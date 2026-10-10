@@ -1079,17 +1079,20 @@
 
         function closeQuiz() {
             document.getElementById('quiz-modal').style.display = 'none'; 
-            isQuizOpen = false; currentQuizItem = null;
+            isQuizOpen = false; 
+            // Odstraněno nulování currentQuizItem, aby přežil do vložení do inventáře
         }
 
         function checkAnswer(chosenIdx, correctIdx, btnEl) {
             if (chosenIdx === correctIdx) {
-                closeQuiz();
+                document.getElementById('quiz-modal').style.display = 'none'; 
+                isQuizOpen = false;
+                
                 currentQuizItem.solved = true;
                 currentQuizItem.element.style.display = "none"; // Schová korunku z mapy
-                inventory.push(currentQuizItem);
+                inventory.push(currentQuizItem); // Nyní se karta úspěšně přidá
                 renderInventory();
-                currentQuizItem = null;
+                currentQuizItem = null; // Vymazání paměti až PO uložení karty
             } else {
                 btnEl.classList.add('wrong');
                 setTimeout(() => btnEl.classList.remove('wrong'), 400);
