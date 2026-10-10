@@ -148,7 +148,7 @@
 
         .controls {
             position: absolute;
-            bottom: 2rem;
+            bottom: 13rem; /* Tlačítka se zvednou nad inventář */
             left: 2rem;
             z-index: 100;
             display: flex;
@@ -563,6 +563,13 @@
                 }
                 .close-lightbox:hover { border-color: var(--accent); color: var(--accent); 
                 }
+                /* INVENTÁŘ */
+                .inventory-hud { position: fixed; bottom: 0; left: 0; width: 100vw; height: 11rem; background-color: var(--bg-panel); border-top: 6px solid var(--accent); z-index: 9000; display: flex; align-items: center; padding: 0 2rem; box-shadow: 0 -10px 20px rgba(0,0,0,0.5); }
+                .inv-title { font-family: var(--font-ui); font-size: 1rem; color: var(--accent); width: 150px; line-height: 1.5; text-shadow: 2px 2px 0px #000; }
+                .inv-slots { display: flex; gap: 1.5rem; flex: 1; overflow-x: auto; padding: 1rem 0; align-items: center; height: 100%; }
+                .card { width: 80px; height: 112px; background-color: var(--bg-base); border: 4px solid var(--text-muted); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; box-shadow: 6px 6px 0px rgba(0,0,0,0.6); flex-shrink: 0; transition: transform 0.1s, border-color 0.1s; }
+                .card:hover { transform: translateY(-5px); border-color: var(--text-main); }
+                .card:active { transform: translateY(0px); box-shadow: 2px 2px 0px rgba(0,0,0,0.6); }
         @media (max-width: 800px) {
             body { flex-direction: column; }
             .game-view { height: 50vh; flex: none; }
@@ -571,7 +578,7 @@
             h1 { font-size: 0.8rem; margin-bottom: 0.2rem; }
             .subtitle { font-size: 0.6rem; }
             .party-hud { top: 0.5rem; right: 0.5rem; min-width: auto; max-width: 55%; padding: 0.5rem; gap: 0.5rem; border-width: 2px; transform: scale(0.7); transform-origin: top right; }
-            .controls { bottom: 0.5rem; left: 0; width: 100%; justify-content: center; gap: 0.5rem; }
+            .controls { bottom: 9rem; left: 0; width: 100%; justify-content: center; gap: 0.5rem; }
             .btn { padding: 0.5rem 1rem; font-size: 0.6rem; border-width: 2px; }
             .player { transform: scale(0.75);  margin-top: -140px;   margin-left: -64px; }
             .node-core { width: 24px; height: 24px; border-width: 3px; }
