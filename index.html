@@ -1016,9 +1016,19 @@
             secretItems.forEach(item => {
                 const sItem = document.createElement('div');
                 sItem.className = 'secret-item';
-                sItem.style.left = `${item.x}px`; sItem.style.top = `${item.y}px`;
-                sItem.innerHTML = item.icon;
-                sItem.onclick = () => openQuiz(item);
+                
+                // Pokud už je prvek vyřešený, rovnou mu nahodíme třídu solved a fajfku
+                if (item.solved) {
+                    sItem.classList.add('solved');
+                    sItem.innerHTML = item.icon + '<div class="check-badge">✓</div>';
+                } else {
+                    sItem.innerHTML = item.icon;
+                    sItem.onclick = () => openQuiz(item);
+                }
+
+                sItem.style.left = `${item.x}px`; 
+                sItem.style.top = `${item.y}px`;
+                
                 item.element = sItem;
                 world.appendChild(sItem);
             });
