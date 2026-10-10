@@ -6,7 +6,81 @@
     <title>Vývoj českých ústav - Ve Vývoji</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
-        
+        /* ZÁKLAD PRO ANIMOVANOU VRSTVU POZADÍ */
+        .theme-fx {
+            position: absolute;
+            inset: 0;
+            z-index: 2; /* Bude nad gridem, ale pod interaktivními prvky */
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s step-end, background 0.5s step-end;
+            overflow: hidden;
+        }
+
+        /* 1. REPUBLIKA - Zlatavé paprsky / Art Deco pohyb */
+        [data-theme="rep"] .theme-fx {
+            opacity: 1;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 150px,
+                rgba(217, 119, 70, 0.03) 150px,
+                rgba(217, 119, 70, 0.03) 300px
+            );
+            animation: panBeams 40s linear infinite;
+        }
+
+        /* 2. PROTEKTORÁT - Pátrací reflektor v noci */
+        [data-theme="war"] .theme-fx {
+            opacity: 1;
+            background: conic-gradient(from 180deg at 50% 100%, transparent 150deg, rgba(255,255,255,0.06) 180deg, transparent 210deg);
+            transform-origin: bottom center;
+            animation: searchlight 8s infinite alternate ease-in-out;
+        }
+
+        /* 3. SOCIALISMUS - Špatný signál a rudý nádech */
+        [data-theme="soc"] .theme-fx {
+            opacity: 1;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 51%);
+            background-size: 100% 10px;
+            animation: scanlineRoll 15s linear infinite;
+        }
+        [data-theme="soc"] .theme-fx::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 30%, rgba(158, 50, 38, 0.05) 100%);
+            animation: pulseRed 4s infinite alternate ease-in-out;
+        }
+
+        /* 4. MODERNÍ DOBA - Dýchající kybernetická aura */
+        [data-theme="mod"] .theme-fx {
+            opacity: 1;
+            background: radial-gradient(circle at 50% 50%, rgba(88, 166, 255, 0.08) 0%, transparent 60%);
+            animation: pulseGlow 6s infinite alternate ease-in-out;
+        }
+
+        /* DEFINICE ANIMACÍ */
+        @keyframes panBeams {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 1000px 1000px; }
+        }
+        @keyframes searchlight {
+            0% { transform: scale(1.5) rotate(-35deg); }
+            100% { transform: scale(1.5) rotate(35deg); }
+        }
+        @keyframes scanlineRoll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100vh; }
+        }
+        @keyframes pulseRed {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
         :root {
             /* Výchozí / Moderní (1993+) */
             --bg-base: #16191d;
@@ -104,7 +178,15 @@
             pointer-events: none;
             background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.7) 120%);
         }
-
+        <div class="game-view" id="game-view">
+                <div class="grid-layer"></div>
+                <div class="scanlines"></div>
+                <div class="vignette"></div>
+                
+                
+                <div class="theme-fx"></div>
+        
+                <div class="hud">
         .codex {
             width: 600px;
             flex-shrink: 0;
