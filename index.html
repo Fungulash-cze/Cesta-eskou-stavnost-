@@ -561,7 +561,20 @@
                 .close-lightbox:hover { border-color: var(--accent); color: var(--bg-base); background-color: var(--accent); transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.8);}
         
                 /* VYSOUVACÍ INVENTÁŘ */
-                .inventory-hud { position: fixed; bottom: 0; left: 0; width: 100vw; height: 12rem; background-color: rgba(33, 38, 45, 0.95); border-top: 6px solid var(--text-muted); z-index: 9000; display: flex; align-items: center; padding: 0 2rem; box-shadow: 0 -10px 20px rgba(0,0,0,0.5); transform: translateY(9.5rem); transition: all 0.3s ease-in-out; }
+                .inventory-hud { 
+            position: absolute; /* Omezí prvek pouze na herní mapu */
+            bottom: 0; 
+            left: 0; 
+            width: 100%; /* Šířka se vypočítá přesně k hraně informačního panelu */
+            height: 11rem; 
+            background-color: var(--bg-panel); 
+            border-top: 6px solid var(--accent); 
+            z-index: 9000; 
+            display: flex; 
+            align-items: center; 
+            padding: 0 2rem; 
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.5); 
+        }
                 .inventory-hud:hover { transform: translateY(0); border-top-color: var(--accent); }
                 
                 .inv-title { font-family: var(--font-ui); font-size: 1rem; color: var(--accent); width: 150px; line-height: 1.5; text-shadow: 2px 2px 0px #000; }
@@ -645,13 +658,15 @@
             <button class="btn" id="btn-prev" onclick="move(-1)">[A] VLEVO</button>
             <button class="btn" id="btn-next" onclick="move(1)">[D] VPRAVO</button>
         </div>
-    </div> <!-- TOTO JE KONEC game-view -->
 
-    <!-- INVENTÁŘ -->
-    <div class="inventory-hud">
-        <div class="inv-title">INVENTÁŘ</div>
-        <div class="inv-slots" id="inv-slots"></div>
-    </div>
+        <!-- INVENTÁŘ JE NYNÍ DOLE UVNITŘ HERNÍ ČÁSTI -->
+        <div class="inventory-hud">
+            <div class="inv-title">INVENTÁŘ</div>
+            <div class="inv-slots" id="inv-slots"></div>
+        </div>
+
+    </div> <!-- TOTO JE SPRÁVNÝ KONEC game-view -->
+
     <div class="codex" id="codex">
         <div class="c-type" id="c-type">SYS.INFO</div>
         <h2 class="c-title" id="c-title">Název</h2>
