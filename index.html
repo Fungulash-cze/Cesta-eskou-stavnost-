@@ -6,81 +6,7 @@
     <title>Vývoj českých ústav - Ve Vývoji</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
-        /* ZÁKLAD PRO ANIMOVANOU VRSTVU POZADÍ */
-        .theme-fx {
-            position: absolute;
-            inset: 0;
-            z-index: 2; /* Bude nad gridem, ale pod interaktivními prvky */
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.5s step-end, background 0.5s step-end;
-            overflow: hidden;
-        }
-
-        /* 1. REPUBLIKA - Zlatavé paprsky / Art Deco pohyb */
-        [data-theme="rep"] .theme-fx {
-            opacity: 1;
-            background: repeating-linear-gradient(
-                -45deg,
-                transparent,
-                transparent 150px,
-                rgba(217, 119, 70, 0.03) 150px,
-                rgba(217, 119, 70, 0.03) 300px
-            );
-            animation: panBeams 40s linear infinite;
-        }
-
-        /* 2. PROTEKTORÁT - Pátrací reflektor v noci */
-        [data-theme="war"] .theme-fx {
-            opacity: 1;
-            background: conic-gradient(from 180deg at 50% 100%, transparent 150deg, rgba(255,255,255,0.06) 180deg, transparent 210deg);
-            transform-origin: bottom center;
-            animation: searchlight 8s infinite alternate ease-in-out;
-        }
-
-        /* 3. SOCIALISMUS - Špatný signál a rudý nádech */
-        [data-theme="soc"] .theme-fx {
-            opacity: 1;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 51%);
-            background-size: 100% 10px;
-            animation: scanlineRoll 15s linear infinite;
-        }
-        [data-theme="soc"] .theme-fx::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at center, transparent 30%, rgba(158, 50, 38, 0.05) 100%);
-            animation: pulseRed 4s infinite alternate ease-in-out;
-        }
-
-        /* 4. MODERNÍ DOBA - Dýchající kybernetická aura */
-        [data-theme="mod"] .theme-fx {
-            opacity: 1;
-            background: radial-gradient(circle at 50% 50%, rgba(88, 166, 255, 0.08) 0%, transparent 60%);
-            animation: pulseGlow 6s infinite alternate ease-in-out;
-        }
-
-        /* DEFINICE ANIMACÍ */
-        @keyframes panBeams {
-            0% { background-position: 0px 0px; }
-            100% { background-position: 1000px 1000px; }
-        }
-        @keyframes searchlight {
-            0% { transform: scale(1.5) rotate(-35deg); }
-            100% { transform: scale(1.5) rotate(35deg); }
-        }
-        @keyframes scanlineRoll {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 100vh; }
-        }
-        @keyframes pulseRed {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        @keyframes pulseGlow {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.2); opacity: 1; }
-        }
+        
         :root {
             /* Výchozí / Moderní (1993+) */
             --bg-base: #16191d;
@@ -178,7 +104,83 @@
             pointer-events: none;
             background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.7) 120%);
         }
-        
+
+        /* ZÁKLAD PRO ANIMOVANOU VRSTVU POZADÍ */
+        .theme-fx {
+            position: absolute;
+            inset: 0;
+            z-index: 2; /* Bude nad gridem, ale pod interaktivními prvky */
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s step-end, background 0.5s step-end;
+            overflow: hidden;
+        }
+
+        /* 1. REPUBLIKA - Zlatavé paprsky / Art Deco pohyb */
+        [data-theme="rep"] .theme-fx {
+            opacity: 1;
+            background: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 150px,
+                rgba(217, 119, 70, 0.03) 150px,
+                rgba(217, 119, 70, 0.03) 300px
+            );
+            animation: panBeams 40s linear infinite;
+        }
+
+        /* 2. PROTEKTORÁT - Pátrací reflektor v noci */
+        [data-theme="war"] .theme-fx {
+            opacity: 1;
+            background: conic-gradient(from 180deg at 50% 100%, transparent 150deg, rgba(255,255,255,0.06) 180deg, transparent 210deg);
+            transform-origin: bottom center;
+            animation: searchlight 8s infinite alternate ease-in-out;
+        }
+
+        /* 3. SOCIALISMUS - Špatný signál a rudý nádech */
+        [data-theme="soc"] .theme-fx {
+            opacity: 1;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.1) 51%);
+            background-size: 100% 10px;
+            animation: scanlineRoll 15s linear infinite;
+        }
+        [data-theme="soc"] .theme-fx::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 30%, rgba(158, 50, 38, 0.05) 100%);
+            animation: pulseRed 4s infinite alternate ease-in-out;
+        }
+
+        /* 4. MODERNÍ DOBA - Dýchající kybernetická aura */
+        [data-theme="mod"] .theme-fx {
+            opacity: 1;
+            background: radial-gradient(circle at 50% 50%, rgba(88, 166, 255, 0.08) 0%, transparent 60%);
+            animation: pulseGlow 6s infinite alternate ease-in-out;
+        }
+
+        /* DEFINICE ANIMACÍ */
+        @keyframes panBeams {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 1000px 1000px; }
+        }
+        @keyframes searchlight {
+            0% { transform: scale(1.5) rotate(-35deg); }
+            100% { transform: scale(1.5) rotate(35deg); }
+        }
+        @keyframes scanlineRoll {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100vh; }
+        }
+        @keyframes pulseRed {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
         .codex {
             width: 600px;
             flex-shrink: 0;
@@ -186,7 +188,7 @@
             border-left: 6px solid var(--accent);
             box-shadow: -12px 0px 0px rgba(0,0,0,0.5);
             padding: 2.5rem;
-            padding-bottom: 12rem; /* PŘIDÁNO: Místo pro posouvání nad inventářem */
+            padding-bottom: 12rem;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -223,7 +225,7 @@
 
         .controls {
             position: absolute;
-            bottom: 13rem; /* Tlačítka se zvednou nad inventář */
+            bottom: 13rem;
             left: 2rem;
             z-index: 100;
             display: flex;
@@ -413,7 +415,6 @@
             text-shadow: 2px 2px 0px #000;
         }
 
-        /* Ostré, strojové blikání místo měkkého pulzování */
         .node.active .node-year { color: var(--text-main); }
         .node.active .node-label { color: var(--accent); }
         .node.active .node-core {
@@ -427,43 +428,43 @@
             50% { background-color: var(--bg-panel); border-color: var(--text-muted); }
         }
 
-       .player {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 20;
-    width: 128px; 
-    height: 128px; 
-    margin-left: -64px; 
-    margin-top: -140px; 
-    background-color: transparent;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    image-rendering: pixelated; 
-    transform-origin: bottom center;
-    transition: transform 0.1s;
-    pointer-events: none;
-    }
+        .player {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 20;
+            width: 128px; 
+            height: 128px; 
+            margin-left: -64px; 
+            margin-top: -140px; 
+            background-color: transparent;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center bottom;
+            image-rendering: pixelated; 
+            transform-origin: bottom center;
+            transition: transform 0.1s;
+            pointer-events: none;
+        }
 
         /* 1. Sokolista (1918–1938) */
         .avatar-rep {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M5,2h6v2h-6z M5,11h6v1h-6z M4,14h3v2h-3z M9,14h3v2h-3z" fill="%23222"/><path d="M10,0h1v3h-1z" fill="%23FFF"/><path d="M6,4h4v3h-4z M4,10h1v1h-1z M11,10h1v1h-1z" fill="%23FFDAB9"/><path d="M5,7h6v4h-6z M4,7h1v3h-1z M11,7h1v3h-1z" fill="%23c42b2b"/><path d="M5,12h2v2h-2z M9,12h2v2h-2z" fill="%23D2B48C"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M5,2h6v2h-6z M5,11h6v1h-6z M4,14h3v2h-3z M9,14h3v2h-3z" fill="%23222"/><path d="M10,0h1v3h-1z" fill="%23FFF"/><path d="M6,4h4v3h-4z M4,10h1v1h-1z M11,10h1v1h-1z" fill="%23FFDAB9"/><path d="M5,7h6v4h-6z M4,7h1v3h-1z M11,7h1v3h-1z" fill="%23c42b2b"/><path d="M5,12h2v2h-2z M9,12h2v2h-2z" fill="%23D2B48C"/></svg>');
         }
 
         /* 2. Voják totalitního státu (1938–1945) */
         .avatar-war {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v2 h-4 z" fill="%234A5D23"/><path d="M5,5 h6 v1 h-6 z" fill="%234A5D23"/><path d="M7,6 h2 v2 h-2 z" fill="%23FFDAB9"/><path d="M6,8 h4 v5 h-4 z" fill="%23556B2F"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23222"/><path d="M10,7 h1 v7 h-1 z" fill="%23333"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v2 h-4 z" fill="%234A5D23"/><path d="M5,5 h6 v1 h-6 z" fill="%234A5D23"/><path d="M7,6 h2 v2 h-2 z" fill="%23FFDAB9"/><path d="M6,8 h4 v5 h-4 z" fill="%23556B2F"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23222"/><path d="M10,7 h1 v7 h-1 z" fill="%23333"/></svg>');
         }
 
         /* 3. Příslušník SNB (1948–1989) */
         .avatar-soc {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v1 h-4 z" fill="%23c42b2b"/><path d="M5,2 h6 v1 h-6 z" fill="%23556B2F"/><path d="M4,4 h6 v1 h-6 z" fill="%23222"/><path d="M7,5 h2 v2 h-2 z" fill="%23FFDAB9"/><path d="M6,7 h4 v6 h-4 z" fill="%236B8E23"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23222"/><path d="M6,7 h1 v1 h-1 z M9,7 h1 v1 h-1 z" fill="%23c42b2b"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v1 h-4 z" fill="%23c42b2b"/><path d="M5,2 h6 v1 h-6 z" fill="%23556B2F"/><path d="M4,4 h6 v1 h-6 z" fill="%23222"/><path d="M7,5 h2 v2 h-2 z" fill="%23FFDAB9"/><path d="M6,7 h4 v6 h-4 z" fill="%236B8E23"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23222"/><path d="M6,7 h1 v1 h-1 z M9,7 h1 v1 h-1 z" fill="%23c42b2b"/></svg>');
         }
 
         /* 4. Demokrat v kravatě s kufříkem (1989–nyní) */
         .avatar-mod {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v3 h-4 z" fill="%23FFDAB9"/><path d="M5,3 h6 v1 h-6 z M5,4 h1 v2 h-1 z M10,4 h1 v2 h-1 z" fill="%238B4513"/><path d="M6,6 h4 v7 h-4 z" fill="%234682B4"/><path d="M7,6 h2 v3 h-2 z" fill="%23FFF"/><path d="M7,7 h1 v3 h-1 z" fill="%23c42b2b"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23333"/><path d="M10,9 h3 v3 h-3 z" fill="%238B4513"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v3 h-4 z" fill="%23FFDAB9"/><path d="M5,3 h6 v1 h-6 z M5,4 h1 v2 h-1 z M10,4 h1 v2 h-1 z" fill="%238B4513"/><path d="M6,6 h4 v7 h-4 z" fill="%234682B4"/><path d="M7,6 h2 v3 h-2 z" fill="%23FFF"/><path d="M7,7 h1 v3 h-1 z" fill="%23c42b2b"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23333"/><path d="M10,9 h3 v3 h-3 z" fill="%238B4513"/></svg>');
         }
 
         .player.walking { animation: walk 0.2s steps(2) infinite; }
@@ -568,130 +569,132 @@
             line-height: 1.4;
             color: var(--text-main);
         }
+        
         .modal-overlay {
-                    position: fixed;
-                    inset: 0;
-                    background: rgba(0,0,0,0.85);
-                    z-index: 2000;
-                    display: none;
-                    justify-content: center;
-                    align-items: center;
-                }
-                
-                .modal-box {
-                    background: var(--bg-panel);
-                    border: 6px solid var(--accent);
-                    padding: 2.5rem;
-                    max-width: 700px;
-                    width: 90%;
-                    box-shadow: 16px 16px 0px rgba(0,0,0,0.8);
-                }
-                
-                .modal-title {
-                    font-family: var(--font-ui);
-                    font-size: 1.2rem;
-                    color: var(--accent);
-                    margin-bottom: 1.5rem;
-                    text-transform: uppercase;
-                    line-height: 1.5;
-                }
-                
-                .modal-text {
-                    font-size: 1.3rem;
-                    line-height: 1.5;
-                    color: var(--text-main);
-                }
-                /* KVÍZ A TLAČÍTKA */
-                .modal-options { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
-                .modal-btn { background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); font-size: 0.9rem; padding: 1.2rem; text-align: left; cursor: pointer; transition: 0.1s; line-height: 1.4; }
-                .modal-btn:hover { background: var(--accent); color: var(--bg-base); border-color: var(--accent); }
-                .wrong { background: #c42b2b !important; color: white !important; border-color: #c42b2b !important; animation: shake 0.3s; }
-                @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
-                .correct { background: #2ea043 !important; color: white !important; border-color: #2ea043 !important; }
-                
-                /* OBRAZOVKA ODMĚNY - fixní malá velikost */
-                .reward-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
-                .reward-title { font-family: var(--font-ui); color: var(--accent); font-size: 1.5rem; margin-bottom: 1.5rem; text-shadow: 2px 2px 0 #000; animation: floatItem 2s infinite alternate; text-align: center; }
-                
-                .reward-content { position: relative; width: 300px; height: 420px; cursor: pointer; transition: transform 0.2s; border-radius: 8px; }
-                .reward-content:hover { transform: scale(1.05); }
-                .reward-card { width: 100%; height: 100%; object-fit: cover; display: block; box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); border: 4px solid var(--text-muted); border-radius: 8px; transition: 0.2s; }
-                .reward-content:hover .reward-card { border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
-                
-                .reward-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 0.75rem; line-height: 1.3; overflow-y: auto; text-shadow: 1px 1px 0 #000; padding-right: 5px; word-wrap: break-word; }
-                .reward-text::-webkit-scrollbar { width: 4px; } .reward-text::-webkit-scrollbar-track { background: transparent; } .reward-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
-                
-                .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.1rem; }
-                /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
-                .secret-item { 
-                    position: absolute; 
-                    transform: translate(-50%, -50%); 
-                    z-index: 15; 
-                    width: 120px; 
-                    height: 120px; 
-                    cursor: pointer; 
-                    animation: floatItem 2s infinite alternate; 
-                }
-                .secret-item img { 
-                    width: 100%; 
-                    height: 100%; 
-                    object-fit: contain; 
-                    filter: drop-shadow(0 0 10px var(--accent)); 
-                    transition: 0.2s; 
-                    border-radius: 50%; 
-                }
-                .secret-item:hover img { 
-                    filter: drop-shadow(0 0 20px #fff); 
-                    transform: scale(1.1); 
-                }
-                /* Vyřešená korunka s fajfkou */
-                .secret-item.solved {
-                    cursor: default;
-                    animation: none;
-                    filter: grayscale(0.3);
-                }
-                .secret-item.solved img {
-                    filter: drop-shadow(0 0 10px #2ea043);
-                }
-                .check-badge {
-                    position: absolute;
-                    bottom: -5px;
-                    right: -5px;
-                    background-color: #2ea043;
-                    color: white;
-                    font-family: var(--font-ui);
-                    font-size: 0.8rem;
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 50%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    border: 3px solid var(--bg-base);
-                    box-shadow: 0 0 10px rgba(0,0,0,0.8);
-                }
-                @keyframes floatItem { 
-                    from { margin-top: 0px; } 
-                    to { margin-top: -15px; } 
-                }
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
         
-                /* ZVĚTŠENÁ KARTA (LIGHTBOX) Z INVENTÁŘE - s opraveným z-indexem */
-                .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
-                .card-lightbox-content { position: relative; max-height: 80vh; max-width: 90vw; }
-                .card-lightbox-img { height: 80vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); border: 4px solid var(--text-muted); border-radius: 8px;}
-                
-                .card-lightbox-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 1.3rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 10px; word-wrap: break-word; }
-                .card-lightbox-text::-webkit-scrollbar { width: 8px; } .card-lightbox-text::-webkit-scrollbar-track { background: transparent; } .card-lightbox-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
-                
-                .close-lightbox { margin-top: 1.5rem; background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; transition: 0.2s; box-shadow: 4px 4px 0 rgba(0,0,0,0.8);}
-                .close-lightbox:hover { border-color: var(--accent); color: var(--bg-base); background-color: var(--accent); transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.8);}
+        .modal-box {
+            background: var(--bg-panel);
+            border: 6px solid var(--accent);
+            padding: 2.5rem;
+            max-width: 700px;
+            width: 90%;
+            box-shadow: 16px 16px 0px rgba(0,0,0,0.8);
+        }
         
-                /* VYSOUVACÍ INVENTÁŘ (omezený pouze na levý kontejner) */
-             .inventory-hud { 
-            position: absolute; /* absolute ho "zavře" pouze do levé mapové části */
+        .modal-title {
+            font-family: var(--font-ui);
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            line-height: 1.5;
+        }
+        
+        .modal-text {
+            font-size: 1.3rem;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+        
+        /* KVÍZ A TLAČÍTKA */
+        .modal-options { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+        .modal-btn { background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); font-size: 0.9rem; padding: 1.2rem; text-align: left; cursor: pointer; transition: 0.1s; line-height: 1.4; }
+        .modal-btn:hover { background: var(--accent); color: var(--bg-base); border-color: var(--accent); }
+        .wrong { background: #c42b2b !important; color: white !important; border-color: #c42b2b !important; animation: shake 0.3s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .correct { background: #2ea043 !important; color: white !important; border-color: #2ea043 !important; }
+        
+        /* OBRAZOVKA ODMĚNY */
+        .reward-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
+        .reward-title { font-family: var(--font-ui); color: var(--accent); font-size: 1.5rem; margin-bottom: 1.5rem; text-shadow: 2px 2px 0 #000; animation: floatItem 2s infinite alternate; text-align: center; }
+        
+        .reward-content { position: relative; width: 300px; height: 420px; cursor: pointer; transition: transform 0.2s; border-radius: 8px; }
+        .reward-content:hover { transform: scale(1.05); }
+        .reward-card { width: 100%; height: 100%; object-fit: cover; display: block; box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); border: 4px solid var(--text-muted); border-radius: 8px; transition: 0.2s; }
+        .reward-content:hover .reward-card { border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
+        
+        .reward-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 0.75rem; line-height: 1.3; overflow-y: auto; text-shadow: 1px 1px 0 #000; padding-right: 5px; word-wrap: break-word; }
+        .reward-text::-webkit-scrollbar { width: 4px; } .reward-text::-webkit-scrollbar-track { background: transparent; } .reward-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 2px; }
+        
+        .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.1rem; }
+        
+        /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
+        .secret-item { 
+            position: absolute; 
+            transform: translate(-50%, -50%); 
+            z-index: 15; 
+            width: 120px; 
+            height: 120px; 
+            cursor: pointer; 
+            animation: floatItem 2s infinite alternate; 
+        }
+        .secret-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            filter: drop-shadow(0 0 10px var(--accent)); 
+            transition: 0.2s; 
+            border-radius: 50%; 
+        }
+        .secret-item:hover img { 
+            filter: drop-shadow(0 0 20px #fff); 
+            transform: scale(1.1); 
+        }
+        .secret-item.solved {
+            cursor: default;
+            animation: none;
+            filter: grayscale(0.3);
+        }
+        .secret-item.solved img {
+            filter: drop-shadow(0 0 10px #2ea043);
+        }
+        .check-badge {
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            background-color: #2ea043;
+            color: white;
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid var(--bg-base);
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+        @keyframes floatItem { 
+            from { margin-top: 0px; } 
+            to { margin-top: -15px; } 
+        }
+        
+        /* ZVĚTŠENÁ KARTA */
+        .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; display: none; justify-content: center; align-items: center; flex-direction: column; }
+        .card-lightbox-content { position: relative; max-height: 80vh; max-width: 90vw; }
+        .card-lightbox-img { height: 80vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); border: 4px solid var(--text-muted); border-radius: 8px;}
+        
+        .card-lightbox-text { position: absolute; bottom: 14%; left: 16%; right: 16%; height: 28%; color: var(--text-main); font-family: var(--font-text); font-size: 1.3rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 10px; word-wrap: break-word; }
+        .card-lightbox-text::-webkit-scrollbar { width: 8px; } .card-lightbox-text::-webkit-scrollbar-track { background: transparent; } .card-lightbox-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+        
+        .close-lightbox { margin-top: 1.5rem; background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; transition: 0.2s; box-shadow: 4px 4px 0 rgba(0,0,0,0.8);}
+        .close-lightbox:hover { border-color: var(--accent); color: var(--bg-base); background-color: var(--accent); transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.8);}
+
+        /* VYSOUVACÍ INVENTÁŘ */
+        .inventory-hud { 
+            position: absolute;
             bottom: 0; 
             left: 0; 
-            width: 100%; /* Roztažení přesně od hrany do hrany levého panelu */
+            width: 100%;
             height: 12rem; 
             background-color: rgba(33, 38, 45, 0.95); 
             border-top: 6px solid var(--text-muted); 
@@ -700,11 +703,10 @@
             align-items: center; 
             padding: 0 2rem; 
             box-shadow: 0 -10px 20px rgba(0,0,0,0.5); 
-            transform: translateY(9.5rem); /* Zasunuto pod spodní okraj */
+            transform: translateY(9.5rem);
             transition: all 0.3s ease-in-out; 
         }
         
-        /* Oživení inventáře po najetí myši */
         .inventory-hud:hover { 
             transform: translateY(0); 
             border-top-color: var(--accent); 
@@ -721,6 +723,7 @@
         .card { width: 70px; height: 98px; background-color: var(--bg-base); border: 3px solid var(--text-muted); display: flex; justify-content: center; align-items: center; cursor: pointer; position: relative; box-shadow: 4px 4px 0px rgba(0,0,0,0.6); flex-shrink: 0; transition: transform 0.1s, border-color 0.1s; border-radius: 4px; }
         .card:hover { transform: translateY(-5px); border-color: var(--text-main); }
         .card:active { transform: translateY(0px); box-shadow: 2px 2px 0px rgba(0,0,0,0.6); }
+
         @media (max-width: 800px) {
             body { flex-direction: column; }
             .game-view { height: 50vh; flex: none; }
@@ -754,7 +757,8 @@
     </style>
 </head>
 <body data-theme="rep">
-        <div class="modal-overlay" id="welcome-modal" style="display: flex;">
+    <!-- Uvítací modal -->
+    <div class="modal-overlay" id="welcome-modal" style="display: flex;">
         <div class="modal-box">
             <div class="modal-title">Archivářská edice: Připravované funkce</div>
             <div class="modal-text">
@@ -769,12 +773,15 @@
             </div>
             <button class="btn" style="width: 100%; margin-top: 2rem;" onclick="document.getElementById('welcome-modal').style.display='none'">ZAHÁJIT PROHLÍDKU</button>
         </div>
-        </div>
-   <div class="game-view" id="game-view">
+    </div>
+
+    <!-- HERNÍ PLOCHA A MAPA -->
+    <div class="game-view" id="game-view">
         <div class="grid-layer"></div>
         <div class="scanlines"></div>
         <div class="vignette"></div>
         
+        <!-- NOVÁ VRSTVA PRO ANIMACE POZADÍ -->
         <div class="theme-fx"></div>
 
         <div class="hud">
@@ -794,14 +801,14 @@
             <button class="btn" id="btn-next" onclick="move(1)">[D] VPRAVO</button>
         </div>
 
-        <!-- INVENTÁŘ JE NYNÍ DOLE UVNITŘ HERNÍ ČÁSTI -->
+        <!-- INVENTÁŘ -->
         <div class="inventory-hud">
             <div class="inv-title">INVENTÁŘ</div>
             <div class="inv-slots" id="inv-slots"></div>
         </div>
+    </div>
 
-    </div> <!-- TOTO JE SPRÁVNÝ KONEC game-view -->
-
+    <!-- KODEX / PRAVÝ PANEL -->
     <div class="codex" id="codex">
         <div class="c-type" id="c-type">SYS.INFO</div>
         <h2 class="c-title" id="c-title">Název</h2>
@@ -825,15 +832,6 @@
             <p class="fact-text" id="c-fact-content">Zajímavost</p>
         </div>
     </div>
-<!-- Zvětšená karta -->
-    <div class="card-lightbox" id="card-lightbox">
-        <div class="reward-title" id="lightbox-card-name"></div> <!-- PŘIDÁNO: Jméno karty z inventáře -->
-        <div class="card-lightbox-content">
-            <img src="" id="lightbox-img" class="card-lightbox-img" alt="Karta">
-            <div class="card-lightbox-text" id="lightbox-text"></div>
-        </div>
-        <button class="close-lightbox" onclick="closeCardDetail()">ZAVŘÍT [X]</button>
-    </div>
 
     <!-- Kvíz -->
     <div class="modal-overlay" id="quiz-modal">
@@ -846,6 +844,7 @@
             <div class="modal-options" id="quiz-opts"></div>
         </div>
     </div>
+
     <!-- Obrazovka s odměnou (Získaná karta) -->
     <div class="reward-overlay" id="reward-overlay">
         <div class="reward-title" id="reward-card-name">ZÍSKÁN NOVÝ PRAMEN!</div>
@@ -858,8 +857,19 @@
         
         <div class="reward-hint">[ KLIKNUTÍM NA KARTU JI PŘESUNEŠ DO INVENTÁŘE ]</div>
     </div>
+
+    <!-- Zvětšená karta -->
+    <div class="card-lightbox" id="card-lightbox">
+        <div class="reward-title" id="lightbox-card-name"></div>
+        <div class="card-lightbox-content">
+            <img src="" id="lightbox-img" class="card-lightbox-img" alt="Karta">
+            <div class="card-lightbox-text" id="lightbox-text"></div>
+        </div>
+        <button class="close-lightbox" onclick="closeCardDetail()">ZAVŘÍT [X]</button>
+    </div>
+
     <script>
-           // Zcela samostatné tajné prameny ležící volně na mapě
+        // Zcela samostatné tajné prameny ležící volně na mapě
         const secretItems = [
             { 
                 id: 'c_rovnost',
