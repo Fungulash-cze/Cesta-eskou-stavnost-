@@ -116,17 +116,23 @@
             overflow: hidden;
         }
 
-        /* 1. REPUBLIKA - Zlatavé paprsky / Art Deco pohyb */
+        /* 1. REPUBLIKA - Oslava vzniku státu (Trikolora konfety) */
         [data-theme="rep"] .theme-fx {
             opacity: 1;
-            background: repeating-linear-gradient(
-                -45deg,
-                transparent,
-                transparent 150px,
-                rgba(217, 119, 70, 0.03) 150px,
-                rgba(217, 119, 70, 0.03) 300px
-            );
-            animation: panBeams 40s linear infinite;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(17, 69, 126, 0.15) 3px, transparent 4px), /* Modrá */
+                radial-gradient(circle at 85% 30%, rgba(215, 20, 26, 0.15) 3px, transparent 4px), /* Červená */
+                radial-gradient(circle at 50% 60%, rgba(255, 255, 255, 0.15) 3px, transparent 4px), /* Bílá */
+                radial-gradient(circle at 35% 80%, rgba(17, 69, 126, 0.1) 2px, transparent 3px),
+                radial-gradient(circle at 75% 10%, rgba(215, 20, 26, 0.1) 2px, transparent 3px);
+            background-size: 150px 150px;
+            animation: fallConfetti 20s linear infinite;
+        }
+
+        /* Aby se konfety pohybovaly dolů a lehce do strany */
+        @keyframes fallConfetti {
+            0% { background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px; }
+            100% { background-position: 150px 300px, 150px 300px, 150px 300px, 150px 300px, 150px 300px; }
         }
 
         /* 2. PROTEKTORÁT - Pátrací reflektor v noci */
