@@ -677,6 +677,7 @@
     </div>
 <!-- Zvětšená karta -->
     <div class="card-lightbox" id="card-lightbox">
+        <div class="reward-title" id="lightbox-card-name"></div> <!-- PŘIDÁNO: Jméno karty z inventáře -->
         <div class="card-lightbox-content">
             <img src="" id="lightbox-img" class="card-lightbox-img" alt="Karta">
             <div class="card-lightbox-text" id="lightbox-text"></div>
@@ -1141,28 +1142,39 @@
         }
 
         // LOGIKA INVENTÁŘE A ZVĚTŠENÍ KARTY
+        // LOGIKA INVENTÁŘE A ZVĚTŠENÍ KARTY
         function renderInventory() {
             const invSlots = document.getElementById('inv-slots');
             invSlots.innerHTML = '';
             inventory.forEach(card => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'inv-card-wrapper';
+
                 const cardEl = document.createElement('div'); 
                 cardEl.className = 'card';
                 cardEl.onclick = () => openCardDetail(card);
                 cardEl.innerHTML = `
-                    <div style="width:100%; height:100%; overflow:hidden;">
+                    <div style="width:100%; height:100%; overflow:hidden; border-radius: 2px;">
                         <img src="${card.cardImg}" style="width:100%; height:100%; object-fit:cover;">
                     </div>
                 `;
-                invSlots.appendChild(cardEl);
+
+                const nameEl = document.createElement('div');
+                nameEl.className = 'inv-card-name';
+                nameEl.textContent = card.cardName;
+
+                wrapper.appendChild(cardEl);
+                wrapper.appendChild(nameEl);
+                invSlots.appendChild(wrapper);
             });
         }
 
         function openCardDetail(card) {
             document.getElementById('lightbox-img').src = card.cardImg;
             document.getElementById('lightbox-text').innerHTML = card.cardText;
+            document.getElementById('lightbox-card-name').textContent = card.cardName;
             document.getElementById('card-lightbox').style.display = 'flex';
         }
-
         function closeCardDetail() {
             document.getElementById('card-lightbox').style.display = 'none';
         }
