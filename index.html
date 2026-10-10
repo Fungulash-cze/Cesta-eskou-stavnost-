@@ -493,7 +493,39 @@
             line-height: 1.4;
             color: var(--text-main);
         }
-
+        .modal-overlay {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0,0,0,0.85);
+                    z-index: 2000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .modal-box {
+                    background: var(--bg-panel);
+                    border: 6px solid var(--accent);
+                    padding: 2.5rem;
+                    max-width: 700px;
+                    width: 90%;
+                    box-shadow: 16px 16px 0px rgba(0,0,0,0.8);
+                }
+                
+                .modal-title {
+                    font-family: var(--font-ui);
+                    font-size: 1.2rem;
+                    color: var(--accent);
+                    margin-bottom: 1.5rem;
+                    text-transform: uppercase;
+                    line-height: 1.5;
+                }
+                
+                .modal-text {
+                    font-size: 1.3rem;
+                    line-height: 1.5;
+                    color: var(--text-main);
+                }
         @media (max-width: 800px) {
             body { flex-direction: column; }
             .game-view { height: 50vh; flex: none; }
@@ -527,7 +559,22 @@
     </style>
 </head>
 <body data-theme="rep">
-
+        <div class="modal-overlay" id="welcome-modal">
+        <div class="modal-box">
+            <div class="modal-title">Archivářská edice: Připravované funkce</div>
+            <div class="modal-text">
+                Vítejte v časové ose. Aplikace bude brzy rozšířena o interaktivní mechaniky. Co vás čeká:
+                <br><br>
+                <ul class="c-bullets" style="margin-bottom: 0;">
+                    <li><strong>Pohyb:</strong> Klávesami A/D nebo šipkami se posouváte po časové ose.</li>
+                    <li><strong>Skryté prameny:</strong> Na mapě se objeví tajné symboly. Jejich prozkoumáním aktivujete historický kvíz.</li>
+                    <li><strong>Inventář:</strong> Za správné odpovědi získáte karty historických dokumentů do svého archivu.</li>
+                    <li><strong>Oprava historie:</strong> Některé uzly na ose budou zablokované (poškozené). Přetáhnutím správných karet z inventáře na uzel obnovíte historická data a odemknete další postup.</li>
+                </ul>
+            </div>
+            <button class="btn" style="width: 100%; margin-top: 2rem;" onclick="document.getElementById('welcome-modal').style.display='none'">ZAHÁJIT PROHLÍDKU</button>
+        </div>
+        </div>
     <div class="game-view" id="game-view">
         <div class="grid-layer"></div>
         <div class="scanlines"></div>
