@@ -537,39 +537,29 @@
                 /* OBRAZOVKA ODMĚNY */
                 .reward-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 4000; display: none; justify-content: center; align-items: center; flex-direction: column; }
                 .reward-title { font-family: var(--font-ui); color: var(--accent); font-size: 1.5rem; margin-bottom: 2rem; text-shadow: 2px 2px 0 #000; animation: floatItem 2s infinite alternate;}
-                .reward-card { width: 300px; border: 4px solid var(--text-muted); box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); cursor: pointer; transition: 0.2s; border-radius: 8px; }
-                .reward-card:hover { transform: scale(1.05); border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
-                .reward-hint { margin-top: 2rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.3rem; }
+                /* Přidán obal pro odměnu */
+                .reward-content { position: relative; max-height: 85vh; max-width: 90vw; cursor: pointer; transition: 0.2s; border-radius: 8px;}
+                .reward-content:hover { transform: scale(1.02); }
+                .reward-card { height: 85vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(88, 166, 255, 0.4); border: 4px solid var(--text-muted); border-radius: 8px; }
+                .reward-content:hover .reward-card { border-color: var(--accent); box-shadow: 0 0 40px rgba(88, 166, 255, 0.8); }
+                /* Text uvnitř odměny */
+                .reward-text { position: absolute; bottom: 12%; left: 12%; right: 12%; height: 32%; color: var(--text-main); font-family: var(--font-text); font-size: 1.2rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 15px; }
+                .reward-text::-webkit-scrollbar { width: 8px; } .reward-text::-webkit-scrollbar-track { background: transparent; } .reward-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+                .reward-hint { margin-top: 1.5rem; font-family: var(--font-text); color: var(--text-muted); font-size: 1.3rem; text-align: center; }
                 /* TAJNÝ SYMBOL LEŽÍCÍ NA MAPĚ */
                 .secret-item { position: absolute; transform: translate(-50%, -50%); z-index: 15; width: 64px; height: 64px; cursor: pointer; animation: floatItem 2s infinite alternate; }
                 .secret-item img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 10px var(--accent)); transition: 0.2s; border-radius: 50%; }
                 .secret-item:hover img { filter: drop-shadow(0 0 20px #fff); transform: scale(1.1); }
                 @keyframes floatItem { from { margin-top: 0px; } to { margin-top: -15px; } }
-        /* ZVĚTŠENÁ KARTA (LIGHTBOX) */
-                .card-lightbox {
-                    position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000;
-                    display: none; justify-content: center; align-items: center; flex-direction: column;
-                }
-                .card-lightbox-content {
-                    position: relative; max-height: 90vh; max-width: 90vw;
-                }
-                .card-lightbox-img {
-                    height: 85vh; object-fit: contain; display: block;
-                    box-shadow: 0 0 30px rgba(0,0,0,0.8);
-                }
-                /* Pozicování textu přesně do černého obdélníku na kartě */
-                .card-lightbox-text {
-                    position: absolute;
-                    bottom: 12%; left: 12%; right: 12%; height: 32%;
-                    color: var(--text-main); font-family: var(--font-text); font-size: 1.4rem;
-                    line-height: 1.5; overflow-y: auto; text-shadow: 2px 2px 0 #000;
-                }
-                .close-lightbox {
-                    margin-top: 1.5rem; background: transparent; border: 2px solid var(--text-muted);
-                    color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer;
-                }
-                .close-lightbox:hover { border-color: var(--accent); color: var(--accent); 
-                }
+               /* ZVĚTŠENÁ KARTA (LIGHTBOX) */
+                .card-lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; display: none; justify-content: center; align-items: center; flex-direction: column; }
+                .card-lightbox-content { position: relative; max-height: 90vh; max-width: 90vw; }
+                .card-lightbox-img { height: 85vh; object-fit: contain; display: block; box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+                /* Upravený text v inventáři - menší font, větší padding */
+                .card-lightbox-text { position: absolute; bottom: 12%; left: 12%; right: 12%; height: 32%; color: var(--text-main); font-family: var(--font-text); font-size: 1.2rem; line-height: 1.4; overflow-y: auto; text-shadow: 2px 2px 0 #000; padding-right: 15px; }
+                .card-lightbox-text::-webkit-scrollbar { width: 8px; } .card-lightbox-text::-webkit-scrollbar-track { background: transparent; } .card-lightbox-text::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.3); border-radius: 4px; }
+                .close-lightbox { margin-top: 1.5rem; background: transparent; border: 2px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; }
+                .close-lightbox:hover { border-color: var(--accent); color: var(--accent); }
                 /* INVENTÁŘ */
                 .inventory-hud { position: fixed; bottom: 0; left: 0; width: 100vw; height: 11rem; background-color: var(--bg-panel); border-top: 6px solid var(--accent); z-index: 9000; display: flex; align-items: center; padding: 0 2rem; box-shadow: 0 -10px 20px rgba(0,0,0,0.5); }
                 .inv-title { font-family: var(--font-ui); font-size: 1rem; color: var(--accent); width: 150px; line-height: 1.5; text-shadow: 2px 2px 0px #000; }
