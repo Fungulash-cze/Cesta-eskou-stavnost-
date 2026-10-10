@@ -3,19 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vývoj českých ústav - 8-bit Edice</title>
+    <title>Vývoj českých ústav - Ve Vývoji</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
         
         :root {
-            --bg-base: #2a1614;
-            --bg-panel: #351e1b;
-            --accent: #f25c38;
-            --text-main: #f3e6dd;
-            --text-muted: #a68c85;
+            /* Výchozí / Moderní (1993+) */
+            --bg-base: #16191d;
+            --bg-panel: #21262d;
+            --accent: #58a6ff;
+            --text-main: #c9d1d9;
+            --text-muted: #6e7681;
+            --grid-color: rgba(88, 166, 255, 0.05);
             
             --font-ui: 'Press Start 2P', cursive;
             --font-text: 'VT323', monospace;
+        }
+
+        [data-theme="rep"] {
+            /* První republika (1918-1938) - Sepia / Papír */
+            --bg-base: #2c251e;
+            --bg-panel: #3d342b;
+            --accent: #d97746;
+            --text-main: #f3e6dd;
+            --text-muted: #a68c85;
+            --grid-color: rgba(217, 119, 70, 0.05);
+        }
+
+        [data-theme="war"] {
+            /* Protektorát (1938-1945) - Temnota / Ocel */
+            --bg-base: #111111;
+            --bg-panel: #1f1f1f;
+            --accent: #c42b2b;
+            --text-main: #b0b0b0;
+            --text-muted: #5e5e5e;
+            --grid-color: rgba(196, 43, 43, 0.08);
+        }
+
+        [data-theme="soc"] {
+            /* Socialismus (1948-1989) - Papers, Please / Byrokracie */
+            --bg-base: #1e211d;
+            --bg-panel: #2b302a;
+            --accent: #9e3226;
+            --text-main: #d0d6cc;
+            --text-muted: #677564;
+            --grid-color: rgba(103, 117, 100, 0.1);
         }
 
         * {
@@ -34,15 +66,43 @@
             height: 100vh;
             display: flex;
             flex-direction: row;
+            transition: background-color 0.5s step-end, color 0.5s step-end;
         }
 
         .game-view {
             flex: 1;
             position: relative;
             overflow: hidden;
-            background-image: linear-gradient(rgba(243, 230, 221, 0.03) 2px, transparent 2px),
-                              linear-gradient(90deg, rgba(243, 230, 221, 0.03) 2px, transparent 2px);
+        }
+
+        .grid-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image: 
+                linear-gradient(var(--grid-color) 2px, transparent 2px),
+                linear-gradient(90deg, var(--grid-color) 2px, transparent 2px);
             background-size: 32px 32px;
+            transition: background-image 0.5s step-end;
+        }
+
+        /* Atmosférické překryvy */
+        .scanlines {
+            position: absolute;
+            inset: 0;
+            z-index: 40;
+            pointer-events: none;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+            background-size: 100% 4px;
+        }
+
+        .vignette {
+            position: absolute;
+            inset: 0;
+            z-index: 41;
+            pointer-events: none;
+            background: radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.7) 120%);
         }
 
         .codex {
@@ -50,13 +110,14 @@
             flex-shrink: 0;
             background-color: var(--bg-panel);
             border-left: 6px solid var(--accent);
-            box-shadow: -12px 0px 0px rgba(0,0,0,0.3);
+            box-shadow: -12px 0px 0px rgba(0,0,0,0.5);
             padding: 2.5rem;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
             position: relative;
             z-index: 50;
+            transition: background-color 0.5s step-end, border-color 0.5s step-end;
         }
 
         .codex::-webkit-scrollbar { width: 16px; }
@@ -68,7 +129,7 @@
             top: 2rem;
             left: 2rem;
             z-index: 100;
-            text-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
         }
 
         h1 {
@@ -103,7 +164,7 @@
             padding: 1rem;
             cursor: pointer;
             box-shadow: 6px 6px 0px rgba(0,0,0,0.6);
-            transition: transform 0.1s;
+            transition: transform 0.1s, background-color 0.2s step-end;
         }
 
         .btn:active:not(:disabled) {
@@ -121,6 +182,7 @@
             color: var(--text-muted);
             cursor: not-allowed;
             box-shadow: 6px 6px 0px rgba(0,0,0,0.3);
+            background-color: var(--bg-base);
         }
 
         .party-hud {
@@ -131,7 +193,7 @@
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
-            background-color: rgba(53, 30, 27, 0.85);
+            background-color: var(--bg-panel);
             border: 4px solid var(--text-muted);
             padding: 1.5rem;
             box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
@@ -209,6 +271,7 @@
             left: 0;
             width: 6000px;
             height: 2000px;
+            z-index: 4;
             transition: transform 0.6s steps(20);
             transform-origin: 0 0;
         }
@@ -235,21 +298,22 @@
             cursor: pointer;
         }
 
-        .node-year {
-            font-family: var(--font-ui);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 0px #000;
-        }
-
         .node-core {
             width: 32px;
             height: 32px;
             background-color: var(--bg-panel);
             border: 4px solid var(--text-muted);
-            box-shadow: 4px 4px 0px rgba(0,0,0,0.5);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+        
+        .node-icon {
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .node-icon svg { width: 20px; height: 20px; }
 
         .node.is-law .node-core { border-radius: 0; }
         .node:not(.is-law) .node-core {
@@ -257,8 +321,8 @@
         }
 
         .node-label {
-            margin-top: 1rem;
-            font-size: 1.5rem;
+            margin-top: 0.8rem;
+            font-size: 1.3rem;
             color: var(--text-muted);
             text-transform: uppercase;
             white-space: nowrap;
@@ -266,41 +330,71 @@
             padding: 0 4px;
         }
 
+        .node-year {
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        /* Ostré, strojové blikání místo měkkého pulzování */
         .node.active .node-year { color: var(--text-main); }
         .node.active .node-label { color: var(--accent); }
         .node.active .node-core {
             border-color: var(--text-main);
             background-color: var(--accent);
-            animation: blink 1s step-end infinite;
+            animation: terminalBlink 1s step-end infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        @keyframes terminalBlink {
+            0%, 100% { background-color: var(--accent); border-color: var(--text-main); }
+            50% { background-color: var(--bg-panel); border-color: var(--text-muted); }
         }
 
-        .player {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            z-index: 10;
-            width: 32px;
-            height: 32px;
-            margin-top: -16px;
-            margin-left: -16px;
-            background-color: transparent;
-            box-shadow: 
-                8px 0px 0 8px var(--text-main),
-                8px 16px 0 8px var(--accent),
-                0px 24px 0 8px var(--text-main),
-                16px 24px 0 8px var(--text-main);
-            transition: transform 0.1s;
+       .player {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 20;
+    width: 128px; 
+    height: 128px; 
+    margin-left: -64px; 
+    margin-top: -140px; 
+    background-color: transparent;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    image-rendering: pixelated; 
+    transform-origin: bottom center;
+    transition: transform 0.1s;
+    pointer-events: none;
+    }
+
+        /* 1. T. G. Masaryk na koni (1918–1938) */
+        .avatar-rep {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M4,10 h8 v2 h-1 v4 h-2 v-4 h-2 v4 h-2 v-4 h-1 z" fill="%238B4513"/><path d="M11,7 h3 v3 h-2 v1 h-1 z" fill="%238B4513"/><path d="M6,3 h4 v1 h-4 z" fill="%23333"/><path d="M5,4 h6 v1 h-6 z" fill="%23333"/><path d="M7,5 h2 v2 h-2 z" fill="%23FFDAB9"/><path d="M7,7 h2 v1 h-2 z" fill="%23FFF"/><path d="M6,8 h4 v3 h-4 z" fill="%23333"/></svg>');
+        }
+
+        /* 2. Voják totalitního státu (1938–1945) */
+        .avatar-war {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v2 h-4 z" fill="%234A5D23"/><path d="M5,5 h6 v1 h-6 z" fill="%234A5D23"/><path d="M7,6 h2 v2 h-2 z" fill="%23FFDAB9"/><path d="M6,8 h4 v5 h-4 z" fill="%23556B2F"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23222"/><path d="M10,7 h1 v7 h-1 z" fill="%23333"/></svg>');
+        }
+
+        /* 3. Příslušník SNB (1948–1989) */
+        .avatar-soc {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v1 h-4 z" fill="%23c42b2b"/><path d="M5,2 h6 v1 h-6 z" fill="%23556B2F"/><path d="M4,4 h6 v1 h-6 z" fill="%23222"/><path d="M7,5 h2 v2 h-2 z" fill="%23FFDAB9"/><path d="M6,7 h4 v6 h-4 z" fill="%236B8E23"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23222"/><path d="M6,7 h1 v1 h-1 z M9,7 h1 v1 h-1 z" fill="%23c42b2b"/></svg>');
+        }
+
+        /* 4. Demokrat v kravatě s kufříkem (1989–nyní) */
+        .avatar-mod {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><path d="M6,3 h4 v3 h-4 z" fill="%23FFDAB9"/><path d="M5,3 h6 v1 h-6 z M5,4 h1 v2 h-1 z M10,4 h1 v2 h-1 z" fill="%238B4513"/><path d="M6,6 h4 v7 h-4 z" fill="%234682B4"/><path d="M7,6 h2 v3 h-2 z" fill="%23FFF"/><path d="M7,7 h1 v3 h-1 z" fill="%23c42b2b"/><path d="M6,13 h1 v3 h-1 z M9,13 h1 v3 h-1 z" fill="%23333"/><path d="M10,9 h3 v3 h-3 z" fill="%238B4513"/></svg>');
         }
 
         .player.walking { animation: walk 0.2s steps(2) infinite; }
         @keyframes walk {
             0% { transform: translateY(0); }
-            100% { transform: translateY(-8px); }
+            100% { transform: translateY(-6px); }
         }
 
         .c-type {
@@ -359,7 +453,7 @@
             margin-bottom: 2.5rem;
         }
         .sys-box {
-            background-color: rgba(0,0,0,0.25);
+            background-color: rgba(0,0,0,0.3);
             border: 4px solid var(--text-muted);
             padding: 1.5rem;
         }
@@ -377,7 +471,7 @@
         }
 
         .fact-box {
-            background-color: rgba(242, 92, 56, 0.1);
+            background-color: rgba(0,0,0,0.15);
             border: 4px solid var(--accent);
             padding: 1.5rem;
             margin-top: auto;
@@ -399,68 +493,96 @@
             line-height: 1.4;
             color: var(--text-main);
         }
-	@media (max-width: 800px) {
-    body {
-        flex-direction: column;
-    }
-    .game-view {
-        height: 50vh;
-        flex: none;
-    }
-    .codex {
-        width: 100%;
-        height: 50vh;
-        border-left: none;
-        border-top: 6px solid var(--accent);
-        padding: 1.5rem;
-    }
-    .hud {
-        top: 1rem;
-        left: 1rem;
-    }
-    h1 {
-        font-size: 1rem;
-    }
-    .subtitle {
-        font-size: 0.8rem;
-    }
-    .party-hud {
-        top: 1rem;
-        right: 1rem;
-        min-width: auto;
-        max-width: 45%;
-        padding: 0.8rem;
-        transform: scale(0.85);
-        transform-origin: top right;
-    }
-    .controls {
-        bottom: 1rem;
-        left: 0;
-        width: 100%;
-        justify-content: center;
-    }
-    .btn {
-        padding: 0.8rem;
-        font-size: 0.7rem;
-    }
-    .c-title {
-        font-size: 1.2rem;
-    }
-    .c-act {
-        font-size: 1.3rem;
-    }
-    .c-desc, .c-bullets li, .sys-box-text, .fact-text {
-        font-size: 1.1rem;
-    }
-}
+        .modal-overlay {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0,0,0,0.85);
+                    z-index: 2000;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                
+                .modal-box {
+                    background: var(--bg-panel);
+                    border: 6px solid var(--accent);
+                    padding: 2.5rem;
+                    max-width: 700px;
+                    width: 90%;
+                    box-shadow: 16px 16px 0px rgba(0,0,0,0.8);
+                }
+                
+                .modal-title {
+                    font-family: var(--font-ui);
+                    font-size: 1.2rem;
+                    color: var(--accent);
+                    margin-bottom: 1.5rem;
+                    text-transform: uppercase;
+                    line-height: 1.5;
+                }
+                
+                .modal-text {
+                    font-size: 1.3rem;
+                    line-height: 1.5;
+                    color: var(--text-main);
+                }
+        @media (max-width: 800px) {
+            body { flex-direction: column; }
+            .game-view { height: 50vh; flex: none; }
+            .codex { width: 100%; height: 50vh; border-left: none; border-top: 4px solid var(--accent); padding: 1rem; }
+            .hud { top: 0.5rem; left: 0.5rem; }
+            h1 { font-size: 0.8rem; margin-bottom: 0.2rem; }
+            .subtitle { font-size: 0.6rem; }
+            .party-hud { top: 0.5rem; right: 0.5rem; min-width: auto; max-width: 55%; padding: 0.5rem; gap: 0.5rem; border-width: 2px; transform: scale(0.7); transform-origin: top right; }
+            .controls { bottom: 0.5rem; left: 0; width: 100%; justify-content: center; gap: 0.5rem; }
+            .btn { padding: 0.5rem 1rem; font-size: 0.6rem; border-width: 2px; }
+            .player { transform: scale(0.75);  margin-top: -140px;   margin-left: -64px; }
+            .node-core { width: 24px; height: 24px; border-width: 3px; }
+            .node-icon svg { width: 14px; height: 14px; }
+            .node-label { font-size: 0.65rem; margin-top: 0.4rem; white-space: normal; max-width: 110px; text-align: center; line-height: 1.15; }
+            .node-year { font-size: 0.55rem; margin-top: 0.2rem; }
+            .c-type { font-size: 0.6rem; margin-bottom: 0.5rem; }
+            .c-title { font-size: 1rem; margin-bottom: 0.5rem; }
+            .c-act { font-size: 0.9rem; margin-bottom: 0.8rem; padding-bottom: 0.5rem; border-bottom-width: 2px; }
+            .c-desc { font-size: 0.85rem; margin-bottom: 1rem; }
+            .c-bullets { margin-bottom: 1rem; }
+            .c-bullets li { font-size: 0.8rem; padding-left: 1.2rem; margin-bottom: 0.5rem; }
+            .c-bullets li::before { font-size: 0.7rem; }
+            .sys-blocks { gap: 0.8rem; margin-bottom: 1.5rem; }
+            .sys-box { padding: 0.8rem; border-width: 2px; }
+            .sys-box-title { font-size: 0.6rem; margin-bottom: 0.5rem; }
+            .sys-box-text { font-size: 0.85rem; }
+            .fact-box { padding: 0.8rem; border-width: 2px; }
+            .fact-box::before { font-size: 0.5rem; top: -9px; padding: 0 0.3rem; }
+            .fact-text { font-size: 0.85rem; }
+        }
     </style>
 </head>
-<body>
-
+<body data-theme="rep">
+        <div class="modal-overlay" id="welcome-modal">
+        <div class="modal-box">
+            <div class="modal-title">Archivářská edice: Připravované funkce</div>
+            <div class="modal-text">
+                Vítejte v časové ose. Aplikace bude brzy rozšířena o interaktivní mechaniky. Co vás čeká:
+                <br><br>
+                <ul class="c-bullets" style="margin-bottom: 0;">
+                    <li><strong>Pohyb:</strong> Klávesami A/D nebo šipkami se posouváte po časové ose.</li>
+                    <li><strong>Skryté prameny:</strong> Na mapě se objeví tajné symboly. Jejich prozkoumáním aktivujete historický kvíz.</li>
+                    <li><strong>Inventář:</strong> Za správné odpovědi získáte karty historických dokumentů do svého archivu.</li>
+                    <li><strong>Oprava historie:</strong> Některé uzly na ose budou zablokované (poškozené). Přetáhnutím správných karet z inventáře na uzel obnovíte historická data a odemknete další postup.</li>
+                </ul>
+            </div>
+            <button class="btn" style="width: 100%; margin-top: 2rem;" onclick="document.getElementById('welcome-modal').style.display='none'">ZAHÁJIT PROHLÍDKU</button>
+        </div>
+        </div>
     <div class="game-view" id="game-view">
+        <div class="grid-layer"></div>
+        <div class="scanlines"></div>
+        <div class="vignette"></div>
+
         <div class="hud">
             <h1>Ústavní cesta</h1>
-            <div class="subtitle">Verze 1.6</div>
+            <div class="subtitle">Pracovní Edice</div>
         </div>
 
         <div class="party-hud" id="party-hud">
@@ -512,21 +634,7 @@
                     "Zakotvení republikánské formy státu.", 
                     "Právní dualismus (rakouské právo v Čechách, uherské na Slovensku)."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezident", icon: "P", 
-                        members: [
-                            { name: "T. G. Masaryk", term: "1918–1920" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Karel Kramář", term: "1918–1919" },
-                            { name: "Vlastimil Tusar", term: "1919–1920" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezident", icon: "P", members: [ { name: "T. G. Masaryk", term: "1918–1920" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Karel Kramář", term: "1918–1919" }, { name: "Vlastimil Tusar", term: "1919–1920" } ] } ],
                 parliament: "Revoluční národní shromáždění. Jednokomorové. Původně mělo 256 členů, po rozšíření 270. Poslanci nebyli voleni, nýbrž kooptováni na základě tzv. Švehlova klíče, který kopíroval výsledky voleb do říšské rady z roku 1911.",
                 courts: "Byla plně převzata soustava z dob Rakouska-Uherska. Na vrcholu stál Nejvyšší soud se sídlem v Brně a Nejvyšší správní soud v Praze. Dále fungovaly 4 vrchní soudy a desítky krajských a okresních soudů.",
                 fact: "Základní text Recepční normy sepsal Alois Rašín údajně během jediné noci z 27. na 28. října a zákon měl pouhých pět článků.",
@@ -542,28 +650,7 @@
                     "Zřízení Ústavního soudu (vůbec prvního na světě, společně s Rakouskem).", 
                     "Všeobecné a rovné hlasovací právo nově přiznáno i ženám."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezidenti", icon: "P", 
-                        members: [
-                            { name: "T. G. Masaryk", term: "1920–1935" },
-                            { name: "Edvard Beneš", term: "1935–1938" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Vlastimil Tusar", term: "1920" },
-                            { name: "Jan Černý", term: "1920–21, 1926" },
-                            { name: "Edvard Beneš", term: "1921–1922" },
-                            { name: "Antonín Švehla", term: "1922–26, 1926–29" },
-                            { name: "František Udržal", term: "1929–1932" },
-                            { name: "Jan Malypetr", term: "1932–1935" },
-                            { name: "Milan Hodža", term: "1935–1938" },
-                            { name: "Jan Syrový", term: "1938" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezidenti", icon: "P", members: [ { name: "T. G. Masaryk", term: "1920–1935" }, { name: "Edvard Beneš", term: "1935–1938" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Vlastimil Tusar", term: "1920" }, { name: "Jan Černý", term: "1920–21, 1926" }, { name: "Edvard Beneš", term: "1921–1922" }, { name: "Antonín Švehla", term: "1922–26, 1926–29" }, { name: "František Udržal", term: "1929–1932" }, { name: "Jan Malypetr", term: "1932–1935" }, { name: "Milan Hodža", term: "1935–1938" }, { name: "Jan Syrový", term: "1938" } ] } ],
                 parliament: "Národní shromáždění republiky Československé. Dvoukomorové. Poslanecká sněmovna měla 300 poslanců (voleni na 6 let, aktivní volební právo od 21 let). Senát tvořilo 150 senátorů (voleni na 8 let, volební právo od 26 let).",
                 courts: "Nezávislé soudnictví. Vznikl Ústavní soud (7 členů). Dále fungovaly: 1 Nejvyšší soud, 1 Nejvyšší správní soud, 1 Volební soud. Pod nimi působily 4 vrchní soudy, 37 krajských soudů a 423 soudů okresních.",
                 fact: "Součástí ústavního pořádku byl i tzv. Jazykový zákon (č. 122/1920 Sb.), který stanovil jako státní a oficiální jazyk umělý 'jazyk československý'.",
@@ -579,22 +666,7 @@
                     "Ztráta zhruba 30 % území i obyvatelstva.",
                     "Přijetí zmocňovacího zákona (parlament rezignoval na svou moc)."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezidenti", icon: "P", 
-                        members: [
-                            { name: "Edvard Beneš", term: "1938 (abdikoval)" },
-                            { name: "Emil Hácha", term: "1938–1939" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Jan Syrový", term: "1938" },
-                            { name: "Rudolf Beran", term: "1938–1939" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezidenti", icon: "P", members: [ { name: "Edvard Beneš", term: "1938 (abdikoval)" }, { name: "Emil Hácha", term: "1938–1939" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Jan Syrový", term: "1938" }, { name: "Rudolf Beran", term: "1938–1939" } ] } ],
                 parliament: "Národní shromáždění bylo paralyzováno. Ztratilo desítky poslanců z odtržených území. Přijetím zmocňovacího zákona (č. 330/1938 Sb.) přešla zákonodárná moc formou nařízení přímo na vládu a prezidenta.",
                 courts: "Soudní soustava formálně zůstala zachována, avšak její teritoriální působnost se drasticky omezila ztrátou Sudet a části Slovenska i Podkarpatské Rusi.",
                 fact: "Ačkoliv byla ústavní kontinuita formálně zachována, reálně došlo ke zrušení parlamentarismu a zavedení vlády tvrdé ruky.",
@@ -610,34 +682,7 @@
                     "Aplikace teorie právní kontinuity exilovou vládou.",
                     "Likvidace občanských a lidských práv pro nepohodlné skupiny."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezidenti", icon: "P", 
-                        members: [
-                            { name: "Emil Hácha (Protektorát)", term: "1939–1945" },
-                            { name: "Edvard Beneš (Exil)", term: "1940–1945" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Rudolf Beran", term: "1939" },
-                            { name: "Alois Eliáš", term: "1939–1941" },
-                            { name: "Jaroslav Krejčí", term: "1942–1945" },
-                            { name: "Richard Bienert", term: "1945" },
-                            { name: "Jan Šrámek (Exil)", term: "1940–1945" }
-                        ] 
-                    },
-                    {
-                        role: "Říšští protektoři", icon: "Ř",
-                        members: [
-                            { name: "K. von Neurath", term: "1939–1943" },
-                            { name: "R. Heydrich (zast.)", term: "1941–1942" },
-                            { name: "K. Daluege (zast.)", term: "1942–1943" },
-                            { name: "Wilhelm Frick", term: "1943–1945" }
-                        ]
-                    }
-                ],
+                leaders: [ { role: "Prezidenti", icon: "P", members: [ { name: "Emil Hácha (Protektorát)", term: "1939–1945" }, { name: "Edvard Beneš (Exil)", term: "1940–1945" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Rudolf Beran", term: "1939" }, { name: "Alois Eliáš", term: "1939–1941" }, { name: "Jaroslav Krejčí", term: "1942–1945" }, { name: "Richard Bienert", term: "1945" }, { name: "Jan Šrámek (Exil)", term: "1940–1945" } ] }, { role: "Říšští protektoři", icon: "Ř", members: [ { name: "K. von Neurath", term: "1939–1943" }, { name: "R. Heydrich (zast.)", term: "1941–1942" }, { name: "K. Daluege (zast.)", term: "1942–1943" }, { name: "Wilhelm Frick", term: "1943–1945" } ] } ],
                 parliament: "Domácí parlament byl rozpuštěn. V exilu v Londýně byla roku 1940 zřízena Státní rada Československá (měla až 50 členů) jako poradní orgán prezidenta a kvazi-parlamentní těleso.",
                 courts: "Došlo k dualismu práva. Působily zde soudy německé (řešily záležitosti Říše a jejích občanů) a soudy protektorátní s omezenou kompetencí pouze pro obyvatelstvo bez říšského občanství.",
                 fact: "Prezident Emil Hácha byl k podpisu dokumentu vydávajícího zemi Říši donucen pod hrozbou masivního bombardování Prahy.",
@@ -653,21 +698,7 @@
                     "Obnovení právního pořádku Československa.", 
                     "Zúžení politického spektra jen na strany tzv. Národní fronty."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezident", icon: "P", 
-                        members: [
-                            { name: "Edvard Beneš", term: "1945–1948" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Zdeněk Fierlinger", term: "1945–1946" },
-                            { name: "Klement Gottwald", term: "1946–1948" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezident", icon: "P", members: [ { name: "Edvard Beneš", term: "1945–1948" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Zdeněk Fierlinger", term: "1945–1946" }, { name: "Klement Gottwald", term: "1946–1948" } ] } ],
                 parliament: "Nejprve Prozatímní národní shromáždění (300 členů, jednokomorové). Po volbách v roce 1946 jej nahradilo Ústavodárné národní shromáždění (300 členů), jehož hlavním úkolem bylo sepsat novou ústavu.",
                 courts: "Byla plně obnovena předválečná soustava soudů. K tomu navíc vznikl 1 Národní soud a 138 Mimořádných lidových soudů, určených k přísnému a rychlému trestání válečných zločinců a kolaborantů.",
                 fact: "Většina dekretů prezidenta republiky byla následně dodatečně ratihabována (schválena zákonem) Prozatímním národním shromážděním.",
@@ -683,25 +714,7 @@
                     "Likvidace ochrany soukromého vlastnictví ve prospěch státního.", 
                     "Asymetrický model státní správy."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezidenti", icon: "P", 
-                        members: [
-                            { name: "Edvard Beneš", term: "1948 (abdikoval)" },
-                            { name: "Klement Gottwald", term: "1948–1953" },
-                            { name: "Antonín Zápotocký", term: "1953–1957" },
-                            { name: "Antonín Novotný", term: "1957–1960" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Klement Gottwald", term: "1948" },
-                            { name: "Antonín Zápotocký", term: "1948–1953" },
-                            { name: "Viliam Široký", term: "1953–1960" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezidenti", icon: "P", members: [ { name: "Edvard Beneš", term: "1948 (abdikoval)" }, { name: "Klement Gottwald", term: "1948–1953" }, { name: "Antonín Zápotocký", term: "1953–1957" }, { name: "Antonín Novotný", term: "1957–1960" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Klement Gottwald", term: "1948" }, { name: "Antonín Zápotocký", term: "1948–1953" }, { name: "Viliam Široký", term: "1953–1960" } ] } ],
                 parliament: "Národní shromáždění republiky Československé. Jednokomorové. Tvořilo jej 300 poslanců, kteří se volili na 6 let na základě jednotné kandidátky Národní fronty (bez skutečné politické soutěže).",
                 courts: "Došlo k tzv. zlidovění soudnictví. O osudech lidí rozhodovali spolu s profesionály laičtí 'soudci z lidu'. Ústavní soud nebyl nikdy sestaven, Nejvyšší správní soud byl roku 1952 zrušen.",
                 fact: "Prezident Edvard Beneš tuto ústavu odmítl podepsat a na protest v červnu 1948 abdikoval. Ústavu následně podepsal Klement Gottwald.",
@@ -717,23 +730,7 @@
                     "Změna názvu státu na Československá socialistická republika.", 
                     "Masivní centralizace moci a zrušení Sboru pověřenců."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezidenti", icon: "P", 
-                        members: [
-                            { name: "Antonín Novotný", term: "1960–1968" },
-                            { name: "Ludvík Svoboda", term: "1968" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Viliam Široký", term: "1960–1963" },
-                            { name: "Jozef Lenárt", term: "1963–1968" },
-                            { name: "Oldřich Černík", term: "1968" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezidenti", icon: "P", members: [ { name: "Antonín Novotný", term: "1960–1968" }, { name: "Ludvík Svoboda", term: "1968" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Viliam Široký", term: "1960–1963" }, { name: "Jozef Lenárt", term: "1963–1968" }, { name: "Oldřich Černík", term: "1968" } ] } ],
                 parliament: "Národní shromáždění ČSSR. Jednokomorové těleso o 300 poslancích s funkčním obdobím zkráceným na 4 roky. Rozhodovalo výhradně podle směrnic ústředního výboru KSČ.",
                 courts: "Soudnictví bylo zcela podřízeno ideologii. Tvořil jej Nejvyšší soud, krajské a okresní soudy. Roku 1961 byly zřízeny i tzv. Místní lidové soudy pro rychlé řešení drobných provinění pracujících.",
                 fact: "Spolu s novou ústavou byl změněn i státní znak. Tradiční český lev ztratil zlatou korunku, dostal rudou hvězdu a pavézu s křiváňským ohněm.",
@@ -749,23 +746,7 @@
                     "Zavedení složitého mechanismu zákazu majorizace.", 
                     "Vytvoření samostatných republikových vlád."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezidenti", icon: "P", 
-                        members: [
-                            { name: "Ludvík Svoboda", term: "1968–1975" },
-                            { name: "Gustáv Husák", term: "1975–1989" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Oldřich Černík", term: "1968–1970" },
-                            { name: "Lubomír Štrougal", term: "1970–1988" },
-                            { name: "Ladislav Adamec", term: "1988–1989" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezidenti", icon: "P", members: [ { name: "Ludvík Svoboda", term: "1968–1975" }, { name: "Gustáv Husák", term: "1975–1989" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Oldřich Černík", term: "1968–1970" }, { name: "Lubomír Štrougal", term: "1970–1988" }, { name: "Ladislav Adamec", term: "1988–1989" } ] } ],
                 parliament: "Federální shromáždění. Sněmovna lidu (200 poslanců). Sněmovna národů (150 poslanců - 75 z ČR, 75 ze SR). Dále fungovaly republikové národní rady (Česká měla 200 poslanců, Slovenská 150).",
                 courts: "Struktura se federalizovala: existoval 1 Nejvyšší soud ČSSR a vedle něj Nejvyšší soud ČSR a SSR. Formálně byl zakotven Ústavní soud, ale do roku 1989 reálně nevznikl.",
                 fact: "Federalizace byla jedinou významnou politickou reformou z období Pražského jara, která přežila srpnovou vojenskou invazi.",
@@ -781,21 +762,7 @@
                     "Přijetí Listiny základních práv a svobod (1991).",
                     "Odstranění cenzury a obnova plurality politických stran."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezident", icon: "P", 
-                        members: [
-                            { name: "Václav Havel", term: "1989–1992" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Marián Čalfa", term: "1989–1992" },
-                            { name: "Jan Stráský", term: "1992" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezident", icon: "P", members: [ { name: "Václav Havel", term: "1989–1992" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Marián Čalfa", term: "1989–1992" }, { name: "Jan Stráský", term: "1992" } ] } ],
                 parliament: "Ústavní architektura se nezměnila, zůstalo Federální shromáždění. Změnilo se však složení – odstoupivší komunistické poslance nahradili v procesu zvaném 'kooptace' zástupci demokratické opozice.",
                 courts: "Byl zahájen návrat k nezávislosti soudní moci. Zrušily se Místní lidové soudy i deformovaný dohled prokuratury nad soudy. Postupně se formovaly standardní záruky nezávislosti soudců.",
                 fact: "Václav Havel byl v prosinci 1989 zvolen prezidentem ještě původním, komunisty ovládaným Federálním shromážděním.",
@@ -811,41 +778,26 @@
                     "Návrat ke klasické dělbě moci a brzdám/protiváhám.", 
                     "Zřízení silného a nezávislého Ústavního soudu."
                 ],
-                leaders: [
-                    { 
-                        role: "Prezidenti", icon: "P", 
-                        members: [
-                            { name: "Václav Havel", term: "1993–2003" },
-                            { name: "Václav Klaus", term: "2003–2013" },
-                            { name: "Miloš Zeman", term: "2013–2023" },
-                            { name: "Petr Pavel", term: "2023–nyní" }
-                        ] 
-                    },
-                    { 
-                        role: "Předsedové vlád", icon: "V", 
-                        members: [
-                            { name: "Václav Klaus", term: "1993–1998" },
-                            { name: "Josef Tošovský", term: "1998" },
-                            { name: "Miloš Zeman", term: "1998–2002" },
-                            { name: "Vladimír Špidla", term: "2002–2004" },
-                            { name: "Stanislav Gross", term: "2004–2005" },
-                            { name: "Jiří Paroubek", term: "2005–2006" },
-                            { name: "Mirek Topolánek", term: "2006–2009" },
-                            { name: "Jan Fischer", term: "2009–2010" },
-                            { name: "Petr Nečas", term: "2010–2013" },
-                            { name: "Jiří Rusnok", term: "2013–2014" },
-                            { name: "Bohuslav Sobotka", term: "2014–2017" },
-                            { name: "Andrej Babiš", term: "2017–2021" },
-                            { name: "Petr Fiala", term: "2021–nyní" }
-                        ] 
-                    }
-                ],
+                leaders: [ { role: "Prezidenti", icon: "P", members: [ { name: "Václav Havel", term: "1993–2003" }, { name: "Václav Klaus", term: "2003–2013" }, { name: "Miloš Zeman", term: "2013–2023" }, { name: "Petr Pavel", term: "2023–nyní" } ] }, { role: "Předsedové vlád", icon: "V", members: [ { name: "Václav Klaus", term: "1993–1998" }, { name: "Josef Tošovský", term: "1998" }, { name: "Miloš Zeman", term: "1998–2002" }, { name: "Vladimír Špidla", term: "2002–2004" }, { name: "Stanislav Gross", term: "2004–2005" }, { name: "Jiří Paroubek", term: "2005–2006" }, { name: "Mirek Topolánek", term: "2006–2009" }, { name: "Jan Fischer", term: "2009–2010" }, { name: "Petr Nečas", term: "2010–2013" }, { name: "Jiří Rusnok", term: "2013–2014" }, { name: "Bohuslav Sobotka", term: "2014–2017" }, { name: "Andrej Babiš", term: "2017–2021" }, { name: "Petr Fiala", term: "2021–2025" }, { name: "Andrej Babiš", term: "2025–nyní" } ] } ],
                 parliament: "Parlament České republiky má dvě komory. Poslanecká sněmovna: 200 poslanců volených na 4 roky poměrným systémem. Senát: 81 senátorů volených na 6 let většinovým systémem.",
                 courts: "Ústavní soud tvoří 15 soudců volených na 10 let. Článkovou soustavu tvoří 1 Nejvyšší soud, 1 Nejvyšší správní soud, 2 vrchní soudy, 8 krajských soudů a 86 okresních/obvodních soudů.",
                 fact: "Ačkoliv Ústava počítala se Senátem již od roku 1993, horní komora byla naplněna a zahájila činnost až na podzim roku 1996.",
                 isLaw: true 
             }
         ];
+
+        function getIconForYear(year) {
+            if (year === "1920–1938") {
+                return `<div class="node-icon"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" fill="currentColor"><path d="M0,2h1v3H0z M1,3h1v2H1z M2,4h1v1H2z M3,2h2v1H3z M3,3h2v2H3z M5,4h1v1H5z M6,3h1v2H6z M7,2h1v3H7z M1,6h6v1H1z"/></svg></div>`;
+            }
+            if (year === "1948–1960") {
+                return `<div class="node-icon"><svg viewBox="0 0 8 8" shape-rendering="crispEdges" fill="var(--accent)"><path d="M3,0h2v2H3z M1,2h6v2H1z M2,4h4v1H2z M1,5h2v1H1z M5,5h2v1H5z M0,6h2v1H0z M6,6h2v1H6z"/></svg></div>`;
+            }
+            if (year === "1993–nyní") {
+                return `<div class="node-icon"><svg viewBox="0 0 9 8" shape-rendering="crispEdges" fill="currentColor"><path d="M4,0h1v1H4z M2,1h5v1H2z M0,2h9v1H0z M1,3h1v3H1z M4,3h1v3H4z M7,3h1v3H7z M0,6h9v2H0z"/></svg></div>`;
+            }
+            return '';
+        }
 
         const gameView = document.getElementById('game-view');
         const world = document.getElementById('world');
@@ -892,9 +844,9 @@
                 node.style.top = `${item.y}px`;
                 
                 node.innerHTML = `
-                    <div class="node-year">${item.year}</div>
-                    <div class="node-core"></div>
+                    <div class="node-core">${getIconForYear(item.year)}</div>
                     <div class="node-label">${item.title}</div>
+                    <div class="node-year">${item.year}</div>
                 `;
                 
                 node.addEventListener('click', () => {
@@ -918,6 +870,26 @@
                 if (lineObj.index < currentIndex) lineObj.element.classList.add('visited');
                 else lineObj.element.classList.remove('visited');
             });
+
+            // Dynamická změna barevného tématu a avatara podle epochy
+            let theme = 'mod';
+            let avatarClass = 'avatar-mod'; 
+            
+            if (currentIndex <= 1) {
+                theme = 'rep';
+                avatarClass = 'avatar-rep';
+            }
+            else if (currentIndex >= 2 && currentIndex <= 4) {
+                theme = 'war';
+                avatarClass = 'avatar-war';
+            }
+            else if (currentIndex >= 5 && currentIndex <= 7) {
+                theme = 'soc';
+                avatarClass = 'avatar-soc';
+            }
+            
+            document.body.setAttribute('data-theme', theme);
+            player.className = 'player ' + avatarClass;
 
             const data = timeline[currentIndex];
             
@@ -994,10 +966,13 @@
             
             player.classList.add('walking');
             
+            const isMobile = window.innerWidth <= 800;
+            const currentScale = isMobile ? 0.75 : 1;
+
             if (timeline[index].x < timeline[currentIndex].x) {
-                player.style.transform = 'scaleX(-1)';
+                player.style.transform = `scale(${-currentScale}, ${currentScale})`;
             } else if (timeline[index].x > timeline[currentIndex].x) {
-                player.style.transform = 'scaleX(1)';
+                player.style.transform = `scale(${currentScale}, ${currentScale})`;
             }
 
             currentIndex = index;
@@ -1046,7 +1021,6 @@
                 updateUI();
             }, 100);
         }, 50);
-
     </script>
 </body>
 </html>
