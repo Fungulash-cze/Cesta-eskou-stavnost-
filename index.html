@@ -984,6 +984,475 @@
         .close-lightbox { margin-top: 1.5rem; background: var(--bg-base); border: 4px solid var(--text-muted); color: var(--text-main); font-family: var(--font-ui); padding: 1rem 2rem; cursor: pointer; transition: 0.2s; box-shadow: 4px 4px 0 rgba(0,0,0,0.8);}
         .close-lightbox:hover { border-color: var(--accent); color: var(--bg-base); background-color: var(--accent); transform: translate(2px, 2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.8);}
 
+        /* ================= RPG DILEMA EVENT ZONES ================= */
+        .dilemma-zone {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            z-index: 15;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s;
+            user-select: none;
+        }
+
+        .dilemma-zone:hover {
+            transform: translate(-50%, -50%) scale(1.08);
+        }
+
+        .dilemma-card-frame {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(33, 38, 45, 0.95) 0%, rgba(13, 17, 23, 0.98) 100%);
+            border: 4px solid #d97746;
+            box-shadow: 0 0 20px rgba(217, 119, 70, 0.35), 8px 8px 0 rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem;
+            position: relative;
+            clip-path: polygon(14% 0, 86% 0, 100% 14%, 100% 86%, 86% 100%, 14% 100%, 0 86%, 0 14%);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .dilemma-zone:hover .dilemma-card-frame {
+            border-color: #ffd700;
+            box-shadow: 0 0 28px rgba(255, 215, 0, 0.6), 10px 10px 0 rgba(0, 0, 0, 0.9);
+        }
+
+        .dilemma-pulse-badge {
+            position: absolute;
+            top: -14px;
+            background-color: #c42b2b;
+            color: #ffffff;
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            padding: 0.3rem 0.6rem;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 10px rgba(196, 43, 43, 0.8), 2px 2px 0 #000;
+            letter-spacing: 1px;
+            animation: dilemmaPulse 1.6s infinite ease-in-out;
+            pointer-events: none;
+            white-space: nowrap;
+            z-index: 2;
+        }
+
+        @keyframes dilemmaPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 8px rgba(196, 43, 43, 0.6), 2px 2px 0 #000;
+            }
+            50% {
+                transform: scale(1.08);
+                box-shadow: 0 0 18px rgba(255, 60, 60, 1), 3px 3px 0 #000;
+            }
+        }
+
+        .dilemma-icon-box {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            margin-bottom: 0.4rem;
+        }
+
+        .dilemma-icon-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.4));
+        }
+
+        .dilemma-caption {
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            color: var(--text-main);
+            text-align: center;
+            line-height: 1.25;
+            max-width: 120px;
+        }
+
+        .dilemma-zone.solved .dilemma-card-frame {
+            border-color: #2ea043;
+            box-shadow: 0 0 12px rgba(46, 160, 67, 0.4), 6px 6px 0 rgba(0, 0, 0, 0.8);
+            opacity: 0.85;
+        }
+
+        .dilemma-zone.solved .dilemma-pulse-badge {
+            background-color: #2ea043;
+            border-color: #a6f3b7;
+            animation: none;
+            box-shadow: 0 0 6px rgba(46, 160, 67, 0.6), 2px 2px 0 #000;
+        }
+
+        /* ================= MODÁLNÍ OKNO RPG DIALOGU (TERMINÁL TEXTOVKA) ================= */
+        .dilemma-dialog-box {
+            background-color: #0d120e;
+            background-image: 
+                linear-gradient(to bottom, rgba(30, 45, 30, 0.25) 0%, rgba(10, 15, 10, 0.45) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 4px);
+            border: 4px solid #2ea043;
+            box-shadow: 0 0 35px rgba(46, 160, 67, 0.3), 16px 16px 0px rgba(0, 0, 0, 0.85);
+            padding: 2.2rem;
+            max-width: 820px;
+            width: 94%;
+            max-height: 88vh;
+            overflow-y: auto;
+            position: relative;
+            color: #d1f7d6;
+        }
+
+        .dilemma-dialog-box::-webkit-scrollbar { width: 8px; }
+        .dilemma-dialog-box::-webkit-scrollbar-track { background: #080c09; border-left: 1px solid #2ea043; }
+        .dilemma-dialog-box::-webkit-scrollbar-thumb { background: #2ea043; }
+
+        .dilemma-term-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px dashed #2ea043;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .term-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .term-status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #39ff14;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #39ff14;
+            animation: terminalBlink 1.2s infinite;
+        }
+
+        .term-header-title {
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            color: #39ff14;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .dilemma-term-close {
+            background: transparent;
+            border: 2px solid #2ea043;
+            color: #39ff14;
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .dilemma-term-close:hover {
+            background-color: #2ea043;
+            color: #000;
+        }
+
+        .dilemma-header-row {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dilemma-avatar-icon {
+            width: 64px;
+            height: 64px;
+            background-color: #141c14;
+            border: 3px solid #2ea043;
+            box-shadow: 0 0 10px rgba(46, 160, 67, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px;
+        }
+
+        .dilemma-avatar-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+
+        .dilemma-title-area {
+            flex: 1;
+        }
+
+        .dilemma-sub-tag {
+            font-family: var(--font-ui);
+            font-size: 0.58rem;
+            color: #ffd700;
+            margin-bottom: 0.4rem;
+            letter-spacing: 1px;
+        }
+
+        .dilemma-modal-title {
+            font-family: var(--font-ui);
+            font-size: 1.2rem;
+            color: #ffffff;
+            line-height: 1.4;
+            text-shadow: 2px 2px 0px #000;
+        }
+
+        .dilemma-context-box {
+            background: rgba(15, 25, 17, 0.7);
+            border: 2px solid #2ea043;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 20px rgba(46, 160, 67, 0.15);
+        }
+
+        .dilemma-context-label {
+            font-family: var(--font-ui);
+            font-size: 0.62rem;
+            color: #ffd700;
+            margin-bottom: 0.6rem;
+            letter-spacing: 1px;
+        }
+
+        .dilemma-context-text {
+            font-size: 1.35rem;
+            line-height: 1.5;
+            color: #e5ffe7;
+            font-family: var(--font-text);
+        }
+
+        .dilemma-prompt-line {
+            font-family: var(--font-ui);
+            font-size: 0.68rem;
+            color: #39ff14;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .prompt-arrow {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .dilemma-choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .dilemma-choice-btn {
+            background-color: #121a13;
+            border: 2px solid #2ea043;
+            color: #c9f5d0;
+            font-family: var(--font-ui);
+            font-size: 0.72rem;
+            padding: 1.1rem 1.3rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.15s;
+            line-height: 1.45;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            touch-action: manipulation;
+            width: 100%;
+        }
+
+        .dilemma-choice-btn .choice-num {
+            color: #ffd700;
+            flex-shrink: 0;
+            font-size: 0.8rem;
+            margin-top: 0.15rem;
+        }
+
+        .choice-content {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            width: 100%;
+        }
+
+        .choice-title-tag {
+            color: #ffd700;
+            font-family: var(--font-ui);
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .choice-desc {
+            font-size: 1.25rem;
+            line-height: 1.45;
+            font-family: var(--font-text);
+            color: #d1f7d6;
+        }
+
+        .dilemma-choice-btn:hover:not(:disabled) {
+            background-color: #2ea043;
+            color: #000000;
+            border-color: #39ff14;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+        }
+
+        .dilemma-choice-btn:hover:not(:disabled) .choice-num,
+        .dilemma-choice-btn:hover:not(:disabled) .choice-title-tag,
+        .dilemma-choice-btn:hover:not(:disabled) .choice-desc {
+            color: #000000;
+        }
+
+        .dilemma-choice-btn.selected-choice {
+            background-color: #142216;
+            border-color: #39ff14;
+            color: #ffffff;
+            cursor: default;
+            box-shadow: 0 0 18px rgba(57, 255, 20, 0.35);
+        }
+
+        .dilemma-choice-btn.selected-choice .choice-num {
+            color: #39ff14;
+        }
+
+        .dilemma-consequence-card {
+            background: rgba(14, 25, 16, 0.96);
+            border: 2px dashed #39ff14;
+            padding: 1.6rem;
+            margin-top: 1rem;
+            box-shadow: 0 0 30px rgba(57, 255, 20, 0.25);
+            animation: termFadeIn 0.35s ease-out;
+        }
+
+        @keyframes termFadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .consequence-label {
+            font-family: var(--font-ui);
+            font-size: 0.68rem;
+            color: #ffd700;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .consequence-text {
+            font-family: var(--font-text);
+            font-size: 1.3rem;
+            line-height: 1.55;
+            color: #e5ffe7;
+        }
+
+        .cons-status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.35rem 0.8rem;
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-bottom: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .cons-status-badge.accepted {
+            background: rgba(46, 160, 67, 0.25);
+            color: #39ff14;
+            border: 1px solid #2ea043;
+        }
+
+        .cons-status-badge.rejected {
+            background: rgba(217, 119, 70, 0.25);
+            color: #ffd700;
+            border: 1px solid #d97746;
+        }
+
+        .cons-section {
+            margin-top: 0.9rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed rgba(46, 160, 67, 0.4);
+        }
+
+        .cons-section-title {
+            font-family: var(--font-ui);
+            font-size: 0.62rem;
+            color: #ffd700;
+            letter-spacing: 0.6px;
+            margin-bottom: 0.4rem;
+            text-transform: uppercase;
+        }
+
+        .cons-section-p {
+            font-family: var(--font-text);
+            font-size: 1.25rem;
+            line-height: 1.55;
+            color: #e5ffe7;
+            margin-bottom: 0.5rem;
+        }
+
+        .cons-bullet-list {
+            margin: 0.4rem 0 0.5rem 1.4rem;
+            padding: 0;
+            font-family: var(--font-text);
+            font-size: 1.22rem;
+            line-height: 1.5;
+            color: #d1f7d6;
+        }
+
+        .cons-bullet-list li {
+            margin-bottom: 0.35rem;
+        }
+
+        .dilemma-footer {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1.5rem;
+            border-top: 2px dashed #2ea043;
+            padding-top: 1.5rem;
+        }
+
+        .dilemma-close-btn {
+            background-color: #2ea043;
+            border: 3px solid #39ff14;
+            color: #000000;
+            font-family: var(--font-ui);
+            font-size: 0.72rem;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+            transition: all 0.15s;
+            font-weight: bold;
+        }
+
+        .dilemma-close-btn:hover {
+            background-color: #39ff14;
+            color: #000;
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+        }
+
         /* Mobilní prvky skryté ve výchozím desktopovém zobrazení */
         .mobile-nav-bar,
         .mobile-node-banner,
@@ -1409,6 +1878,16 @@
             .reward-content { width: min(290px, 85vw); height: min(400px, 62vh); }
             .card-lightbox-img { max-height: 60vh; max-width: 90vw; }
             .card-lightbox-text { font-size: 0.95rem; }
+            .dilemma-zone { width: 120px; height: 120px; }
+            .dilemma-icon-box { width: 48px; height: 48px; }
+            .dilemma-caption { font-size: 0.46rem; max-width: 95px; }
+            .dilemma-pulse-badge { font-size: 0.45rem; top: -11px; padding: 0.2rem 0.4rem; }
+            .dilemma-dialog-box { padding: 1.2rem; max-width: 95vw; max-height: 90vh; }
+            .dilemma-modal-title { font-size: 0.95rem; }
+            .dilemma-context-text { font-size: 1rem; }
+            .dilemma-choice-btn { font-size: 0.62rem; padding: 0.8rem 1rem; }
+            .consequence-text { font-size: 1.05rem; }
+            .dilemma-close-btn { font-size: 0.62rem; padding: 0.8rem 1.4rem; }
         }
     </style>
 </head>
@@ -1588,6 +2067,47 @@
             
             <div class="lore-footer" style="justify-content: center;">
                 <button class="lore-close-btn" onclick="closeLoreModal()">[ ZAVŘÍT DOKUMENT ]</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modální okno RPG dialogu (historické dilema) -->
+    <div class="modal-overlay" id="dilemma-modal" onclick="onDilemmaOverlayClick(event)">
+        <div class="dilemma-dialog-box" onclick="event.stopPropagation()">
+            <div class="dilemma-term-header">
+                <div class="term-header-left">
+                    <span class="term-status-dot"></span>
+                    <span class="term-header-title">HISTORICKÉ ROZHODNUTÍ // TERMINÁL ČSR</span>
+                </div>
+                <button class="dilemma-term-close" onclick="closeDilemma()" title="Zavřít okno">[✕]</button>
+            </div>
+            
+            <div class="dilemma-header-row">
+                <div class="dilemma-avatar-icon">
+                    <img id="dilemma-img" src="" alt="Dilema" onerror="this.style.display='none'">
+                </div>
+                <div class="dilemma-title-area">
+                    <div class="dilemma-sub-tag">ROZCESTÍ PRVNÍ REPUBLIKY</div>
+                    <h2 class="dilemma-modal-title" id="dilemma-title">Název dilematu</h2>
+                </div>
+            </div>
+
+            <!-- Box kontextu situace -->
+            <div class="dilemma-context-box">
+                <div class="dilemma-context-label">► HISTORICKÁ SITUACE A NÁTLAK:</div>
+                <div class="dilemma-context-text" id="dilemma-context">Kontext...</div>
+            </div>
+
+            <div class="dilemma-prompt-line">
+                <span class="prompt-arrow">&gt;&gt;</span> ZVOLTE POSTUP ZÁKONODÁRCE:
+            </div>
+
+            <!-- Tlačítka voleb a následků -->
+            <div class="dilemma-choices-container" id="dilemma-choices"></div>
+
+            <!-- Spodní lišta po vyhodnocení -->
+            <div class="dilemma-footer" id="dilemma-footer">
+                <button class="dilemma-close-btn" onclick="closeDilemma()">Zavřít</button>
             </div>
         </div>
     </div>
@@ -2203,6 +2723,202 @@
             }
         ];
 
+        // Systém RPG dilemat (Historické události a rozcestí První republiky)
+        const dilemmas = [
+            {
+                id: 'dilemma_jazyk',
+                x: 620,
+                y: 1320,
+                icon: 'dilema_jazyk.png',
+                title: 'Jazyk a národ (1920): Otázka identity mladého státu',
+                subTag: 'ÚSTAVODÁRNÝ BOJ V REVOLUČNÍM NÁRODNÍM SHROMÁŽDĚNÍ',
+                context: `
+                    <p class="cons-section-p"><strong>Leden a únor 1920.</strong> Revoluční národní shromáždění finišuje práce na definitivní Ústavní listině (č. 121/1920 Sb.) a doprovodném jazykovém zákoně. V jednacím sále panuje mimořádné napětí. Z 13,6 milionu obyvatel nového státu tvoří přes 3,1 milionu Němci (23,4 %), dalších 745 000 Maďaři (5,6 %), statisíce Rusíni a Židé.</p>
+                    <p class="cons-section-p">Německá ani maďarská reprezentace nebyla do Revolučního národního shromáždění vůbec kooptována a otevřeně zpochybňuje legitimitu Československa. Mírová smlouva ze Saint-Germain-en-Laye přitom zavazuje republiku k přísným mezinárodním garancím práv menšin. Zároveň však na pařížské mírové konferenci Edvard Beneš a T. G. Masaryk obhajovali vznik státu na principu národního sebeurčení většinového národa.</p>
+                    <p class="cons-section-p">Pokud by se Češi a Slováci počítali jako dva samostatné národy, tvořili by Češi pouze zhruba 50 % obyvatelstva a Němci by byli druhou nejpočetnější skupinou s nezvratným nárokem na status druhého státotvorného národa. <em>Jak má ústavodárce nadefinovat národní a jazykový charakter Československa, aby zajistil vnitřní stabilitu i mezinárodní uznání?</em></p>
+                `,
+                choices: [
+                    {
+                        title: 'Etnicky český národní stát s podřízeným statusem menšin',
+                        text: 'Definovat Československo striktně jako obnovený historický stát českého národa s češtinou jako jediným státním jazykem. Ostatním etnikům přiznat pouze základní občanská práva bez jazykové rovnoprávnosti na úřadech a bez jakékoliv samosprávy.',
+                        consequence: `
+                            <div class="cons-status-badge rejected">✖ ZAMÍTNUTO PRO EXTRÉMNÍ RIZIKO MEZINÁRODNÍ IZOLACE A REVOLTY</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">DOBOVÝ POLITICKÝ ROZBOR:</div>
+                                <p class="cons-section-p">Tento radikálně nacionální směr prosazovala část pravicových národních demokratů kolem Karla Kramáře. Vedení státu (T. G. Masaryk, Edvard Beneš a Antonín Švehla) jej však kategoricky odmítlo z několika fatálních důvodů:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Mezinárodní krach:</strong> Porušení minoritní smlouvy ze Saint-Germain by vedlo k okamžité ztrátě garancí dohodových velmocí (Francie, Británie) a žalobám u Společnosti národů.</li>
+                                    <li><strong>Hrozba ozbrojeného povstání:</strong> V pohraničí (Sudetenland, Deutschböhmen) by otevřený útisk vyvolal novou vlnu nepokojů a ozbrojený střet s armádou, který by mohl destabilizovat celé hranice.</li>
+                                    <li><strong>Rozkol se Slováky:</strong> Ignorování svébytnosti Slovenska by vedlo k okamžitému rozkolu s Hlinkovou slovenskou lidovou stranou a ohrožení existence společného státu.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        title: 'Konstrukt jednotného „československého národa“ a jazykový zákon',
+                        text: 'Zakotvit v preambuli ústavy a zákoně č. 122/1920 Sb. státoprávní konstrukci jednotného „československého národa“ s jazykem československým ve dvou zněních (českém a slovenském), doplněnou o ochranu menšin v obcích a okresech s více než 20 % jinonárodního obyvatelstva.',
+                        consequence: `
+                            <div class="cons-status-badge accepted">✔ PŘIJATO JAKO ZÁKON Č. 122/1920 SB. A PREAMBULE ÚSTAVY</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">HISTORICKÁ REALITA A LEGISLATIVNÍ ŘEŠENÍ:</div>
+                                <p class="cons-section-p">Právník Jiří Hoetzel a ministerský předseda Antonín Švehla prosadili pragmatický, avšak oboustranně křehký kompromis, který se stal jedním ze základních pilířů první republiky:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Vytvoření 65% státotvorné většiny:</strong> Sloučením Čechů a Slováků do jednoho fiktivního národa se z více než 3 milionů Němců (23,4 %) stali menšinoví občané, čímž byl formálně vyřešen jejich nárok na spoluvládnutí.</li>
+                                    <li><strong>Progresivní 20% klausule:</strong> Zákon zaručil menšinám právo užívat mateřský jazyk u soudů, úřadů a ve školství všude tam, kde dosahovaly alespoň 20 % obyvatelstva soudního okresu. Ve své době šlo o jeden z nejvelkorysejších menšinových řádů v Evropě.</li>
+                                    <li><strong>Dlouhodobá daň a rizika:</strong> Německé obyvatelstvo se s rolí menšiny nikdy vnitřně nesmířilo, což ve 30. letech zneužila Henleinova SdP. Zároveň koncept čechoslovakismu vyvolával narůstající odpor slovenských autonomistů požadujících uznání samostatného slovenského národa.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        title: 'Důsledná národnostní federace po švýcarském vzoru (Kantonální model)',
+                        text: 'Přetvořit Československo na kantonální federaci rovnocenných národů (českého, slovenského, německého, maďarského a rusínského) s rozsáhlou teritoriální a jazykovou samosprávou a spolkovým parlamentem.',
+                        consequence: `
+                            <div class="cons-status-badge rejected">✖ ZAMÍTNUTO ZE STRACHU Z OKAMŽITÉHO ROZPADU REPUBLIKY</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">DOBOVÝ POLITICKÝ ROZBOR:</div>
+                                <p class="cons-section-p">Tento model navrhovali němečtí sociální demokraté v čele s Josefem Seligerem. Přestože na papíře působil demokraticky, v reálných podmínkách střední Evropy roku 1920 byl neprůchodný:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Bezprostřední hrozba iredenty:</strong> Německé kantony v pohraničí sousedily přímo s Německem a Rakouskem. Česká politická reprezentace se právem obávala, že autonomní německá území by se při první mezinárodní krizi odtrhla a připojila k Berlínu či Vídni.</li>
+                                    <li><strong>Geografická nesouvislost:</strong> Německé osídlení netvořilo souvislý celek, nýbrž osm oddělených jazykových ostrovů a příhraničních pásů táhnoucích se od Chebska po Hlučínsko, což technicky vylučovalo funkční správní kantonizaci.</li>
+                                    <li><strong>Poválečná nedůvěra:</strong> Po čtyřech letech světové války nebyla česká společnost ochotna přenechat bývalým vládcům monarchie rovné spolurozhodování o obraně a zahraniční politice mladého státu.</li>
+                                </ul>
+                            </div>
+                        `
+                    }
+                ],
+                solved: false
+            },
+            {
+                id: 'dilemma_ochrana',
+                x: 820,
+                y: 1360,
+                icon: 'dilema_ochrana.png',
+                title: 'Ochrana republiky (1923): Atentát na Rašína a obrana demokracie',
+                subTag: 'BEZPEČNOSTNÍ KRIZE A HRANICE DEMOKRATICKÉHO PRÁVA',
+                context: `
+                    <p class="cons-section-p"><strong>5. ledna 1923.</strong> Před svým domem v Žitné ulici v Praze je zákeřně postřelen ministr financí a hlavní architekt měnové stability Alois Rašín. Atentátníkem je devatenáctiletý anarchokomunista Josef Šoupal. Po týdnech těžkých útrap Rašín 18. února umírá. Celou republikou otřásá vlna šoku a hněvu.</p>
+                    <p class="cons-section-p">V ulicích demonstrují desetitisíce lidí, radikalizují se komunistické bojůvky na jedné straně a nacionalistická pravice na straně druhé. Ze zahraničí pronikají agitátoři Kominterny a maďarské revizionistické sítě. V sousedním Německu vrcholí série politických vražd (Rathenau, Erzberger), sílí Freikorps a v Itálii již vládne Mussoliniho fašismus.</p>
+                    <p class="cons-section-p">Vláda premiéra Antonína Švehly stojí před osudovou otázkou: <em>Má demokratický stát právo omezit občanské svobody, zavést cenzuru a mimořádné soudnictví, aby zachránil svou vlastní existenci? Nebo má i za cenu bezpečnostního rizika trvat na absolutní liberální svobodě slova?</em></p>
+                `,
+                choices: [
+                    {
+                        title: 'Zachovat plné liberální svobody a spoléhat se na stávající trestní právo',
+                        text: 'Odmítnout mimořádné bezpečnostní zákony, cenzuru tisku i zvláštní tribunály. Spoléhat výhradně na stávající obecné trestní právo z dob monarchie a mravní autoritu demokratických institucí.',
+                        consequence: `
+                            <div class="cons-status-badge rejected">✖ ZAMÍTNUTO PRO AKUTNÍ RIZIKO ESKALACE NÁSILÍ A SUBVERZE</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">DOBOVÝ POLITICKÝ ROZBOR:</div>
+                                <p class="cons-section-p">Liberálně-humanistický postoj byl zvažován částí intelektuálů kolem Masaryka, v bouřlivém roce 1923 však byl politicky neudržitelný:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Zastaralý trestní zákoník:</strong> Rakouský zákoník z roku 1852 neznal moderní formy ideologického extrémismu, konspirativní špionáž ani organizovanou protistátní propagandu financovanou cizími mocnostmi.</li>
+                                    <li><strong>Riziko pouliční války:</strong> Bezpečnostní složky by neměly právní nástroje k preventivnímu zásahu proti ozbrojeným bojůvkám, což by vedlo k eskalaci ozbrojených střetů po vzoru Výmarské republiky.</li>
+                                    <li><strong>Ohrožení měny a investic:</strong> Po zavraždění ministra financí bylo nutné dát mezinárodním trhům jasný důkaz, že Československo dokáže garantovat stabilitu a vymahatelnost práva.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        title: 'Přijmout přísný Zákon na ochranu republiky a zřídit Státní soud',
+                        text: 'Schválit mimořádný zákon č. 50/1923 Sb., který definuje trestné činy úkladů o republiku, šíření lživých zpráv a ohrožení obrany státu. Zřídit specializovaný Státní soud v Brně a zavést preventivní konfiskaci podvratného tisku.',
+                        consequence: `
+                            <div class="cons-status-badge accepted">✔ PŘIJATO JAKO ZÁKON Č. 50/1923 SB. A ZŘÍZENÍ STÁTNÍHO SOUDU</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">HISTORICKÁ REALITA A LEGISLATIVNÍ ŘEŠENÍ:</div>
+                                <p class="cons-section-p">Zákon z března 1923, připravený právníky ministerstva spravedlnosti a prosazený Švehlovou koalicí „Pětky“, vytvořil pilíř československé obranné demokracie:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Právní hráz proti pučům:</strong> Zákon umožnil tvrdě stíhat vojenskou zradu, špionáž, teroristické spiknutí i hrubé urážky prezidenta republiky. Vznikl Státní soud složený z profesionálních soudců a přísedících, který soudil nejzávažnější delikty.</li>
+                                    <li><strong>Cena za stabilitu – tzv. bílá místa:</strong> Byla zavedena preventivní cenzura tisku. Opoziční noviny (komunistické Rudé právo i německý nacionální tisk) běžně vycházely se zabílenými sloupky po konfiskaci cenzorem. Tento zásah do svobody slova kritizoval i spisovatel Karel Čapek.</li>
+                                    <li><strong>Dlouhodobý význam:</strong> Československo se etablovalo jako tzv. „bránící se demokracie“ (militant democracy) – režim, který neponechává nepřátelům svobody prostor k jejímu zničení. Norma udržela institucionální integritu až do krize roku 1938.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        title: 'Vyhlásit plný výjimečný stav, zakázat radikální strany a předat moc armádě',
+                        text: 'Využít atentátu k plošnému úderu: vyhlásit stanné právo, zakázat Komunistickou stranu Československa (KSČ) i německé nacionální organizace a předat výkonnou bezpečnostní moc vojenské justici.',
+                        consequence: `
+                            <div class="cons-status-badge rejected">✖ KATEGORICKY ZAMÍTNUTO JAKO NEBEZPEČNÝ SKLUZ K DIKTATUŘE</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">DOBOVÝ POLITICKÝ ROZBOR:</div>
+                                <p class="cons-section-p">K tomuto radikálnímu kroku volaly některé vojenské kruhy a pravicoví generálové (např. generál Radola Gajda):</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Zkáza mezinárodní pověsti:</strong> Masarykova republika by se zařadila po bok autoritářských režimů střední Evropy (Horthyho Maďarsko, Mussoliniho Itálie), čímž by ztratila morální spojenectví západních demokracií.</li>
+                                    <li><strong>Hrozba generální stávky:</strong> Zákaz KSČ (která měla statisíce voličů z řad dělnictva) by vyvolal masové stávky a zahnal levici do ilegálního ozbrojeného odboje.</li>
+                                    <li><strong>Švehlova státnická moudrost:</strong> Předseda vlády Antonín Švehla trval na zásadě: „Dohodnout se a vládnout parlamentem.“ Extrémní síly zůstaly v parlamentu, kde se jejich energie vybíjela v projevech, nikoliv v pouličním povstání.</li>
+                                </ul>
+                            </div>
+                        `
+                    }
+                ],
+                solved: false
+            },
+            {
+                id: 'dilemma_zakaz',
+                x: 1180,
+                y: 1200,
+                icon: 'dilema_zakaz.png',
+                title: 'Zákaz stran (1933): Nástup Hitlera a obrana před nacismem',
+                subTag: 'OHROŽENÍ DEMOKRACIE A EXTREMISMUS',
+                context: `
+                    <p class="cons-section-p"><strong>Podzim 1933.</strong> V sousedním Německu se v lednu chopil moci Adolf Hitler, likviduje výmarskou ústavu, buduje koncentrační tábory v Dachau a vyhlašuje revizi středoevropských hranic. V československém pohraničí vypukla nacionální hysterie.</p>
+                    <p class="cons-section-p">Německá nacionálně-socialistická dělnická strana (DNSAP) a Německá nacionální strana (DNP) otevřeně přísahají věrnost Berlínu. Jejich polovojenská organizace Volkssport čítající tisíce členů provádí bojový výcvik pod velením říšských instruktorů SA, pašuje zbraně a plánuje ozbrojené sabotáže v pohraničí. Velká hospodářská krize zároveň uvrhla třetinu sudetských dělníků do bídy, což vytváří živnou půdu pro fanatismus.</p>
+                    <p class="cons-section-p">Vláda premiéra Jana Malypetra stojí před fatálním dilematem: <em>Má parlamentní demokracie právo zrušit a zakázat politické strany, které získaly mandáty v řádných demokratických volbách? A pokud tak učiní, nepřejde stát na šikmou plochu autoritářství, kde vládní koalice může zakázat jakoukoliv nepohodlnou opozici?</em></p>
+                `,
+                choices: [
+                    {
+                        title: 'Zachovat absolutní politickou pluralitu a bojovat s nacisty pouze ideově',
+                        text: 'Odmítnout princip zakazování politických stran. Trvat na tom, že mandát od voličů je posvátný, a stíhat výhradně konkrétní kriminální činy jednotlivých členů u řádných soudů bez rozpuštění stranických struktur.',
+                        consequence: `
+                            <div class="cons-status-badge rejected">✖ ZAMÍTNUTO PRO FATÁLNÍ RIZIKO ROZVRATU STÁTU ZEVNITŘ</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">DOBOVÝ POLITICKÝ ROZBOR:</div>
+                                <p class="cons-section-p">Část liberálních právníků hájila názor, že zákaz stran odporuje duchu ústavy. Historická zkušenost Výmarské republiky však byla varovným mementem:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Pátá kolona řízená z Berlína:</strong> DNSAP nebyla běžnou politickou opozicí, nýbrž přímo řízenou subverzní složkou cizí nepřátelské mocnosti. Proces s Volkssportem v Brně (1932) jasně prokázal plánování ozbrojeného povstání.</li>
+                                    <li><strong>Poučení z Výmarského Německa:</strong> Adolf Hitler se dostal k moci legální parlamentní cestou a následně demokracii zevnitř zničil. Československá elita pochopila, že naivní, bezbranná demokracie je odsouzena k záhubě.</li>
+                                    <li><strong>Paralýza státních složek:</strong> Ponechání poslanecké imunity vůdcům nacistických stran by znemožnilo policii i armádě účinně bránit pohraniční opevnění a vojenská tajemství.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        title: 'Schválit Zákon o zastavování činnosti a rozpouštění politických stran',
+                        text: 'Přijmout přelomový zákon č. 201/1933 Sb., který dává vládě se souhlasem Nejvyššího správního soudu pravomoc rozpustit stranu ohrožující samostatnost, ústavní jednotu či demokraticko-republikánskou formu státu, a odebrat jejím členům parlamentní mandáty.',
+                        consequence: `
+                            <div class="cons-status-badge accepted">✔ PŘIJATO JAKO ZÁKON Č. 201/1933 SB. A ZÁKAZ NACISTICKÉ DNSAP</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">HISTORICKÁ REALITA A LEGISLATIVNÍ ŘEŠENÍ:</div>
+                                <p class="cons-section-p">V říjnu 1933 schválilo Národní shromáždění zákon č. 201/1933 Sb., na jehož základě vláda okamžitě zakázala nacistickou DNSAP i DNP a zrušila jejich mandáty:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Doktrína bránící se demokracie:</strong> Byla poprvé v evropském právu uplatněna zásada, že politická strana ztrácí právo na demokratickou ochranu, pokud jejím cílem je zničení samotné demokracie. Tento princip po 2. světové válce doslova převzala německá ústava v čl. 21 Grundgesetz.</li>
+                                    <li><strong>Soudní kontrola:</strong> O rozpuštění nerozhodovala vláda svévolně, nýbrž muselo být potvrzeno nezávislým Nejvyšším správním soudem (Volebním soudem), což bránilo zneužití proti demokratické opozici.</li>
+                                    <li><strong>Henleinova metamorfóza:</strong> Zákaz odvrátil bezprostřední ozbrojený puč, nacistické hnutí se však přeskupilo. Již o měsíc později založil Konrad Henlein Sudetendeutsche Heimatfront (pozdější SdP), která se formálně deklarovala jako loajální hnutí, aby obešla zákon, a ve volbách 1935 získala drtivou většinu sudetských hlasů.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        title: 'Zavést autoritativní stavovský režim po vzoru rakouského kancléře Dollfusse',
+                        text: 'Rozpustit parlament, pozastavit politickou soutěž, vytvořit autoritativní vládu silné ruky pod vedením armády a zakázat veškerý politický extremismus zleva i zprava.',
+                        consequence: `
+                            <div class="cons-status-badge rejected">✖ KATEGORICKY ODMÍTNUTO PREZIDENTEM MASARYKEM A VLÁDOU</div>
+                            <div class="cons-section">
+                                <div class="cons-section-title">DOBOVÝ POLITICKÝ ROZBOR:</div>
+                                <p class="cons-section-p">V sousedním Rakousku kancléř Engelbert Dollfuss v roce 1933 rozpustil parlament a vyhlásil autoritativní austrofašistický stavovský stát. V Československu k tomu vybízela fašistická NOF:</p>
+                                <ul class="cons-bullet-list">
+                                    <li><strong>Záchrana demokratické identity:</strong> Prezident T. G. Masaryk i premiér Jan Malypetr rezolutně trvali na obraně republiky v mezích ústavy. Československo tak zůstalo v letech 1933–1938 doslova jediným fungujícím demokratickým státem ve střední a východní Evropě.</li>
+                                    <li><strong>Ztráta západních záruk:</strong> Kdyby se ČSR stala vojenskou či fašizující diktaturou, Paříž a Londýn by ztratily jakýkoliv důvod hájit její celistvost proti německým nárokům.</li>
+                                    <li><strong>Důvěra v právo:</strong> Krizové období prokázalo pevnost československých demokratických institucí, které dokázaly čelit Hitlerově subverzi legálními ústavními mechanismy bez obětování občanských svobod většiny.</li>
+                                </ul>
+                            </div>
+                        `
+                    }
+                ],
+                solved: false
+            }
+        ];
+
         const timeline = [
             { 
                 year: "1918–1920", x: 400, y: 1000, 
@@ -2478,6 +3194,28 @@
                 frag.element = sItem;
                 world.appendChild(sItem);
             });
+
+            // Vykreslení RPG dilemat (Event Zones na mapě)
+            dilemmas.forEach(dilemma => {
+                const zone = document.createElement('div');
+                zone.className = `dilemma-zone ${dilemma.solved ? 'solved' : ''}`;
+                zone.style.left = `${dilemma.x}px`;
+                zone.style.top = `${dilemma.y}px`;
+
+                zone.innerHTML = `
+                    <div class="dilemma-pulse-badge">${dilemma.solved ? '✓ VYŘEŠENO' : '! UDÁLOST !'}</div>
+                    <div class="dilemma-card-frame">
+                        <div class="dilemma-icon-box">
+                            <img src="${dilemma.icon}" alt="${dilemma.title}">
+                        </div>
+                        <div class="dilemma-caption">${dilemma.title}</div>
+                    </div>
+                `;
+
+                zone.onclick = () => openDilemma(dilemma);
+                dilemma.element = zone;
+                world.appendChild(zone);
+            });
         }
         function updateUI() {
             btnPrev.disabled = currentIndex === 0;
@@ -2723,13 +3461,143 @@
             }
         }
 
+        // ================= LOGIKA RPG DILEMAT =================
+        let isDilemmaOpen = false;
+        let currentDilemma = null;
+
+        function openDilemma(dilemma) {
+            if (!dilemma) return;
+            currentDilemma = dilemma;
+            isDilemmaOpen = true;
+            playCardInspectSound();
+
+            document.getElementById('dilemma-title').textContent = dilemma.title;
+            document.getElementById('dilemma-context').innerHTML = dilemma.context;
+            
+            const subTag = document.querySelector('.dilemma-sub-tag');
+            if (subTag) {
+                subTag.textContent = dilemma.subTag || 'ROZCESTÍ PRVNÍ REPUBLIKY';
+            }
+
+            const imgEl = document.getElementById('dilemma-img');
+            if (imgEl) {
+                imgEl.src = dilemma.icon;
+                imgEl.alt = dilemma.title;
+                imgEl.style.display = 'block';
+            }
+
+            const choicesContainer = document.getElementById('dilemma-choices');
+            choicesContainer.innerHTML = '';
+
+            const footerEl = document.getElementById('dilemma-footer');
+
+            if (dilemma.solved && dilemma.chosenChoice) {
+                // Již vyřešeno - zobrazit provedenou volbu a její následek
+                const chosenBtn = document.createElement('button');
+                chosenBtn.className = 'dilemma-choice-btn selected-choice';
+                chosenBtn.disabled = true;
+                chosenBtn.innerHTML = `
+                    <span class="choice-num">►</span>
+                    <div class="choice-content">
+                        ${dilemma.chosenChoice.title ? `<div class="choice-title-tag">${dilemma.chosenChoice.title}</div>` : ''}
+                        <div class="choice-desc">${dilemma.chosenChoice.text}</div>
+                    </div>
+                `;
+                choicesContainer.appendChild(chosenBtn);
+
+                const consCard = document.createElement('div');
+                consCard.className = 'dilemma-consequence-card';
+                consCard.innerHTML = `
+                    <div class="consequence-label">► HISTORICKÉ VYHODNOCENÍ A REÁLNÝ NÁSLEDEK:</div>
+                    <div class="consequence-text">${dilemma.chosenChoice.consequence}</div>
+                `;
+                choicesContainer.appendChild(consCard);
+                footerEl.style.display = 'flex';
+            } else {
+                // Nevyřešeno - vygenerovat interaktivní volby
+                footerEl.style.display = 'none';
+                dilemma.choices.forEach((choice, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'dilemma-choice-btn';
+                    btn.innerHTML = `
+                        <span class="choice-num">[ ${idx + 1} ]</span>
+                        <div class="choice-content">
+                            ${choice.title ? `<div class="choice-title-tag">${choice.title}</div>` : ''}
+                            <div class="choice-desc">${choice.text}</div>
+                        </div>
+                    `;
+                    btn.onclick = () => resolveDilemma(choice, btn, dilemma);
+                    choicesContainer.appendChild(btn);
+                });
+            }
+
+            document.getElementById('dilemma-modal').style.display = 'flex';
+        }
+
+        function resolveDilemma(choice, btnElement, dilemma) {
+            playRewardSound();
+            dilemma.solved = true;
+            dilemma.chosenChoice = choice;
+
+            // Skrytí ostatních tlačítek
+            const allBtns = document.querySelectorAll('#dilemma-choices .dilemma-choice-btn');
+            allBtns.forEach(b => {
+                if (b !== btnElement) {
+                    b.style.display = 'none';
+                }
+            });
+
+            btnElement.classList.add('selected-choice');
+            btnElement.disabled = true;
+
+            // Zobrazení consequence pod vybranou volbou
+            const consCard = document.createElement('div');
+            consCard.className = 'dilemma-consequence-card';
+            consCard.innerHTML = `
+                <div class="consequence-label">► HISTORICKÉ VYHODNOCENÍ A REÁLNÝ NÁSLEDEK:</div>
+                <div class="consequence-text">${choice.consequence}</div>
+            `;
+            btnElement.after(consCard);
+
+            // Zobrazení tlačítka Zavřít
+            document.getElementById('dilemma-footer').style.display = 'flex';
+
+            // Plynulý posun k následku
+            setTimeout(() => {
+                consCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 60);
+
+            // Označení dilematu na mapě jako vyřešené
+            if (dilemma.element) {
+                dilemma.element.classList.add('solved');
+                const badge = dilemma.element.querySelector('.dilemma-pulse-badge');
+                if (badge) {
+                    badge.textContent = '✓ VYŘEŠENO';
+                }
+            }
+        }
+
+        function closeDilemma() {
+            playClickSound();
+            document.getElementById('dilemma-modal').style.display = 'none';
+            isDilemmaOpen = false;
+            currentDilemma = null;
+        }
+
+        function onDilemmaOverlayClick(e) {
+            if (e.target && e.target.id === 'dilemma-modal') {
+                closeDilemma();
+            }
+        }
+
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                if (isDilemmaOpen) { closeDilemma(); return; }
                 if (isLoreOpen) { closeLoreModal(); return; }
                 if (isQuizOpen) { closeQuiz(); return; }
                 if (document.getElementById('card-lightbox').style.display === 'flex') { closeCardDetail(); return; }
             }
-            if (isQuizOpen || isLoreOpen || document.getElementById('card-lightbox').style.display === 'flex' || document.getElementById('welcome-modal').style.display === 'flex') return;
+            if (isDilemmaOpen || isQuizOpen || isLoreOpen || document.getElementById('card-lightbox').style.display === 'flex' || document.getElementById('welcome-modal').style.display === 'flex') return;
             if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') move(1);
             if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') move(-1);
         });
@@ -2877,7 +3745,7 @@
             }, { passive: true });
 
             gViewEl.addEventListener('touchend', (e) => {
-                if (isQuizOpen || isLoreOpen || (document.getElementById('card-lightbox') && document.getElementById('card-lightbox').style.display === 'flex')) return;
+                if (isDilemmaOpen || isQuizOpen || isLoreOpen || (document.getElementById('card-lightbox') && document.getElementById('card-lightbox').style.display === 'flex')) return;
                 const dx = e.changedTouches[0].clientX - touchStartX;
                 const dy = e.changedTouches[0].clientY - touchStartY;
                 // Pokud je vodorovný posun delší než 45px a výraznější než svislý
