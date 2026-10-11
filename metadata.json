@@ -1,0 +1,7 @@
+{
+  "name": "Cesta českou ústavností",
+  "description": "Interaktivní historická časová osa a archivářský kvíz mapující vývoj českých a československých ústav od roku 1918 po současnost.",
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
