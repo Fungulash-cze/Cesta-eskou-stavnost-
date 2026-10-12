@@ -1792,6 +1792,632 @@
         .card:hover { transform: translateY(-5px); border-color: var(--text-main); }
         .card:active { transform: translateY(0px); box-shadow: 2px 2px 0px rgba(0,0,0,0.6); }
 
+        /* HUD TLAČÍTKA PRO VOLBY A POLITICKÝ KOMPAS */
+        .hud-elections-btn {
+            border-color: #2ea043;
+            color: #a6f3b7;
+        }
+        .hud-elections-btn:hover {
+            background-color: #2ea043;
+            color: #0d120e;
+            border-color: #39ff14;
+        }
+        .hud-compass-btn {
+            border-color: #e3b341;
+            color: #fff3a3;
+        }
+        .hud-compass-btn:hover {
+            background-color: #e3b341;
+            color: #1a160d;
+            border-color: #ffd700;
+        }
+
+        /* NÁSTROJE V KODEXU */
+        .codex-tools-bar {
+            display: flex;
+            gap: 0.6rem;
+            margin: 1.1rem 0 1.4rem 0;
+            flex-wrap: wrap;
+        }
+        .codex-tool-btn {
+            flex: 1;
+            min-width: 140px;
+            background: rgba(0, 0, 0, 0.45);
+            border: 2px solid var(--accent);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            font-size: 0.62rem;
+            padding: 0.65rem 0.8rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            transition: all 0.15s;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.6);
+            touch-action: manipulation;
+        }
+        .codex-tool-btn:hover {
+            background: var(--accent);
+            color: var(--bg-base);
+        }
+        .codex-tool-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 rgba(0,0,0,0.6);
+        }
+        .codex-tool-elections {
+            border-color: #2ea043;
+            color: #a6f3b7;
+        }
+        .codex-tool-elections:hover {
+            background: #2ea043;
+            color: #0d120e;
+        }
+        .codex-tool-compass {
+            border-color: #e3b341;
+            color: #fff3a3;
+        }
+        .codex-tool-compass:hover {
+            background: #e3b341;
+            color: #1a160d;
+        }
+
+        /* TLAČÍTKA NA MOBILNÍM BANNERU */
+        .mobile-banner-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--accent);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            cursor: pointer;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-banner-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ================= MODÁLNÍ OKNO: HISTORICKÉ VOLBY NANEČISTO ================= */
+        .elections-dialog-box {
+            background-color: #0e131b;
+            background-image: 
+                linear-gradient(to bottom, rgba(20, 32, 48, 0.5) 0%, rgba(10, 15, 22, 0.88) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.28) 2px, rgba(0, 0, 0, 0.28) 4px);
+            border: 4px solid #2ea043;
+            box-shadow: 0 0 40px rgba(46, 160, 67, 0.3), 16px 16px 0px rgba(0, 0, 0, 0.85);
+            padding: 2.2rem;
+            max-width: 900px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            color: var(--text-main);
+        }
+        .elections-dialog-box::-webkit-scrollbar { width: 8px; }
+        .elections-dialog-box::-webkit-scrollbar-track { background: #0a0e14; border-left: 1px solid #2ea043; }
+        .elections-dialog-box::-webkit-scrollbar-thumb { background: #2ea043; }
+
+        .elections-era-tabs {
+            display: flex;
+            gap: 0.45rem;
+            overflow-x: auto;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+        .elections-tab-btn {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--text-muted);
+            color: var(--text-muted);
+            font-family: var(--font-ui);
+            font-size: 0.58rem;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+        .elections-tab-btn.active, .elections-tab-btn:hover {
+            border-color: #2ea043;
+            color: #39ff14;
+            background: rgba(46, 160, 67, 0.18);
+        }
+
+        .elections-meta-strip {
+            background: rgba(0, 0, 0, 0.45);
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+        .elections-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            font-size: 1.15rem;
+            color: #d1f7d6;
+        }
+        .elections-meta-pill {
+            font-family: var(--font-ui);
+            font-size: 0.55rem;
+            color: #39ff14;
+            background: rgba(46, 160, 67, 0.2);
+            padding: 0.2rem 0.5rem;
+            border: 1px solid #2ea043;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .elections-context-desc {
+            font-size: 1.15rem;
+            line-height: 1.4;
+            color: var(--text-main);
+        }
+
+        .parties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .party-card {
+            background: rgba(18, 24, 32, 0.88);
+            border: 2px solid var(--text-muted);
+            border-left: 6px solid var(--party-color, #58a6ff);
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.16s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.6);
+            user-select: none;
+        }
+        .party-card:hover {
+            border-color: var(--party-color, #58a6ff);
+            background: rgba(26, 34, 46, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.6);
+        }
+        .party-card.selected {
+            border-color: #ffd700;
+            border-left-color: #ffd700;
+            background: rgba(35, 48, 64, 0.98);
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.35), 4px 4px 0 rgba(0,0,0,0.8);
+        }
+        .party-card-badge {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.45rem;
+        }
+        .party-short {
+            font-family: var(--font-ui);
+            font-size: 0.68rem;
+            color: var(--party-color, #58a6ff);
+            letter-spacing: 0.5px;
+        }
+        .party-check-icon {
+            font-family: var(--font-ui);
+            font-size: 0.62rem;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.15);
+            padding: 0.15rem 0.4rem;
+            border: 1px solid #ffd700;
+            opacity: 0;
+            transition: opacity 0.15s;
+        }
+        .party-card.selected .party-check-icon {
+            opacity: 1;
+        }
+        .party-fullname {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #fff;
+            line-height: 1.25;
+            margin-bottom: 0.45rem;
+        }
+        .party-leader-box {
+            font-size: 1.05rem;
+            color: #d1f7d6;
+            margin-bottom: 0.65rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .party-points {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+            flex: 1;
+        }
+        .party-point-item {
+            font-size: 1.02rem;
+            line-height: 1.35;
+            color: var(--text-main);
+            padding-left: 1.1rem;
+            position: relative;
+        }
+        .party-point-item::before {
+            content: "►";
+            position: absolute;
+            left: 0;
+            color: var(--party-color, #58a6ff);
+            font-size: 0.75rem;
+            top: 1px;
+        }
+
+        .elections-vote-bar {
+            margin-top: 1.6rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border-top: 2px dashed rgba(255,255,255,0.15);
+            padding-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .elections-selection-hint {
+            font-size: 1.15rem;
+            color: #ffd700;
+            font-style: italic;
+        }
+        .elections-vote-btn {
+            background: #238636;
+            border: 3px solid #39ff14;
+            color: #fff;
+            font-family: var(--font-ui);
+            font-size: 0.75rem;
+            padding: 0.9rem 1.8rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.7);
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .elections-vote-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            border-color: #555;
+            background: #2b3038;
+            box-shadow: none;
+        }
+        .elections-vote-btn:not(:disabled):hover {
+            background: #2ea043;
+            box-shadow: 0 0 16px rgba(46, 160, 67, 0.7);
+            transform: translateY(-2px);
+        }
+        .elections-vote-btn:not(:disabled):active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+        }
+
+        /* VÝSLEDKOVÁ ČÁST VOLEB */
+        .elections-comparison-banner {
+            background: rgba(0, 0, 0, 0.55);
+            border: 3px solid #2ea043;
+            padding: 1.4rem;
+            margin-bottom: 1.6rem;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .banner-msg-highlight {
+            font-size: 1.4rem;
+            line-height: 1.45;
+            color: #ffd700;
+            font-weight: bold;
+        }
+        .banner-msg-detail {
+            font-size: 1.2rem;
+            line-height: 1.45;
+            color: #d1f7d6;
+        }
+        .banner-msg-aftermath {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: var(--text-muted);
+            border-top: 1px dashed rgba(255,255,255,0.15);
+            padding-top: 0.6rem;
+        }
+
+        .results-bars-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.8rem;
+        }
+        .result-bar-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            background: rgba(0,0,0,0.3);
+            padding: 0.6rem 0.8rem;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .result-bar-row.is-user-pick {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.08);
+        }
+        .result-bar-row.is-winner {
+            border-color: #2ea043;
+        }
+        .result-row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.15rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .result-party-tag {
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--party-color, #fff);
+        }
+        .result-badge {
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            padding: 0.15rem 0.45rem;
+            border-radius: 2px;
+        }
+        .badge-user-pick {
+            background: #ffd700;
+            color: #000;
+            font-weight: bold;
+        }
+        .badge-winner {
+            background: #2ea043;
+            color: #000;
+            font-weight: bold;
+        }
+        .result-numbers {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        .result-bar-track {
+            height: 22px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        .result-bar-fill {
+            height: 100%;
+            background: var(--party-color, #58a6ff);
+            transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            padding-right: 0.5rem;
+            justify-content: flex-end;
+            color: #000;
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            font-weight: bold;
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+        }
+
+        .elections-results-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            border-top: 2px dashed rgba(255,255,255,0.15);
+            padding-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        /* ================= MODÁLNÍ OKNO: DOBOVÝ POLITICKÝ KOMPAS ================= */
+        .compass-dialog-box {
+            background-color: #0a0f16;
+            background-image: 
+                radial-gradient(ellipse at center, rgba(30, 50, 75, 0.4) 0%, rgba(8, 12, 18, 0.92) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.3) 2px, rgba(0, 0, 0, 0.3) 4px);
+            border: 4px solid #e3b341;
+            box-shadow: 0 0 45px rgba(227, 179, 65, 0.28), 16px 16px 0px rgba(0, 0, 0, 0.85);
+            padding: 2.2rem;
+            max-width: 980px;
+            width: 96%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            color: var(--text-main);
+        }
+        .compass-dialog-box::-webkit-scrollbar { width: 8px; }
+        .compass-dialog-box::-webkit-scrollbar-track { background: #080c12; border-left: 1px solid #e3b341; }
+        .compass-dialog-box::-webkit-scrollbar-thumb { background: #e3b341; }
+
+        .compass-era-selector {
+            display: flex;
+            gap: 0.4rem;
+            overflow-x: auto;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+        .compass-era-btn {
+            background: rgba(0, 0, 0, 0.45);
+            border: 2px solid var(--text-muted);
+            color: var(--text-muted);
+            font-family: var(--font-ui);
+            font-size: 0.54rem;
+            padding: 0.45rem 0.65rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+        .compass-era-btn.active, .compass-era-btn:hover {
+            border-color: #ffd700;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        .compass-main-layout {
+            display: grid;
+            grid-template-columns: minmax(320px, 460px) 1fr;
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .compass-graph-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-width: 460px;
+            margin: 0 auto;
+            background: #06090e;
+            border: 3px solid #e3b341;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.9), 0 0 16px rgba(227, 179, 65, 0.2);
+            overflow: hidden;
+        }
+        .compass-svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+            user-select: none;
+        }
+        .compass-svg text {
+            pointer-events: none;
+        }
+        .compass-node {
+            cursor: pointer;
+            transition: transform 0.15s;
+        }
+        .compass-node:hover {
+            filter: drop-shadow(0 0 8px #ffd700);
+        }
+
+        .compass-dossier-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .dossier-card {
+            background: rgba(18, 24, 34, 0.92);
+            border: 3px solid #e3b341;
+            padding: 1.3rem;
+            box-shadow: 6px 6px 0 rgba(0,0,0,0.7);
+            position: relative;
+        }
+        .dossier-header {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            margin-bottom: 0.9rem;
+            border-bottom: 2px dashed rgba(255,255,255,0.15);
+            padding-bottom: 0.7rem;
+        }
+        .dossier-avatar-badge {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #ffd700;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-ui);
+            font-size: 0.9rem;
+            color: #ffd700;
+            flex-shrink: 0;
+            box-shadow: inset 0 0 8px rgba(255,215,0,0.3);
+        }
+        .dossier-title-area {
+            flex: 1;
+        }
+        .dossier-name {
+            font-family: var(--font-ui);
+            font-size: 0.95rem;
+            color: #ffd700;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+        }
+        .dossier-role {
+            font-size: 1.15rem;
+            color: #a6f3b7;
+        }
+        .dossier-coords-row {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.9rem;
+            flex-wrap: wrap;
+        }
+        .dossier-pill {
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            padding: 0.35rem 0.6rem;
+            border: 1px solid #e3b341;
+            background: rgba(0,0,0,0.5);
+            color: #ffd700;
+        }
+        .dossier-pill-quadrant {
+            border-color: #58a6ff;
+            color: #a5d6ff;
+            background: rgba(88, 166, 255, 0.15);
+        }
+        .dossier-bio-text {
+            font-size: 1.2rem;
+            line-height: 1.4;
+            color: var(--text-main);
+            margin-bottom: 0.9rem;
+        }
+        .dossier-reason-box {
+            background: rgba(0, 0, 0, 0.45);
+            border-left: 4px solid #ffd700;
+            padding: 0.9rem 1rem;
+            margin-top: 0.6rem;
+        }
+        .dossier-reason-label {
+            font-family: var(--font-ui);
+            font-size: 0.58rem;
+            color: #ffd700;
+            margin-bottom: 0.45rem;
+            letter-spacing: 0.5px;
+        }
+        .dossier-reason-text {
+            font-size: 1.18rem;
+            line-height: 1.45;
+            color: #fff;
+        }
+
+        .politicians-chip-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+        .politician-chip {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--text-muted);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            font-size: 0.56rem;
+            padding: 0.45rem 0.75rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .politician-chip:hover, .politician-chip.active {
+            border-color: #ffd700;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.18);
+            transform: translateY(-1px);
+        }
+
         /* ================= KOMPLETNÍ MOBILNÍ ROZHRANÍ PRO TELEFONY ================= */
         @media (max-width: 800px) {
             body { 
@@ -2182,6 +2808,26 @@
             .dilemma-choice-btn { font-size: 0.62rem; padding: 0.8rem 1rem; }
             .consequence-text { font-size: 1.05rem; }
             .dilemma-close-btn { font-size: 0.62rem; padding: 0.8rem 1.4rem; }
+
+            /* MOBILNÍ ÚPRAVY PRO VOLBY A KOMPAS */
+            .elections-dialog-box { padding: 1.2rem; max-width: 96vw; max-height: 90vh; }
+            .parties-grid { grid-template-columns: 1fr; gap: 0.8rem; }
+            .party-fullname { font-size: 1.05rem; }
+            .party-leader-box { font-size: 0.95rem; }
+            .party-point-item { font-size: 0.92rem; }
+            .elections-vote-btn { width: 100%; justify-content: center; font-size: 0.68rem; padding: 0.8rem 1rem; }
+            .banner-msg-highlight { font-size: 1.15rem; }
+            .banner-msg-detail { font-size: 1.02rem; }
+            .result-numbers { font-size: 1.02rem; }
+
+            .compass-dialog-box { padding: 1.2rem; max-width: 96vw; max-height: 90vh; }
+            .compass-main-layout { grid-template-columns: 1fr; gap: 1rem; }
+            .compass-graph-wrapper { max-width: 320px; }
+            .dossier-card { padding: 1rem; }
+            .dossier-name { font-size: 0.82rem; }
+            .dossier-role { font-size: 1rem; }
+            .dossier-bio-text { font-size: 1.05rem; }
+            .dossier-reason-text { font-size: 1.05rem; }
         }
     </style>
 </head>
@@ -2209,6 +2855,18 @@
                         </div>
                     </div>
                     <div class="modal-feature-item">
+                        <span class="modal-feature-icon">🗳️</span>
+                        <div>
+                            <strong>Historické volby nanečisto:</strong> U klíčových milníků (např. 1920, 1946, 1990) si vyzkoušejte roli dobového voliče – prostudujte programy tehdejších stran, odvolte a porovnejte svou volbu se skutečnými historickými výsledky. Tlačítko <em>[VOLBY]</em> nebo klávesa <code>[L]</code>.
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
+                        <span class="modal-feature-icon">🧭</span>
+                        <div>
+                            <strong>Dobový politický kompas:</strong> Prozkoumejte rozložení výrazných osobností dané doby na 2D mapě (ekonomická levice/pravice vs. autorita/svoboda) s podrobnými medailonky a zdůvodněním jejich postojů. Tlačítko <em>[KOMPAS]</em> nebo klávesa <code>[K]</code>.
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
                         <span class="modal-feature-icon">⚖️</span>
                         <div>
                             <strong>Historická dilemata</strong> Postavte se před skutečná státnická rozcestí a prozkoumejte jejich reálné ústavní i politické následky.
@@ -2233,6 +2891,8 @@
                             <code>A / D</code> posun v čase &nbsp;•&nbsp; 
                             <code>E</code> detail milníku &nbsp;•&nbsp; 
                             <code>V</code> nejvyšší představitelé &nbsp;•&nbsp; 
+                            <code>L</code> volby &nbsp;•&nbsp; 
+                            <code>K</code> politický kompas &nbsp;•&nbsp; 
                             <code>M</code> zapnutí/vypnutí zvuku &nbsp;•&nbsp; 
                             <code>Esc</code> zavření panelů &nbsp;•&nbsp; 
                             Tlačítkem <em>[❓ PRŮVODCE]</em> vlevo nahoře můžete tyto informace kdykoliv znovu zobrazit.
@@ -2254,6 +2914,8 @@
             <div class="mobile-top-actions">
                 <button class="mobile-action-btn" id="mobile-codex-btn" onclick="toggleCodex()" title="Informace o milníku">📜 MILNÍK</button>
                 <button class="mobile-action-btn" id="mobile-party-btn" onclick="togglePartyModal()" title="Nejvyšší představitelé a vedení státu">🏛️ PŘEDSTAVITELÉ</button>
+                <button class="mobile-action-btn" id="mobile-elections-btn" onclick="openElectionsModal()" title="Historické volby nanečisto">🗳️ VOLBY</button>
+                <button class="mobile-action-btn" id="mobile-compass-btn" onclick="openCompassModal()" title="Dobový politický kompas">🧭 KOMPAS</button>
                 <button class="mobile-action-btn" id="mobile-sound-btn" onclick="toggleSound()" title="Zapnout / Vypnout zvuk">🔊 ZVUK</button>
                 <button class="mobile-action-btn" id="mobile-info-btn" onclick="openWelcomeModal()" title="Průvodce aplikací">❓ INFO</button>
             </div>
@@ -2273,10 +2935,12 @@
         <div class="theme-fx"></div>
 
         <!-- Mobilní indikátor aktivního uzlu na mapě -->
-        <div class="mobile-node-banner" id="mobile-node-banner" onclick="toggleCodex(true)" title="Klepnutím otevřete podrobnosti o milníku">
-            <span class="mobile-banner-pill" id="mobile-banner-year">1918–1920</span>
-            <span class="mobile-banner-title" id="mobile-banner-title">Vznik republiky</span>
-            <span class="mobile-banner-link">DETAIL ➔</span>
+        <div class="mobile-node-banner" id="mobile-node-banner" title="Klepnutím otevřete podrobnosti o milníku">
+            <span class="mobile-banner-pill" id="mobile-banner-year" onclick="toggleCodex(true)">1918–1920</span>
+            <span class="mobile-banner-title" id="mobile-banner-title" onclick="toggleCodex(true)">Vznik republiky</span>
+            <button class="mobile-banner-btn" onclick="openElectionsModal()" title="Otevřít volby">🗳️</button>
+            <button class="mobile-banner-btn" onclick="openCompassModal()" title="Otevřít politický kompas">🧭</button>
+            <span class="mobile-banner-link" onclick="toggleCodex(true)">DETAIL ➔</span>
         </div>
 
         <div class="hud">
@@ -2285,6 +2949,8 @@
             <div class="hud-buttons">
                 <button class="hud-action-btn" id="btn-toggle-codex" onclick="toggleCodex()" title="Zobrazit podrobné informace o aktuálním milníku (Klávesa E)">📜 DETAIL MILNÍKU [E]</button>
                 <button class="hud-action-btn" id="btn-toggle-party" onclick="togglePartyModal()" title="Zobrazit nejvyšší představitele státu a vládu (Klávesa V)">🏛️ NEJVYŠŠÍ PŘEDSTAVITELÉ [V]</button>
+                <button class="hud-action-btn hud-elections-btn" id="btn-toggle-elections" onclick="openElectionsModal()" title="Vyzkoušet dobové historické volby nanečisto (Klávesa L)">🗳️ VOLBY [L]</button>
+                <button class="hud-action-btn hud-compass-btn" id="btn-toggle-compass" onclick="openCompassModal()" title="Zobrazit dobový politický kompas (Klávesa K)">🧭 POLITICKÝ KOMPAS [K]</button>
                 <button class="sound-toggle-btn" id="sound-toggle-btn" onclick="toggleSound()" title="Zapnout/Vypnout zvukové efekty (Klávesa M)">🔊 ZVUK: ZAP</button>
                 <button class="hud-action-btn hud-help-btn" id="btn-open-welcome" onclick="openWelcomeModal()" title="Zobrazit informace o aplikaci a ovládání">❓ PRŮVODCE</button>
             </div>
@@ -2334,6 +3000,12 @@
         <div class="c-type" id="c-type">SYS.INFO</div>
         <h2 class="c-title" id="c-title">Název</h2>
         <div class="c-act" id="c-act">Zákon</div>
+
+        <!-- DOBOVÉ INTERAKTIVNÍ MODULY: VOLBY & KOMPAS -->
+        <div class="codex-tools-bar">
+            <button class="codex-tool-btn codex-tool-elections" id="c-tool-elections" onclick="openElectionsModal()" title="Vyzkoušet dobové historické volby nanečisto">🗳️ VOLBY NANEČISTO</button>
+            <button class="codex-tool-btn codex-tool-compass" id="c-tool-compass" onclick="openCompassModal()" title="Zobrazit dobový politický kompas">🧭 POLITICKÝ KOMPAS</button>
+        </div>
         
         <p class="c-desc" id="c-desc">Popis</p>
         <ul class="c-bullets" id="c-bullets"></ul>
@@ -2455,6 +3127,129 @@
             <!-- Spodní lišta po vyhodnocení -->
             <div class="dilemma-footer" id="dilemma-footer">
                 <button class="dilemma-close-btn" onclick="closeDilemma()">Zavřít</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODÁLNÍ OKNO: HISTORICKÉ VOLBY NANEČISTO -->
+    <div class="modal-overlay" id="elections-modal" onclick="onElectionsOverlayClick(event)">
+        <div class="elections-dialog-box" onclick="event.stopPropagation()">
+            <div class="dilemma-term-header" style="border-bottom-color: #2ea043;">
+                <div class="term-header-left">
+                    <span class="term-status-dot" style="background-color: #39ff14; box-shadow: 0 0 8px #39ff14;"></span>
+                    <span class="term-header-title" style="color: #39ff14;">HISTORICKÉ VOLBY NANEČISTO // VOLEBNÍ SYSTÉM ČSR / ČR</span>
+                </div>
+                <button class="dilemma-term-close" onclick="closeElectionsModal()" title="Zavřít volby">[✕]</button>
+            </div>
+
+            <!-- Přepínač volebních roků -->
+            <div class="elections-era-tabs" id="elections-era-tabs"></div>
+
+            <!-- Fáze 1: Hlasovací lístek (Kandidující strany) -->
+            <div id="elections-ballot-view">
+                <div class="elections-meta-strip" id="elections-meta-strip">
+                    <div class="elections-meta-row">
+                        <span class="elections-meta-pill" id="el-meta-date">📅 DATUM: 1920</span>
+                        <span class="elections-meta-pill" id="el-meta-turnout">🗳️ ÚČAST: 89.6 %</span>
+                        <span class="elections-meta-pill" id="el-meta-parliament">🏛️ PARLAMENT: 300 MANDÁTŮ</span>
+                    </div>
+                    <div class="elections-context-desc" id="el-meta-desc">Kontext voleb...</div>
+                </div>
+
+                <div class="dilemma-prompt-line" style="color: #a6f3b7; margin-bottom: 0.6rem;">
+                    <span class="prompt-arrow" style="color: #39ff14;">&gt;&gt;</span> VYBERTE STRANU, KTERÉ DÁTE SVŮJ HISTORICKÝ HLAS:
+                </div>
+
+                <div class="parties-grid" id="parties-list-container"></div>
+
+                <div class="elections-vote-bar">
+                    <div class="elections-selection-hint" id="elections-selected-label">Klikněte na stranu, kterou chcete zvolit.</div>
+                    <button class="elections-vote-btn" id="elections-submit-vote-btn" onclick="submitVote()" disabled>
+                        <span>🗳️ ODVOLIT (ODEVZDAT HLAS)</span> ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- Fáze 2: Výsledky a srovnání -->
+            <div id="elections-results-view" style="display: none;">
+                <div class="elections-comparison-banner" id="elections-comparison-banner"></div>
+
+                <div class="dilemma-prompt-line" style="color: #a6f3b7; margin-bottom: 0.8rem;">
+                    <span class="prompt-arrow" style="color: #39ff14;">&gt;&gt;</span> REÁLNÉ HISTORICKÉ VÝSLEDKY VOLEB (% HLASŮ A POČET MANDÁTŮ):
+                </div>
+
+                <div class="results-bars-list" id="elections-results-bars"></div>
+
+                <div class="elections-results-footer">
+                    <button class="btn" style="border-color: #2ea043; color: #a6f3b7;" onclick="resetVote()">🗳️ HLASOVAT ZNOVU</button>
+                    <button class="btn btn-close-footer" onclick="closeElectionsModal()">✕ ZAVŘÍT VOLBY</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODÁLNÍ OKNO: DOBOVÝ POLITICKÝ KOMPAS -->
+    <div class="modal-overlay" id="compass-modal" onclick="onCompassOverlayClick(event)">
+        <div class="compass-dialog-box" onclick="event.stopPropagation()">
+            <div class="dilemma-term-header" style="border-bottom-color: #e3b341;">
+                <div class="term-header-left">
+                    <span class="term-status-dot" style="background-color: #ffd700; box-shadow: 0 0 8px #ffd700;"></span>
+                    <span class="term-header-title" style="color: #ffd700;">DOBOVÝ POLITICKÝ KOMPAS // 2D SPEKTRUM OSOBNOSTÍ</span>
+                </div>
+                <button class="dilemma-term-close" style="border-color: #ffd700; color: #ffd700;" onclick="closeCompassModal()" title="Zavřít kompas">[✕]</button>
+            </div>
+
+            <!-- Přepínač epoch pro politický kompas -->
+            <div class="compass-era-selector" id="compass-era-selector"></div>
+
+            <!-- Hlavní rozložení: Graf vlevo, detail politika vpravo -->
+            <div class="compass-main-layout">
+                <div>
+                    <div class="compass-graph-wrapper" id="compass-graph-wrapper">
+                        <svg class="compass-svg" id="compass-svg" viewBox="0 0 500 500"></svg>
+                    </div>
+
+                    <!-- Rychlý výběr politických osobností -->
+                    <div style="margin-top: 1rem;">
+                        <div style="font-family: var(--font-ui); font-size: 0.58rem; color: #ffd700; margin-bottom: 0.4rem;">
+                            ► OSOBNOSTI TÉTO EPOCHY (KLIKNUTÍM ZVÝRAZNÍTE V KOMPASU):
+                        </div>
+                        <div class="politicians-chip-grid" id="compass-politicians-chips"></div>
+                    </div>
+                </div>
+
+                <!-- Pravý panel: Retro Dossier / Profil politika -->
+                <div class="compass-dossier-panel">
+                    <div class="dossier-card" id="compass-dossier-card">
+                        <div class="dossier-header">
+                            <div class="dossier-avatar-badge" id="dossier-avatar">TGM</div>
+                            <div class="dossier-title-area">
+                                <h3 class="dossier-name" id="dossier-name">Tomáš Garrigue Masaryk</h3>
+                                <div class="dossier-role" id="dossier-role">Prezident Osvoboditel</div>
+                            </div>
+                        </div>
+
+                        <div class="dossier-coords-row">
+                            <span class="dossier-pill" id="dossier-coords">POZICE: [X: -0.20 | Y: +0.70]</span>
+                            <span class="dossier-pill dossier-pill-quadrant" id="dossier-quadrant">LEVICOVÝ LIBERALISMUS</span>
+                        </div>
+
+                        <div class="dossier-bio-text" id="dossier-bio">
+                            Filozof a státník, vůdčí osobnost vzniku samostatného státu.
+                        </div>
+
+                        <div class="dossier-reason-box">
+                            <div class="dossier-reason-label">► PROČ SE NACHÁZÍ PRÁVĚ ZDE:</div>
+                            <div class="dossier-reason-text" id="dossier-reason">
+                                Důvod zařazení na kompasu...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+                        <button class="btn btn-close-footer" onclick="closeCompassModal()">✕ ZAVŘÍT KOMPAS</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2913,6 +3708,54 @@
                 bellGain.connect(ctx.destination);
                 bellOsc.start(now + 0.35);
                 bellOsc.stop(now + 0.85);
+            } catch (e) {
+                console.warn('Audio playback error', e);
+            }
+        }
+
+        // 8. Zvuk odevzdání hlasu ve volbách (slavnostní vítězný motiv)
+        function playVoteFanfare() {
+            if (!soundEnabled) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            try {
+                const now = ctx.currentTime;
+                [523.25, 659.25, 783.99, 1046.5].forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    const start = now + (idx * 0.08);
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, start);
+                    gain.gain.setValueAtTime(0.09, start);
+                    gain.gain.exponentialRampToValueAtTime(0.001, start + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(start);
+                    osc.stop(start + 0.36);
+                });
+            } catch (e) {
+                console.warn('Audio playback error', e);
+            }
+        }
+
+        // 9. Radarový ping politického kompasu
+        function playRadarPing() {
+            if (!soundEnabled) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            try {
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, now);
+                osc.frequency.exponentialRampToValueAtTime(1320, now + 0.08);
+                gain.gain.setValueAtTime(0.06, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.13);
             } catch (e) {
                 console.warn('Audio playback error', e);
             }
@@ -3650,6 +4493,24 @@
             if (mobPrev) mobPrev.disabled = currentIndex === 0;
             if (mobNext) mobNext.disabled = currentIndex === timeline.length - 1;
 
+            // Aktualizace tlačítek pro volby a kompas
+            const btnEl = document.getElementById('btn-toggle-elections');
+            const cToolEl = document.getElementById('c-tool-elections');
+            const cToolComp = document.getElementById('c-tool-compass');
+            const mobEl = document.getElementById('mobile-elections-btn');
+
+            let elYearLabel = "VOLBY";
+            if (currentIndex <= 1) elYearLabel = "VOLBY 1920";
+            else if (currentIndex === 4) elYearLabel = "VOLBY 1946";
+            else if (currentIndex === 8) elYearLabel = "VOLBY 1990";
+            else if (currentIndex === 9) elYearLabel = "VOLBY 1996";
+            else elYearLabel = "VOLBY";
+
+            if (btnEl) btnEl.textContent = `🗳️ ${elYearLabel} [L]`;
+            if (cToolEl) cToolEl.textContent = `🗳️ ${elYearLabel} NANEČISTO`;
+            if (cToolComp) cToolComp.textContent = `🧭 POLITICKÝ KOMPAS`;
+            if (mobEl) mobEl.textContent = `🗳️ ${elYearLabel}`;
+
             document.getElementById('c-type').textContent = data.isLaw ? "TYP: ÚSTAVNÍ PRAMEN" : "TYP: UDÁLOST";
             document.getElementById('c-title').textContent = data.title;
             
@@ -3710,6 +4571,9 @@
             setTimeout(() => {
                 player.classList.remove('walking');
                 updateUI();
+                if (isCompassOpen) {
+                    switchCompassMilestone(currentIndex);
+                }
             }, 600);
         }
 
@@ -3756,6 +4620,8 @@
                 if (isPartyOpen) {
                     togglePartyModal(false);
                 }
+                if (isElectionsOpen) closeElectionsModal();
+                if (isCompassOpen) closeCompassModal();
                 codexEl.classList.add('is-open');
                 codexEl.classList.remove('mobile-tab-hidden');
             } else {
@@ -3780,6 +4646,8 @@
                 if (isCodexOpen) {
                     toggleCodex(false);
                 }
+                if (isElectionsOpen) closeElectionsModal();
+                if (isCompassOpen) closeCompassModal();
                 partyHudEl.classList.add('is-open');
                 partyHudEl.classList.add('mobile-active');
             } else {
@@ -3793,6 +4661,8 @@
             playClickSound();
             if (isCodexOpen) toggleCodex(false);
             if (isPartyOpen) togglePartyModal(false);
+            if (isElectionsOpen) closeElectionsModal();
+            if (isCompassOpen) closeCompassModal();
         }
 
         function openWelcomeModal() {
@@ -4008,10 +4878,1483 @@
             }
         }
 
+        // =========================================================================
+        // ================= POŽADAVEK 1: HISTORICKÉ VOLBY NANEČISTO =================
+        // =========================================================================
+        let isElectionsOpen = false;
+        let currentElectionYear = "1920";
+        let selectedPartyId = null;
+
+        const electionsData = {
+            "1920": {
+                year: 1920,
+                milestoneIndex: 0,
+                title: "První parlamentní volby ČSR (1920)",
+                date: "18. a 25. dubna 1920",
+                turnout: "89.6 %",
+                parliament: "Poslanecká sněmovna Národního shromáždění (300 mandátů)",
+                context: "První všeobecné volby samostatného Československa podle Ústavy 1920. Poprvé v našich dějinách měly volební právo ženy. Hlasovalo se v atmosféře poválečného nedostatku, sociálních bouří a budování mladého státu.",
+                winnerPartyId: "csdsd",
+                winnerPartyName: "Československá sociálně demokratická strana dělnická",
+                historicalSummary: "Sociální demokraté pod vedením Vlastimila Tusara zvítězili a vytvořili druhou 'rudo-zelenou' vládu se stranami venkova. Na podzim 1920 se však strana rozštěpila na demokratické křídlo a radikální marxistickou levici, která později založila KSČ.",
+                parties: [
+                    {
+                        id: "csdsd",
+                        name: "Československá sociálně demokratická strana dělnická",
+                        short: "ČSDSD",
+                        leader: "Vlastimil Tusar (premiér, novinář)",
+                        color: "#cf222e",
+                        points: [
+                            "Uzákonění 8hodinové pracovní doby a povinného nemocenského pojištění.",
+                            "Postupné znárodnění klíčových dolů, hutí a velkostatků ve prospěch společnosti.",
+                            "Uchování parlamentní demokracie a ústavy proti bolševickému převratu."
+                        ],
+                        pct: 25.7,
+                        mandates: 74
+                    },
+                    {
+                        id: "csl",
+                        name: "Československá strana lidová",
+                        short: "ČSL (Lidovci)",
+                        leader: "Jan Šrámek (katolický kněz, poslanec)",
+                        color: "#e3b341",
+                        points: [
+                            "Ochrana křesťanských mravních hodnot, rodiny a církevního školství.",
+                            "Křesťanská sociální solidarita a podpora drobných rolníků a řemeslníků.",
+                            "Odmítnutí radikálního ateismu a protináboženského sekularismu."
+                        ],
+                        pct: 11.3,
+                        mandates: 33
+                    },
+                    {
+                        id: "dsap",
+                        name: "Německá sociálně demokratická strana v ČSR",
+                        short: "DSAP (Německá soc. dem.)",
+                        leader: "Ludwig Czech (právník, předák sudetoněmecké levice)",
+                        color: "#ea4a5a",
+                        points: [
+                            "Zastupování zájmů německy mluvícího dělnictva v pohraničí.",
+                            "Kulturní a školská samospráva národnostních menšin v demokratickém státě.",
+                            "Důsledný antifašismus a sociální ochrana pro všechny pracující."
+                        ],
+                        pct: 11.1,
+                        mandates: 31
+                    },
+                    {
+                        id: "agrarnici",
+                        name: "Republikánská strana československého venkova",
+                        short: "Agrárníci (RSČV)",
+                        leader: "Antonín Švehla (sedlák, mistr politického kompromisu)",
+                        color: "#2ea043",
+                        points: [
+                            "Radikální pozemková reforma: 'Půda patří těm, kdo na ní těžce pracují.'",
+                            "Ochranná cla na zemědělské plodiny a rozvoj družstevnictví na venkově.",
+                            "Politika stability, pragmatického středu a občanského smíru."
+                        ],
+                        pct: 9.7,
+                        mandates: 28
+                    },
+                    {
+                        id: "csns",
+                        name: "Československá socialistická strana",
+                        short: "ČSS (Národní socialisté)",
+                        leader: "Václav Klofáč (vlastenecký předák)",
+                        color: "#2ca0ba",
+                        points: [
+                            "Vlastenecký socialismus masarykovského typu bez cizího diktátu.",
+                            "Důraz na lidská práva, humanitu a rozvoj moderního veřejného zdravotnictví.",
+                            "Sociální spravedlnost pro úředníky, učitele, živnostníky i dělníky."
+                        ],
+                        pct: 8.1,
+                        mandates: 24
+                    },
+                    {
+                        id: "csnd",
+                        name: "Československá národní demokracie",
+                        short: "ČsND (Národní demokracie)",
+                        leader: "Karel Kramář & Alois Rašín",
+                        color: "#388bfd",
+                        points: [
+                            "Pevná a stabilní československá koruna (Rašínova tvrdá deflační měnová politika).",
+                            "Nedotknutelnost soukromého vlastnictví, podpora průmyslu a českého kapitálu.",
+                            "Důraz na národní stát, vlasteneckou hrdost a ostražitost vůči menšinám."
+                        ],
+                        pct: 6.3,
+                        mandates: 19
+                    }
+                ]
+            },
+            "1946": {
+                year: 1946,
+                milestoneIndex: 4,
+                title: "Volby do Ústavodárného národního shromáždění (1946)",
+                date: "26. května 1946",
+                turnout: "93.9 %",
+                parliament: "Ústavodárné národní shromáždění (300 mandátů)",
+                context: "První poválečné volby v atmosféře osvobození, radikalizace a odsunu německého obyvatelstva. Směly kandidovat pouze povolené strany Národní fronty; pravicové agrární a nacionální strany byly zakázány.",
+                winnerPartyId: "ksc",
+                winnerPartyName: "Komunistická strana Československa (KSČ)",
+                historicalSummary: "KSČ získala 38.0 % hlasů celostátně (v českých zemích dokonce 40.2 %) a 114 mandátů. Její předseda Klement Gottwald se stal předsedou vlády. Úspěch otevřel komunistům cestu k postupnému ovládnutí policie, armády a odborů a vyvrcholil únorovým převratem 1948.",
+                parties: [
+                    {
+                        id: "ksc",
+                        name: "Komunistická strana Československa",
+                        short: "KSČ",
+                        leader: "Klement Gottwald (předseda KSČ)",
+                        color: "#cf222e",
+                        points: [
+                            "Dokončení znárodnění bank, pojišťoven a velkých průmyslových závodů.",
+                            "Konfiskace půdy Němců a zrádců a její rychlé předání drobným českým rolníkům.",
+                            "Pevné spojenectví se Sovětským svazem jako záruka míru a slovanské bezpečnosti."
+                        ],
+                        pct: 38.0,
+                        mandates: 114
+                    },
+                    {
+                        id: "csns46",
+                        name: "Československá strana národně socialistická",
+                        short: "ČSNS",
+                        leader: "Petr Zenkl & Prokop Drtina",
+                        color: "#2ca0ba",
+                        points: [
+                            "Obrana parlamentní demokracie, svobody tisku a nezávislých soudů.",
+                            "Humanitní socialismus v duchu T. G. Masaryka a Edvarda Beneše.",
+                            "Zabránění policejnímu státu a komunistickému monopolu v bezpečnostních složkách."
+                        ],
+                        pct: 18.3,
+                        mandates: 55
+                    },
+                    {
+                        id: "csl46",
+                        name: "Československá strana lidová",
+                        short: "ČSL (Lidovci)",
+                        leader: "Jan Šrámek & Adolf Procházka",
+                        color: "#e3b341",
+                        points: [
+                            "Obrana křesťanských rodinných tradic, náboženské svobody a církevních škol.",
+                            "Zachování soukromého vlastnictví živnostníků, obchodníků a rodinných farem.",
+                            "Rázné odmítnutí marxistického ateismu a nucené kolektivizace."
+                        ],
+                        pct: 15.6,
+                        mandates: 46
+                    },
+                    {
+                        id: "ds46",
+                        name: "Demokratická strana (Slovensko)",
+                        short: "DS (Slovenská demokracie)",
+                        leader: "Jozef Lettrich & Ján Ursíny",
+                        color: "#2ea043",
+                        points: [
+                            "Drtivé vítězství na Slovensku (62 % hlasů) jako hráz proti rudé vlně.",
+                            "Zachování slovenské samosprávy a podpora svobodného podnikání.",
+                            "Hájit křesťanskou tradici a demokracii západního střihu."
+                        ],
+                        pct: 14.1,
+                        mandates: 43
+                    },
+                    {
+                        id: "cssd46",
+                        name: "Československá sociální demokracie",
+                        short: "ČSSD",
+                        leader: "Zdeněk Fierlinger & Bohumil Laušman",
+                        color: "#ea4a5a",
+                        points: [
+                            "Jednota socialistických sil, rozsáhlé sociální jistoty a zákonné pojištění.",
+                            "Zestátnění strategického hospodářství při zachování parlamentní procedury.",
+                            "Rozvoj sociálního bydlení a bezplatného zdravotnictví pro všechny pracující."
+                        ],
+                        pct: 12.1,
+                        mandates: 37
+                    }
+                ]
+            },
+            "1990": {
+                year: 1990,
+                milestoneIndex: 8,
+                title: "První svobodné polistopadové volby (1990)",
+                date: "8. a 9. června 1990",
+                turnout: "96.8 %",
+                parliament: "Federální shromáždění ČSFR (Sněmovna lidu, 150 mandátů)",
+                context: "První plně svobodné volby po 44 letech komunistického monopolu. Emoční referendum o definitivním odmítnutí totality a návratu Československa do svobodné Evropy s historicky rekordní účastí 96.8 %.",
+                winnerPartyId: "of",
+                winnerPartyName: "Občanské fórum (OF) / Verejnosť proti násiliu (VPN)",
+                historicalSummary: "Občanské fórum a VPN triumfovaly s 46.6 % hlasů (v samotné ČR získalo OF přes 53 %) a získaly 87 mandátů v Sněmovně lidu. Výsledek potvrdil pozici Václava Havla na Hradě, umožnil jmenování federální vlády Mariána Čalfy a odstartoval hospodářskou transformaci.",
+                parties: [
+                    {
+                        id: "of",
+                        name: "Občanské fórum & Verejnosť proti násiliu",
+                        short: "OF / VPN",
+                        leader: "Václav Havel, Jan Urban, Fedor Gál",
+                        color: "#58a6ff",
+                        points: [
+                            "'Strany jsou pro straníky, Občanské fórum je pro všechny!' – obnova demokracie.",
+                            "Okamžitý návrat do rodiny svobodných evropských národů, zrušení cenzury a právní stát.",
+                            "Radikální hospodářská reforma směrem k modernímu tržnímu hospodářství."
+                        ],
+                        pct: 46.6,
+                        mandates: 87
+                    },
+                    {
+                        id: "ksc90",
+                        name: "Komunistická strana Československa",
+                        short: "KSČ",
+                        leader: "Vasil Mohorita & Jiří Svoboda",
+                        color: "#cf222e",
+                        points: [
+                            "Zachování sociálních jistot, plné zaměstnanosti a dostupného bezplatného bydlení.",
+                            "Odmítnutí 'divoké kapitalizace' a výprodeje národního majetku do rukou cizího kapitálu.",
+                            "Pozvolná a sociálně citlivá modernizace hospodářství se silným veřejným sektorem."
+                        ],
+                        pct: 13.6,
+                        mandates: 23
+                    },
+                    {
+                        id: "kdu90",
+                        name: "Křesťanská a demokratická unie (KDU-ČSL / KDH)",
+                        short: "Křesťanští demokraté",
+                        leader: "Josef Bartončík & Ján Čarnogurský",
+                        color: "#e3b341",
+                        points: [
+                            "Mravní a duchovní obnova společnosti postavená na křesťanském odkazu.",
+                            "Podpora rodin, dětí a navrácení neprávem zabaveného církevního majetku.",
+                            "Sociálně-tržní hospodářství po vzoru německé a rakouské křesťanské demokracie."
+                        ],
+                        pct: 14.1,
+                        mandates: 20
+                    },
+                    {
+                        id: "hsd90",
+                        name: "Hnutí za samosprávnou demokracii – Společnost pro Moravu a Slezsko",
+                        short: "HSD-SMS",
+                        leader: "Boleslav Bárta (psycholog a poslanec)",
+                        color: "#df6f24",
+                        points: [
+                            "Obnova historické zemské samosprávy Moravy a Slezska v trojfederaci.",
+                            "Decentralizace správy a odmítnutí pragocentrismu při přerozdělování financí.",
+                            "Respektování moravské identity, kultury a svébytnosti."
+                        ],
+                        pct: 7.9,
+                        mandates: 9
+                    },
+                    {
+                        id: "sns90",
+                        name: "Slovenská národná strana",
+                        short: "SNS",
+                        leader: "Víťazoslav Móric",
+                        color: "#388bfd",
+                        points: [
+                            "Neodkladné uznání slovenské národní svrchovanosti a rovnocennosti v rámci státu.",
+                            "Ochrana slovenského jazyka jako jediného úředního jazyka na Slovensku.",
+                            "Prosazování konfederativního či samostatného uspořádání."
+                        ],
+                        pct: 3.5,
+                        mandates: 6
+                    }
+                ]
+            },
+            "1996": {
+                year: 1996,
+                milestoneIndex: 9,
+                title: "Volby do Poslanecké sněmovny Parlamentu ČR (1996)",
+                date: "31. května a 1. června 1996",
+                turnout: "76.4 %",
+                parliament: "Poslanecká sněmovna Parlamentu ČR (200 mandátů)",
+                context: "První parlamentní volby v samostatné České republice po vzniku Ústavy 1993. Dramatický souboj konceptu pravicové liberální transformace Václava Klause a sociálnědemokratické alternativy Miloše Zemana v autobusu 'Zemák'.",
+                winnerPartyId: "ods",
+                winnerPartyName: "Občanská demokratická strana (ODS)",
+                historicalSummary: "Těsným vítězem se stala Klausova ODS s 29.6 % hlasů (68 mandátů), druhá Zemanova ČSSD dosáhla 26.4 % (61 mandátů). Dosavadní vládní koalice ztratila sněmovní většinu (měla jen 99 křesel z 200). Výsledkem byl pat a vznik menšinové koaliční vlády ODS-ODA-KDU-ČSL tolerované ČSSD výměnou za post předsedy sněmovny pro Zemana.",
+                parties: [
+                    {
+                        id: "ods",
+                        name: "Občanská demokratická strana",
+                        short: "ODS",
+                        leader: "Václav Klaus (předseda vlády ČR)",
+                        color: "#1f6feb",
+                        points: [
+                            "'Dokázali jsme, že to dokážeme!' – obhajoba úspěchu české hospodářské transformace.",
+                            "Štíhlý stát, nízké rovné zdanění, podpora soukromého podnikání a deregulace.",
+                            "Rychlý vstup do NATO a EU při obhajobě tvrdých českých národních zájmů."
+                        ],
+                        pct: 29.6,
+                        mandates: 68
+                    },
+                    {
+                        id: "cssd96",
+                        name: "Česká strana sociálně demokratická",
+                        short: "ČSSD",
+                        leader: "Miloš Zeman (vůdce opozice)",
+                        color: "#ea4a5a",
+                        points: [
+                            "'Lidskost proti sobectví!' – jízda v legendárním volebním autobusu Zemák.",
+                            "Zastavení privatizace zdravotnictví a školství, obhajoba zaměstnanců a důchodců.",
+                            "Akce 'Čisté ruce' proti tunelování bank, hospodářské kriminalitě a korupci."
+                        ],
+                        pct: 26.4,
+                        mandates: 61
+                    },
+                    {
+                        id: "kscm96",
+                        name: "Komunistická strana Čech a Moravy",
+                        short: "KSČM",
+                        leader: "Miroslav Grebeníček",
+                        color: "#cf222e",
+                        points: [
+                            "'S lidmi pro lidi!' – nekompromisní odmítnutí kapitalistických reforem a vstupu do NATO.",
+                            "Bezplatné zdravotnictví, bezplatné vysoké školství a státem garantované bydlení.",
+                            "Zachování státního vlastnictví energetiky, dolů a strategické infrastruktury."
+                        ],
+                        pct: 10.3,
+                        mandates: 22
+                    },
+                    {
+                        id: "kdu96",
+                        name: "Křesťanská a demokratická unie – ČSL",
+                        short: "KDU-ČSL",
+                        leader: "Josef Lux (ministr zemědělství)",
+                        color: "#e3b341",
+                        points: [
+                            "'Klidná síla' – vyvažující střed mezi pravicovým radikalismem a levicovým populismem.",
+                            "Sociálně-tržní hospodářství, přímá podpora rodin s dětmi a venkovského zemědělství.",
+                            "Důraz na etiku v podnikání, ekologii a decentralizaci státní správy."
+                        ],
+                        pct: 8.1,
+                        mandates: 18
+                    },
+                    {
+                        id: "spr96",
+                        name: "Sdružení pro republiku – Republikánská strana Československa",
+                        short: "SPR-RSČ (Republikáni)",
+                        leader: "Miroslav Sládek",
+                        color: "#d29922",
+                        points: [
+                            "Radikální nacionalismus: 'Čechy Čechům!', nekompromisní trestní politika a trest smrti.",
+                            "Odmítnutí vstupu do EU i NATO, požadavek na znovupřipojení Podkarpatské Rusi.",
+                            "Ostrá opozice proti všem polistopadovým vládám i privatizaci."
+                        ],
+                        pct: 8.0,
+                        mandates: 18
+                    },
+                    {
+                        id: "oda96",
+                        name: "Občanská demokratická aliance",
+                        short: "ODA",
+                        leader: "Jan Kalvoda (místopředseda vlády)",
+                        color: "#a371f7",
+                        points: [
+                            "Konzervativní liberalismus, nekompromisní důraz na právo, spravedlnost a nezávislé soudy.",
+                            "Důsledná ochrana soukromého vlastnictví, střední třídy a duševních svobod.",
+                            "Podpora vyššího vzdělání, kultury a vstupu do euroatlantických struktur."
+                        ],
+                        pct: 6.4,
+                        mandates: 13
+                    }
+                ]
+            }
+        };
+
+        const electionsNonFreeNotes = {
+            2: "V období Druhé republiky (1938–1939) byly řádné demokratické volby zrušeny. Politické strany byly nuceně sloučeny do dvou bloků (Strana národní jednoty a Národní strana práce) a parlament byl paralyzován zmocňovacím zákonem.",
+            3: "Během nacistické okupace v Protektorátu Čechy a Morava (1939–1945) byla parlamentní demokracie zlikvidována říšským protektorem. Žádné volby se nekonaly, jedinou povolenou organizací bylo kolaborující Národní souručenství.",
+            5: "Po komunistickém únorovém puči 1948 byly svobodné volby zničeny. V květnu 1948 proběhly pseudovolby s jedinou kandidátkou Národní fronty, kde bylo možné hlasovat pouze manifestačně bez plentu (99.3 % pro NF).",
+            6: "Za platnosti Ústavy 1960 fungoval totalitní systém jediné kandidátky Národní fronty řízené ÚV KSČ. Volby byly formální rituální fraškou s hlášenou 99% účastí bez politické soutěže.",
+            7: "V normalizačním období (1968–1989) se konaly rituální pseudovolby s 99.8% účastí. Odmítnutí hlasovat pro kandidáty Národní fronty znamenalo existenční postih a perzekuci rodiny."
+        };
+
+        function openElectionsModal(targetYear) {
+            playClickSound();
+            isElectionsOpen = true;
+            if (isCodexOpen) toggleCodex(false);
+            if (isPartyOpen) togglePartyModal(false);
+            if (isCompassOpen) closeCompassModal();
+
+            if (targetYear && electionsData[targetYear]) {
+                currentElectionYear = targetYear;
+            } else {
+                if (currentIndex <= 1) currentElectionYear = "1920";
+                else if (currentIndex === 4) currentElectionYear = "1946";
+                else if (currentIndex === 8) currentElectionYear = "1990";
+                else if (currentIndex === 9) currentElectionYear = "1996";
+                else currentElectionYear = "1920";
+            }
+
+            selectedPartyId = null;
+            renderElectionsTabs();
+            renderElectionsBallot(currentElectionYear);
+
+            document.getElementById('elections-ballot-view').style.display = 'block';
+            document.getElementById('elections-results-view').style.display = 'none';
+            document.getElementById('elections-modal').style.display = 'flex';
+        }
+
+        function closeElectionsModal() {
+            playClickSound();
+            document.getElementById('elections-modal').style.display = 'none';
+            isElectionsOpen = false;
+        }
+
+        function onElectionsOverlayClick(e) {
+            if (e.target && e.target.id === 'elections-modal') {
+                closeElectionsModal();
+            }
+        }
+
+        function switchElectionYear(year) {
+            playClickSound();
+            currentElectionYear = year;
+            selectedPartyId = null;
+            renderElectionsTabs();
+            renderElectionsBallot(year);
+            document.getElementById('elections-ballot-view').style.display = 'block';
+            document.getElementById('elections-results-view').style.display = 'none';
+        }
+
+        function renderElectionsTabs() {
+            const tabsContainer = document.getElementById('elections-era-tabs');
+            if (!tabsContainer) return;
+            tabsContainer.innerHTML = '';
+
+            const availableYears = [
+                { year: "1920", label: "1920: První republika" },
+                { year: "1946", label: "1946: Třetí republika" },
+                { year: "1990", label: "1990: Sametová revoluce" },
+                { year: "1996", label: "1996: Samostatná ČR" }
+            ];
+
+            availableYears.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = `elections-tab-btn ${item.year === currentElectionYear ? 'active' : ''}`;
+                btn.textContent = `🗳️ ${item.label}`;
+                btn.onclick = () => switchElectionYear(item.year);
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderElectionsBallot(year) {
+            const elData = electionsData[year];
+            if (!elData) return;
+
+            // Meta informace
+            document.getElementById('el-meta-date').textContent = `📅 DATUM: ${elData.date}`;
+            document.getElementById('el-meta-turnout').textContent = `🗳️ ÚČAST: ${elData.turnout}`;
+            document.getElementById('el-meta-parliament').textContent = `🏛️ SBOR: ${elData.parliament}`;
+            
+            // Kontext
+            let contextText = elData.context;
+            if (electionsNonFreeNotes[currentIndex] && (currentIndex !== elData.milestoneIndex)) {
+                contextText = `<span style="color:#ffd700;">[Historická poznámka k aktuálně vybranému období na mapě: ${electionsNonFreeNotes[currentIndex]}]</span><br><br>${elData.context}`;
+            }
+            document.getElementById('el-meta-desc').innerHTML = contextText;
+
+            // Seznam stran
+            const container = document.getElementById('parties-list-container');
+            container.innerHTML = '';
+
+            elData.parties.forEach(p => {
+                const card = document.createElement('div');
+                card.className = `party-card ${p.id === selectedPartyId ? 'selected' : ''}`;
+                card.style.setProperty('--party-color', p.color);
+                card.onclick = () => selectParty(p.id);
+
+                let pointsHtml = '';
+                p.points.forEach(pt => {
+                    pointsHtml += `<li class="party-point-item">${pt}</li>`;
+                });
+
+                card.innerHTML = `
+                    <div class="party-card-badge">
+                        <span class="party-short">${p.short}</span>
+                        <span class="party-check-icon">✓ ZVOLENO</span>
+                    </div>
+                    <div class="party-fullname">${p.name}</div>
+                    <div class="party-leader-box">
+                        <span>👤 Lídr:</span> <strong>${p.leader}</strong>
+                    </div>
+                    <ul class="party-points">
+                        ${pointsHtml}
+                    </ul>
+                `;
+
+                container.appendChild(card);
+            });
+
+            // Reset tlačítka hlasování
+            const submitBtn = document.getElementById('elections-submit-vote-btn');
+            const labelEl = document.getElementById('elections-selected-label');
+            if (submitBtn) submitBtn.disabled = !selectedPartyId;
+            if (labelEl) {
+                if (selectedPartyId) {
+                    const picked = elData.parties.find(x => x.id === selectedPartyId);
+                    labelEl.textContent = `Zvolena strana: ${picked ? picked.name : ''}`;
+                } else {
+                    labelEl.textContent = "Klikněte na stranu výše a poté potvrďte tlačítkem Odvolit.";
+                }
+            }
+        }
+
+        function selectParty(partyId) {
+            playClickSound(620, 0.04);
+            selectedPartyId = partyId;
+
+            const elData = electionsData[currentElectionYear];
+            const cards = document.querySelectorAll('.party-card');
+            cards.forEach(c => c.classList.remove('selected'));
+
+            elData.parties.forEach((p, idx) => {
+                if (p.id === partyId && cards[idx]) {
+                    cards[idx].classList.add('selected');
+                }
+            });
+
+            const picked = elData.parties.find(x => x.id === partyId);
+            const submitBtn = document.getElementById('elections-submit-vote-btn');
+            const labelEl = document.getElementById('elections-selected-label');
+            if (submitBtn) submitBtn.disabled = false;
+            if (labelEl && picked) {
+                labelEl.textContent = `✓ Zvolena strana: ${picked.name} (${picked.short})`;
+            }
+        }
+
+        function submitVote() {
+            if (!selectedPartyId) return;
+            const elData = electionsData[currentElectionYear];
+            if (!elData) return;
+
+            playVoteFanfare();
+
+            const userParty = elData.parties.find(p => p.id === selectedPartyId);
+            const winnerParty = elData.parties.find(p => p.id === elData.winnerPartyId);
+            if (!userParty || !winnerParty) return;
+
+            // Zobrazení srovnání v banneru
+            const bannerEl = document.getElementById('elections-comparison-banner');
+            let bannerHtml = '';
+
+            if (userParty.id === winnerParty.id) {
+                bannerHtml = `
+                    <div class="banner-msg-highlight">✨ SKVĚLÁ VOLBA! Vybral/a jsi stranu ${userParty.name} (${userParty.short}), která v těchto volbách skutečně zvítězila!</div>
+                    <div class="banner-msg-detail">V roce ${elData.year} získala celkem <strong>${userParty.pct} % hlasů</strong> a <strong>${userParty.mandates} mandátů</strong>. Váš hlas byl součástí historické většiny občanů.</div>
+                    <div class="banner-msg-aftermath">🏛️ <strong>Dopad voleb na vládu:</strong> ${elData.historicalSummary}</div>
+                `;
+            } else {
+                bannerHtml = `
+                    <div class="banner-msg-highlight">🗳️ TVŮJ VÝBĚR: Vybral/a jsi stranu ${userParty.name} (${userParty.short}).</div>
+                    <div class="banner-msg-detail">Historicky však v těchto volbách zvítězila strana <strong>${winnerParty.name} (${winnerParty.short})</strong> se ziskem <strong>${winnerParty.pct} % hlasů</strong> a <strong>${winnerParty.mandates} mandátů</strong>. Tvá vybraná strana získala <strong>${userParty.pct} %</strong> (${userParty.mandates} mandátů).</div>
+                    <div class="banner-msg-aftermath">🏛️ <strong>Historický výsledek a vláda:</strong> ${elData.historicalSummary}</div>
+                `;
+            }
+            bannerEl.innerHTML = bannerHtml;
+
+            // Vykreslení grafu výsledků
+            const barsContainer = document.getElementById('elections-results-bars');
+            barsContainer.innerHTML = '';
+
+            // Seřadit strany podle % sestupně
+            const sortedParties = [...elData.parties].sort((a, b) => b.pct - a.pct);
+            const maxPct = sortedParties[0].pct;
+
+            sortedParties.forEach(p => {
+                const row = document.createElement('div');
+                const isUserPick = p.id === userParty.id;
+                const isWinner = p.id === winnerParty.id;
+
+                row.className = `result-bar-row ${isUserPick ? 'is-user-pick' : ''} ${isWinner ? 'is-winner' : ''}`;
+                row.style.setProperty('--party-color', p.color);
+
+                let badgeHtml = '';
+                if (isUserPick && isWinner) {
+                    badgeHtml = `<span class="result-badge badge-user-pick">★ TVŮJ HLAS & VÍTĚZ</span>`;
+                } else if (isUserPick) {
+                    badgeHtml = `<span class="result-badge badge-user-pick">★ TVŮJ HLAS</span>`;
+                } else if (isWinner) {
+                    badgeHtml = `<span class="result-badge badge-winner">🏆 VÍTĚZ VOLEB</span>`;
+                }
+
+                const widthPct = Math.max(8, (p.pct / maxPct) * 100);
+
+                row.innerHTML = `
+                    <div class="result-row-header">
+                        <div class="result-party-tag">
+                            <span>■</span>
+                            <strong>${p.short}</strong> – ${p.name}
+                            ${badgeHtml}
+                        </div>
+                        <div class="result-numbers">${p.pct} % · ${p.mandates} mandátů</div>
+                    </div>
+                    <div class="result-bar-track">
+                        <div class="result-bar-fill" style="width: 0%;" data-target-width="${widthPct}%">
+                            <span>${p.pct}%</span>
+                        </div>
+                    </div>
+                `;
+
+                barsContainer.appendChild(row);
+            });
+
+            // Přepnutí obrazovky
+            document.getElementById('elections-ballot-view').style.display = 'none';
+            document.getElementById('elections-results-view').style.display = 'block';
+
+            // Animace naplnění grafických pruhů
+            setTimeout(() => {
+                document.querySelectorAll('.result-bar-fill').forEach(bar => {
+                    const target = bar.getAttribute('data-target-width');
+                    if (target) bar.style.width = target;
+                });
+            }, 50);
+
+            const dialogBox = document.querySelector('.elections-dialog-box');
+            if (dialogBox) dialogBox.scrollTop = 0;
+        }
+
+        function resetVote() {
+            playClickSound();
+            selectedPartyId = null;
+            renderElectionsBallot(currentElectionYear);
+            document.getElementById('elections-results-view').style.display = 'none';
+            document.getElementById('elections-ballot-view').style.display = 'block';
+            const dialogBox = document.querySelector('.elections-dialog-box');
+            if (dialogBox) dialogBox.scrollTop = 0;
+        }
+
+        // =========================================================================
+        // ================= POŽADAVEK 2: DOBOVÝ POLITICKÝ KOMPAS ==================
+        // =========================================================================
+        let isCompassOpen = false;
+        let currentCompassMilestone = 0;
+        let selectedPoliticianIndex = 0;
+
+        const compassData = [
+            {
+                year: "1918–1920",
+                title: "Vznik republiky",
+                politicians: [
+                    {
+                        name: "Tomáš Garrigue Masaryk",
+                        short: "TGM",
+                        role: "Prezident Osvoboditel, filosof",
+                        x: -0.20,
+                        y: 0.70,
+                        color: "#58a6ff",
+                        bio: "Vůdčí osobnost vzniku samostatného státu a první prezident ČSR.",
+                        reason: "Spojoval nekompromisní obhajobu lidské svobody, občanských práv a demokracie ('demokracie je diskuse') se silným sociálním cítěním a kritikou divokého kapitalismu. Odmítal však jak bolševické násilí, tak autoritativní vládnutí."
+                    },
+                    {
+                        name: "Karel Kramář",
+                        short: "KK",
+                        role: "Předseda první čs. vlády, vůdce ČsND",
+                        x: 0.70,
+                        y: -0.35,
+                        color: "#388bfd",
+                        bio: "Předák nacionálních demokratů, první premiér samostatné republiky.",
+                        reason: "Zastánce velkého českého průmyslového kapitálu, silného nacionálního státu a ostražitosti vůči národnostním menšinám. Požadoval pevnou autoritu státu a protekcionismus proti zahraničnímu vlivu."
+                    },
+                    {
+                        name: "Bohumír Šmeral",
+                        short: "BŠ",
+                        role: "Vůdce marxistické levice, zakladatel KSČ",
+                        x: -0.85,
+                        y: -0.60,
+                        color: "#cf222e",
+                        bio: "Zakladatel komunistického hnutí v Československu.",
+                        reason: "Radikální marxista, který odmítal sociálnědemokratický reformismus a obhajoval diktaturu proletariátu a sovětský model centrálně řízeného hospodářství pod kontrolou dělnické strany."
+                    },
+                    {
+                        name: "Antonín Švehla",
+                        short: "AŠ",
+                        role: "Předseda Agrární strany, ministr vnitra",
+                        x: 0.35,
+                        y: 0.25,
+                        color: "#2ea043",
+                        bio: "Génius koaliční politiky a vůdce selského stavu.",
+                        reason: "Pragmatický obhájce soukromého zemědělského vlastnictví a trhu. Stavěl na kompromisech v parlamentu, stabilitě demokratických institucí a dohodě 'Pětky'."
+                    },
+                    {
+                        name: "Andrej Hlinka",
+                        short: "AH",
+                        role: "Vůdce Slovenské l'udové strany (HSĽS)",
+                        x: 0.30,
+                        y: -0.65,
+                        color: "#e3b341",
+                        bio: "Katolický kněz a neochvějný bojovník za slovenskou autonomii.",
+                        reason: "Klerikální konzervativec s důrazem na církevní hierarchii, tradiční křesťanskou rodinu a náboženskou autoritu. V ekonomice hájil tradiční venkovské hospodaření."
+                    },
+                    {
+                        name: "Vlastimil Tusar",
+                        short: "VT",
+                        role: "Sociálnědemokratický premiér (1919–1920)",
+                        x: -0.55,
+                        y: 0.35,
+                        color: "#ea4a5a",
+                        bio: "Státník a novinář, předseda rudo-zelené vládní koalice.",
+                        reason: "Demokratický socialista, který udržel stranu v mezích ústavy a zákonnosti. Prosadil osmihodinovou pracovní dobu a sociální reformy v mantinelech parlamentu."
+                    }
+                ]
+            },
+            {
+                year: "1920–1938",
+                title: "Ústavní listina ČSR & První republika",
+                politicians: [
+                    {
+                        name: "Tomáš Garrigue Masaryk",
+                        short: "TGM",
+                        role: "Prezident republiky (1920–1935)",
+                        x: -0.20,
+                        y: 0.75,
+                        color: "#58a6ff",
+                        bio: "Prezident Osvoboditel, garant demokratického charakteru státu.",
+                        reason: "Ztělesnění humanitního liberalismu a ústavnosti. Hájil rovnoprávnost žen, sekulární stát a práva menšin při zachování sociální solidarity."
+                    },
+                    {
+                        name: "Edvard Beneš",
+                        short: "EB",
+                        role: "Ministr zahraničí a prezident ČSR (1935–1938)",
+                        x: -0.15,
+                        y: 0.45,
+                        color: "#2ca0ba",
+                        bio: "Představitel 'Hradu', architekt mezinárodních vazeb republiky.",
+                        reason: "Středo-levicový pragmatik, který věřil v mezinárodní právo, organizovaný stát a postupný sociální pokrok v mantinelech parlamentní demokracie."
+                    },
+                    {
+                        name: "Antonín Švehla",
+                        short: "AŠ",
+                        role: "Trojnásobný ministerský předseda ČSR",
+                        x: 0.40,
+                        y: 0.30,
+                        color: "#2ea043",
+                        bio: "Klíčový tvůrce vládní stability a koaličního systému 'Pětky'.",
+                        reason: "Hájil soukromé vlastnictví půdy, agrární družstva a tržní hospodaření, přičemž ctěl parlamentní svobody a odmítal extremistické experimenty."
+                    },
+                    {
+                        name: "Klement Gottwald",
+                        short: "KG",
+                        role: "Generální tajemník KSČ (od 1929)",
+                        x: -0.90,
+                        y: -0.85,
+                        color: "#cf222e",
+                        bio: "Vůdce bolševického křídla KSČ, loajální Moskvě.",
+                        reason: "Radikální stalinista ('Do Moskvy se jezdíme učit, jak vám zakroutit krkem'), hlásající násilnou likvidaci buržoazní republiky a zavedení diktatury proletariátu."
+                    },
+                    {
+                        name: "Jan Šrámek",
+                        short: "JŠ",
+                        role: "Předseda Československé strany lidové",
+                        x: 0.10,
+                        y: -0.10,
+                        color: "#e3b341",
+                        bio: "Monsignore a mistr politického přežití v koaličních vládách.",
+                        reason: "Křesťansko-sociální střed: ochrana rodiny, církve a soukromého vlastnictví spojená s pragmatickým respektem k demokratickému kompromisu."
+                    },
+                    {
+                        name: "Konrad Henlein",
+                        short: "KH",
+                        role: "Vůdce Sudetoněmecké strany (SdP)",
+                        x: 0.75,
+                        y: -0.95,
+                        color: "#8b949e",
+                        bio: "Nacistický kolaborant a pátá kolona Adolfa Hitlera v ČSR.",
+                        reason: "Nacionální socialista požadující totální podřízení vůli Vůdce, likvidaci československé demokracie a zavedení fašistické diktatury."
+                    },
+                    {
+                        name: "Karel Kramář",
+                        short: "KK",
+                        role: "Vůdce Národní demokracie, poslanec",
+                        x: 0.75,
+                        y: -0.40,
+                        color: "#388bfd",
+                        bio: "Předák národní pravice a ostrý kritik Masarykova liberalismu.",
+                        reason: "Hájil velký český kapitál, Rašínovu deflační měnovou politiku a národní stát se silnou autoritou proti socialismu i menšinám."
+                    }
+                ]
+            },
+            {
+                year: "1938–1939",
+                title: "Mnichovská dohoda / Druhá republika",
+                politicians: [
+                    {
+                        name: "Emil Hácha",
+                        short: "EH",
+                        role: "Státní prezident Druhé republiky",
+                        x: 0.40,
+                        y: -0.45,
+                        color: "#e3b341",
+                        bio: "Respektovaný právník a soudce, zvolený prezidentem v troskách státu.",
+                        reason: "Konzervativní legalista snažící se uchovat zbytky práva a národní existence pod obrovským tlakem nacismu za cenu autoritativních kompromisů."
+                    },
+                    {
+                        name: "Rudolf Beran",
+                        short: "RB",
+                        role: "Předseda vlády Druhé republiky",
+                        x: 0.65,
+                        y: -0.75,
+                        color: "#df6f24",
+                        bio: "Tvůrce autoritativní Strany národní jednoty.",
+                        reason: "Prosadil zmocňovací zákon, zrušení svobodné politické soutěže a zavedení tuhé cenzury ve snaze vyhovět německému nátlaku."
+                    },
+                    {
+                        name: "Antonín Hampl",
+                        short: "AH",
+                        role: "Předseda Národní strany práce (loajální opozice)",
+                        x: -0.45,
+                        y: 0.15,
+                        color: "#ea4a5a",
+                        bio: "Vůdce demokratické levice za Druhé republiky.",
+                        reason: "Snažil se v omezených možnostech autoritativního režimu bránit práva zaměstnanců, dělnictva a sociální jistoty."
+                    },
+                    {
+                        name: "Jozef Tiso",
+                        short: "JT",
+                        role: "Předseda slovenské autonomní vlády (HSĽS)",
+                        x: 0.45,
+                        y: -0.85,
+                        color: "#a371f7",
+                        bio: "Klerofašistický politik, budoucí prezident Slovenského státu.",
+                        reason: "Spojení katolického klerikalismu s autoritářským režimem jedné strany, který v březnu 1939 na pokyn Hitlera vyhlásil vazalský stát."
+                    },
+                    {
+                        name: "Edvard Beneš (exil)",
+                        short: "EB",
+                        role: "Abdikovaný prezident organizující odboj",
+                        x: -0.15,
+                        y: 0.55,
+                        color: "#58a6ff",
+                        bio: "Vůdce zahraničního odboje odmítající diktát z Mnichova.",
+                        reason: "Zastánce kontinuity demokratického Československa, mezinárodního práva a poválečné obnovy suverenity a svobody."
+                    }
+                ]
+            },
+            {
+                year: "1939–1945",
+                title: "Protektorát a Exil",
+                politicians: [
+                    {
+                        name: "Alois Eliáš",
+                        short: "AE",
+                        role: "Protektorátní ministerský předseda & odbojář",
+                        x: 0.25,
+                        y: -0.55,
+                        color: "#e3b341",
+                        bio: "Generál ve službách národa, popravený nacisty v roce 1942.",
+                        reason: "Tragický hrdina: oficiálně vedl protektorátní vládu, tajně však financoval a řídil vojenský odboj a předával zprávy do Londýna."
+                    },
+                    {
+                        name: "Emanuel Moravec",
+                        short: "EM",
+                        role: "Protektorátní ministr školství a lidové osvěty",
+                        x: 0.55,
+                        y: -1.0,
+                        color: "#cf222e",
+                        bio: "Symbol nejhorší kolaborace a nacistického fanatismu.",
+                        reason: "Totální oddanost Třetí říši, prosazování fašistické diktatury, nacistické rasové hierarchie a bezohledného potírání vlastenectví."
+                    },
+                    {
+                        name: "Edvard Beneš (Londýn)",
+                        short: "EB",
+                        role: "Prezident republiky v londýnském exilu",
+                        x: -0.10,
+                        y: 0.50,
+                        color: "#58a6ff",
+                        bio: "Mezinárodně uznaná hlava československého státu v boji proti Hitlerovi.",
+                        reason: "Hájil teorii právní kontinuity předmnichovské republiky, demokratické principy a mezinárodní koalici proti totalitám."
+                    },
+                    {
+                        name: "Jan Šrámek (Londýn)",
+                        short: "JŠ",
+                        role: "Předseda československé exilové vlády",
+                        x: 0.20,
+                        y: 0.40,
+                        color: "#388bfd",
+                        bio: "Představitel prozápadního křídla československého odboje.",
+                        reason: "Konzervativní katolický demokrat garantující prozápadní směřování zahraniční vlády a ústavní návaznost."
+                    },
+                    {
+                        name: "Klement Gottwald (Moskva)",
+                        short: "KG",
+                        role: "Vůdce komunistického odboje v Moskvě",
+                        x: -0.95,
+                        y: -0.95,
+                        color: "#da3633",
+                        bio: "Komunistický exilový předák koordinující plány se Stalinem.",
+                        reason: "Připravoval poválečné převzetí moci pod záštitou SSSR, likvidaci soukromého vlastnictví a vytvoření lidové demokracie."
+                    }
+                ]
+            },
+            {
+                year: "1945–1948",
+                title: "Třetí republika",
+                politicians: [
+                    {
+                        name: "Klement Gottwald",
+                        short: "KG",
+                        role: "Předseda vlády ČSR a předseda KSČ",
+                        x: -0.85,
+                        y: -0.75,
+                        color: "#cf222e",
+                        bio: "Architekt komunistického uchopení moci ve státě.",
+                        reason: "Budoval vliv v policii a odborech, prosazoval znárodňování velkých podniků a připravoval půdu pro konečné odstranění pluralitní demokracie."
+                    },
+                    {
+                        name: "Prokop Drtina",
+                        short: "PD",
+                        role: "Ministr spravedlnosti za národní socialisty",
+                        x: 0.10,
+                        y: 0.65,
+                        color: "#58a6ff",
+                        bio: "Statečný obránce nezávislé justice a právního státu.",
+                        reason: "Neochvějně hájil nestrannost soudů a vyšetřování proti policejním čistkám KSČ; po únoru 1948 se pokusil o sebevraždu a byl dlouhá léta vězněn."
+                    },
+                    {
+                        name: "Jan Masaryk",
+                        short: "JM",
+                        role: "Ministr zahraničních věcí (nestraník)",
+                        x: -0.05,
+                        y: 0.70,
+                        color: "#388bfd",
+                        bio: "Syn TGM, symbol svobodomyslné kultury a prozápadního ukotvení.",
+                        reason: "Snažil se být mostem mezi Východem a Západem. Hájil osobní svobodu a humor proti dogmatismu; tragicky zahynul v březnu 1948 v Černínském paláci."
+                    },
+                    {
+                        name: "Petr Zenkl",
+                        short: "PZ",
+                        role: "Místopředseda vlády, předseda ČSNS",
+                        x: 0.30,
+                        y: 0.55,
+                        color: "#2ca0ba",
+                        bio: "Předák demokratických sil v zápasu s komunisty.",
+                        reason: "Iniciátor demisí nekomunistických ministrů v únoru 1948 na protest proti nezákonným čistkám v SNB. Obhájce parlamentarismu a svobody."
+                    },
+                    {
+                        name: "Zdeněk Fierlinger",
+                        short: "ZF",
+                        role: "Premiér (1945–46), levé křídlo sociální demokracie",
+                        x: -0.70,
+                        y: -0.50,
+                        color: "#ea4a5a",
+                        bio: "Moskvě oddaný spojenec komunistů uvnitř ČSSD.",
+                        reason: "Podkopával jednotu demokratických sil zevnitř sociální demokracie a připravil její nucenou fúzi s KSČ po únoru 1948."
+                    },
+                    {
+                        name: "Jan Šrámek",
+                        short: "JŠ",
+                        role: "Místopředseda vlády, předseda ČSL",
+                        x: 0.20,
+                        y: 0.35,
+                        color: "#e3b341",
+                        bio: "Lidovecký státník hájící křesťanské a soukromé tradice.",
+                        reason: "Odmítal komunistické vyvlastňování církevního majetku a rolnické půdy; v únoru 1948 podal demisi a při pokusu o útěk byl zatčen."
+                    }
+                ]
+            },
+            {
+                year: "1948–1960",
+                title: "Ústava 9. května & 50. léta",
+                politicians: [
+                    {
+                        name: "Klement Gottwald",
+                        short: "KG",
+                        role: "Dělnický prezident (1948–1953)",
+                        x: -0.95,
+                        y: -0.98,
+                        color: "#cf222e",
+                        bio: "Hlava totalitního stalinského režimu v Československu.",
+                        reason: "Symbol stalinistického teroru, přímo podepisoval rozsudky smrti v justičních vraždách Milady Horákové, Heliodora Píky i svých spolustraníků."
+                    },
+                    {
+                        name: "Milada Horáková",
+                        short: "MH",
+                        role: "Právnička, poslankyně, oběť justiční vraždy",
+                        x: -0.15,
+                        y: 0.95,
+                        color: "#58a6ff",
+                        bio: "Hrdinka národního odporu a neochvějná demokratka.",
+                        reason: "Popravena ve vykonstruovaném procesu v červnu 1950. Do poslední chvíle hájila zásady Masarykovy demokracie, práva a lidské důstojnosti."
+                    },
+                    {
+                        name: "Antonín Zápotocký",
+                        short: "AZ",
+                        role: "Prezident republiky (1953–1957)",
+                        x: -0.85,
+                        y: -0.80,
+                        color: "#ea4a5a",
+                        bio: "Odborářský autoritář spojený s likvidací živností a měnovou reformou.",
+                        reason: "Zlikvidoval soukromý sektor řemesel a okradl obyvatele měnovou reformou 1953, ačkoliv den předem lhal, že koruna je pevná."
+                    },
+                    {
+                        name: "Rudolf Slánský",
+                        short: "RS",
+                        role: "Generální tajemník ÚV KSČ (popraven 1952)",
+                        x: -0.95,
+                        y: -0.90,
+                        color: "#da3633",
+                        bio: "Architekt represivního aparátu, semletý vlastní paranoiou.",
+                        reason: "Spoluvytvářel teror StB a vykonstruované procesy, až se sám stal obětí monstrprocesu s 'protistátním spikleneckým centrem'."
+                    },
+                    {
+                        name: "Antonín Novotný",
+                        short: "AN",
+                        role: "První tajemník ÚV KSČ (od 1953), prezident",
+                        x: -0.85,
+                        y: -0.75,
+                        color: "#d29922",
+                        bio: "Aparátčík upevňující komunistický monopol v 50. letech.",
+                        reason: "Dohlížel na dokončení násilné kolektivizace venkova a upevnění totalitní byrokracie v celém hospodářství."
+                    }
+                ]
+            },
+            {
+                year: "1960–1968",
+                title: "Ústava ČSSR & Pražské jaro",
+                politicians: [
+                    {
+                        name: "Antonín Novotný",
+                        short: "AN",
+                        role: "Prezident ČSSR a první tajemník KSČ (do 1968)",
+                        x: -0.85,
+                        y: -0.70,
+                        color: "#cf222e",
+                        bio: "Hlasatel 'vítězství socialismu' v Ústavě 1960.",
+                        reason: "Skostnatělý dogmatik, který brzdil rehabilitace obětí 50. let a potlačoval slovenské národní požadavky i občanské svobody."
+                    },
+                    {
+                        name: "Alexander Dubček",
+                        short: "AD",
+                        role: "První tajemník ÚV KSČ (1968)",
+                        x: -0.60,
+                        y: 0.35,
+                        color: "#58a6ff",
+                        bio: "Tvář Pražského jara a 'socialismu s lidskou tváří'.",
+                        reason: "Zrušil cenzuru, povolil nezávislé spolky a usiloval o demokratizaci veřejného života a svobodu slova uvnitř socialistického řádu."
+                    },
+                    {
+                        name: "František Kriegel",
+                        short: "FK",
+                        role: "Člen předsednictva ÚV KSČ, lékař",
+                        x: -0.65,
+                        y: 0.55,
+                        color: "#2ea043",
+                        bio: "Statečný hrdina srpna 1968.",
+                        reason: "Jako jediný československý politik v Moskvě po srpnové okupaci 1968 odmítl podepsat Moskevský protokol legalizující přítomnost okupačních vojsk."
+                    },
+                    {
+                        name: "Ota Šik",
+                        short: "OŠ",
+                        role: "Ekonom, místopředseda vlády 1968",
+                        x: -0.30,
+                        y: 0.45,
+                        color: "#2ca0ba",
+                        bio: "Autor Šikovy tržní ekonomické reformy.",
+                        reason: "Pokusil se zkombinovat společenské vlastnictví s tržními mechanismy, autonomií podniků a podnikatelskou iniciativou."
+                    },
+                    {
+                        name: "Ludvík Svoboda",
+                        short: "LS",
+                        role: "Prezident ČSSR (zvolen v březnu 1968)",
+                        x: -0.55,
+                        y: -0.15,
+                        color: "#e3b341",
+                        bio: "Válečný hrdina, symbol národního smíření v roce 1968.",
+                        reason: "V roce 1968 se těšil obrovské popularitě, po srpnové invazi se však snažil vyhnout krveprolití i za cenu bolestných ústupků Sovětům."
+                    }
+                ]
+            },
+            {
+                year: "1968–1989",
+                title: "Zákon o federaci & Normalizace",
+                politicians: [
+                    {
+                        name: "Gustáv Husák",
+                        short: "GH",
+                        role: "Generální tajemník ÚV KSČ a prezident ČSSR",
+                        x: -0.85,
+                        y: -0.90,
+                        color: "#cf222e",
+                        bio: "Hlavní architekt normalizace po porážce Pražského jara.",
+                        reason: "Symbol čistek ve straně i společnosti, obnovení tuhé cenzury, pronásledování Charty 77 a bezmezného vazalství vůči Moskvě."
+                    },
+                    {
+                        name: "Václav Havel",
+                        short: "VH",
+                        role: "Dramatik, disident, mluvčí Charty 77",
+                        x: -0.15,
+                        y: 0.95,
+                        color: "#58a6ff",
+                        bio: "Vůdčí osobnost protitotalitního odporu a života v pravdě.",
+                        reason: "Autor eseje 'Moc bezmocných', bojovník za lidská práva a mravní integritu; za své občanské postoje byl komunistickým režimem opakovaně vězněn."
+                    },
+                    {
+                        name: "Jan Patočka",
+                        short: "JP",
+                        role: "Filosof, první mluvčí Charty 77",
+                        x: 0.05,
+                        y: 0.95,
+                        color: "#388bfd",
+                        bio: "Etický pilíř českého disentu, žák Edmunda Husserla.",
+                        reason: "'Jsou věci, pro které stojí za to trpět.' Položil život za lidská práva a morálku, když zemřel v březnu 1977 po vyčerpávajícím výslechu StB."
+                    },
+                    {
+                        name: "František Tomášek",
+                        short: "FT",
+                        role: "Kardinál a pražský arcibiskup",
+                        x: 0.35,
+                        y: 0.75,
+                        color: "#e3b341",
+                        bio: "Duchovní opora věřících i občanského odporu.",
+                        reason: "Veřejně se postavil na stranu národa a disidentů proti útlaku ('Já i celá církev stojíme na straně národa!') a podpořil petici za náboženskou svobodu."
+                    },
+                    {
+                        name: "Lubomír Štrougal",
+                        short: "LŠ",
+                        role: "Předseda federální vlády (1970–1988)",
+                        x: -0.70,
+                        y: -0.60,
+                        color: "#df6f24",
+                        bio: "Technokratický premiér normalizačního režimu.",
+                        reason: "Snažil se udržovat spotřební standard obyvatel výměnou za jejich politickou poslušnost a pasivitu vůči totalitnímu systému."
+                    },
+                    {
+                        name: "Miloš Jakeš",
+                        short: "MJ",
+                        role: "Generální tajemník ÚV KSČ (1987–1989)",
+                        x: -0.85,
+                        y: -0.85,
+                        color: "#ea4a5a",
+                        bio: "Poslední komunistický vládce před zhroucením režimu.",
+                        reason: "Symbol bezradnosti a ideologické prázdnoty režimu těsně před pádem ('cítíme se jako kůl v plotě'), odmítal jakékoliv skutečné reformy."
+                    }
+                ]
+            },
+            {
+                year: "1989–1992",
+                title: "Sametová revoluce & Pád totality",
+                politicians: [
+                    {
+                        name: "Václav Havel",
+                        short: "VH",
+                        role: "Prezident ČSFR, vůdce Občanského fóra",
+                        x: -0.20,
+                        y: 0.85,
+                        color: "#58a6ff",
+                        bio: "Symbol revoluce, zastánce občanské společnosti a lidských práv.",
+                        reason: "Zdůrazňoval morálku v politice, nepolitickou politiku a návrat do Evropy. Odmítal ideologické dogmatismy a hájil lidská práva a toleranci."
+                    },
+                    {
+                        name: "Václav Klaus",
+                        short: "VK",
+                        role: "Ministr financí ČSFR, otec ekonomické reformy",
+                        x: 0.80,
+                        y: 0.40,
+                        color: "#1f6feb",
+                        bio: "Architekt radikální tržní transformace a kupónové privatizace.",
+                        reason: "Zastánce čistého trhu ('trh bez přívlastků'), soukromého vlastnictví, nízkých daní a rozpočtové disciplíny v rámci liberální demokracie."
+                    },
+                    {
+                        name: "Marián Čalfa",
+                        short: "MČ",
+                        role: "Předseda federální vlády národního porozumění",
+                        x: -0.10,
+                        y: 0.10,
+                        color: "#e3b341",
+                        bio: "Pragmatický právník řídící legislativní demontáž totality.",
+                        reason: "Bývalý člen KSČ, který sehrál klíčovou roli v hladkém, právně korektním a pokojném předání moci do rukou Občanského fóra a Václava Havla."
+                    },
+                    {
+                        name: "Vladimír Mečiar",
+                        short: "VM",
+                        role: "Předseda slovenské vlády, předseda HZDS",
+                        x: -0.30,
+                        y: -0.60,
+                        color: "#df6f24",
+                        bio: "Slovenský premiér se silnými nacionálně-populistickými rysy.",
+                        reason: "Charismatický populista s autoritářským stylem vládnutí; jeho požadavky na konfederativní uspořádání urychlily rozdělení federace."
+                    },
+                    {
+                        name: "Jiří Dienstbier",
+                        short: "JD",
+                        role: "Ministr zahraničí ČSFR, mluvčí OF",
+                        x: -0.35,
+                        y: 0.70,
+                        color: "#2ea043",
+                        bio: "Disident a novinář, symbol otevírání hranic na Západ.",
+                        reason: "Symbol stříhání drátů na západních hranicích; obhajoval proevropskou integraci a sociálně-liberální demokratické ideály."
+                    },
+                    {
+                        name: "Valtr Komárek",
+                        short: "VKo",
+                        role: "Místopředseda federální vlády, prognostik",
+                        x: -0.50,
+                        y: 0.30,
+                        color: "#ea4a5a",
+                        bio: "Ředitel Prognostického ústavu a oblíbená tvář revoluce.",
+                        reason: "Navrhoval pozvolnější transformační strategii po vzoru německého sociálně-tržního hospodářství s důrazem na sociální jistoty občanů."
+                    }
+                ]
+            },
+            {
+                year: "1993–nyní",
+                title: "Ústava ČR & Samostatný stát",
+                politicians: [
+                    {
+                        name: "Václav Havel",
+                        short: "VH",
+                        role: "První prezident České republiky (1993–2003)",
+                        x: -0.15,
+                        y: 0.80,
+                        color: "#58a6ff",
+                        bio: "Zakladatel moderní české státnosti v demokratické Evropě.",
+                        reason: "Garant vstupu do NATO a EU, obhájce lidských práv, občanské společnosti a nezávislých institucí proti partajnímu pragmatismu."
+                    },
+                    {
+                        name: "Václav Klaus",
+                        short: "VK",
+                        role: "Premiér (1992–1997) a prezident ČR (2003–2013)",
+                        x: 0.75,
+                        y: 0.20,
+                        color: "#1f6feb",
+                        bio: "Předák ODS, obhájce tržní ekonomiky a národní suverenity.",
+                        reason: "Pravicový konzervativec a tržní liberál. Hájil volný trh a národní stát, vystupoval s ostrou skepsí k federalizaci EU a environmentalismu."
+                    },
+                    {
+                        name: "Miloš Zeman",
+                        short: "MZ",
+                        role: "Premiér (1998–2002) a prezident ČR (2013–2023)",
+                        x: -0.45,
+                        y: -0.30,
+                        color: "#ea4a5a",
+                        bio: "Vůdce ČSSD a architekt Opoziční smlouvy.",
+                        reason: "Levicový plebejský pragmatik se silným tahem na moc. Prosadil vstup do NATO, ale v prezidentském úřadě uplatňoval poloprezidentský výklad ústavy a přímou volbu."
+                    },
+                    {
+                        name: "Josef Lux",
+                        short: "JL",
+                        role: "Místopředseda vlády, předseda KDU-ČSL",
+                        x: 0.15,
+                        y: 0.40,
+                        color: "#e3b341",
+                        bio: "Křesťanskodemokratický politik, jazýček na vahách české politiky.",
+                        reason: "Vyvažoval pravici a levici. Hájil rodinu, venkovské zemědělství a sociálně-tržní hospodářství stojící na etických základech."
+                    },
+                    {
+                        name: "Petr Fiala",
+                        short: "PF",
+                        role: "Předseda vlády ČR (2021–2025), předseda ODS",
+                        x: 0.55,
+                        y: 0.35,
+                        color: "#388bfd",
+                        bio: "Politolog a premiér koaliční vlády.",
+                        reason: "Konzervativně-liberální středopravice: silné prozápadní ukotvení v EU a NATO, podpora spojenců, důraz na rozpočtovou odpovědnost a právní stát."
+                    },
+                    {
+                        name: "Andrej Babiš",
+                        short: "AB",
+                        role: "Předseda hnutí ANO, premiér ČR (2017–2021, 2025–)",
+                        x: 0.10,
+                        y: -0.45,
+                        color: "#df6f24",
+                        bio: "Miliardář a politik, představitel hnutí ANO.",
+                        reason: "Technokratický a byznysový populismus ('řídit stát jako firmu'). Odmítání klasických ideologií ve prospěch flexibilního marketingového pragmatismu se silným centrálním řízením."
+                    }
+                ]
+            }
+        ];
+
+        function openCompassModal(milestoneIndex) {
+            playClickSound();
+            isCompassOpen = true;
+            if (isCodexOpen) toggleCodex(false);
+            if (isPartyOpen) togglePartyModal(false);
+            if (isElectionsOpen) closeElectionsModal();
+
+            if (milestoneIndex !== undefined && milestoneIndex >= 0 && milestoneIndex < compassData.length) {
+                currentCompassMilestone = milestoneIndex;
+            } else {
+                currentCompassMilestone = currentIndex;
+            }
+            selectedPoliticianIndex = 0;
+
+            renderCompassEraSelector();
+            renderCompassGraph(currentCompassMilestone);
+
+            document.getElementById('compass-modal').style.display = 'flex';
+        }
+
+        function closeCompassModal() {
+            playClickSound();
+            document.getElementById('compass-modal').style.display = 'none';
+            isCompassOpen = false;
+        }
+
+        function onCompassOverlayClick(e) {
+            if (e.target && e.target.id === 'compass-modal') {
+                closeCompassModal();
+            }
+        }
+
+        function switchCompassMilestone(idx) {
+            playClickSound();
+            currentCompassMilestone = idx;
+            selectedPoliticianIndex = 0;
+            renderCompassEraSelector();
+            renderCompassGraph(idx);
+        }
+
+        function renderCompassEraSelector() {
+            const selector = document.getElementById('compass-era-selector');
+            if (!selector) return;
+            selector.innerHTML = '';
+
+            compassData.forEach((era, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `compass-era-btn ${idx === currentCompassMilestone ? 'active' : ''}`;
+                btn.textContent = `${era.year}`;
+                btn.title = `${era.year}: ${era.title}`;
+                btn.onclick = () => switchCompassMilestone(idx);
+                selector.appendChild(btn);
+            });
+        }
+
+        function getQuadrantTitle(x, y) {
+            if (x <= 0 && y >= 0) return "LEVICOVÁ SVOBODA / DEMOKRATICKÝ SOCIALISMUS";
+            if (x > 0 && y >= 0) return "PRAVICOVÁ SVOBODA / TRŽNÍ LIBERALISMUS";
+            if (x <= 0 && y < 0) return "LEVICOVÁ AUTORITA / TOTALITNÍ KOMUNISMUS";
+            return "PRAVICOVÁ AUTORITA / KONZERVATISMUS & NACIONALISMUS";
+        }
+
+        function renderCompassGraph(milestoneIdx) {
+            const eraData = compassData[milestoneIdx];
+            if (!eraData) return;
+
+            const svg = document.getElementById('compass-svg');
+            if (!svg) return;
+
+            const pols = eraData.politicians;
+            if (selectedPoliticianIndex >= pols.length) selectedPoliticianIndex = 0;
+            const activePol = pols[selectedPoliticianIndex] || pols[0];
+
+            // Vytvoření SVG elementů
+            let svgContent = `
+                <!-- Pozadí a okraj -->
+                <rect x="0" y="0" width="500" height="500" fill="#070b10"/>
+                
+                <!-- Kvadratická barevná zabarvení -->
+                <rect x="40" y="40" width="210" height="210" fill="rgba(56, 189, 248, 0.06)"/>
+                <rect x="250" y="40" width="210" height="210" fill="rgba(168, 85, 247, 0.06)"/>
+                <rect x="40" y="250" width="210" height="210" fill="rgba(239, 68, 68, 0.07)"/>
+                <rect x="250" y="250" width="210" height="210" fill="rgba(234, 179, 8, 0.06)"/>
+
+                <!-- Jemná retro mřížka (každých 0.2 jednotek) -->
+            `;
+
+            for (let step = -4; step <= 4; step++) {
+                if (step === 0) continue;
+                const pos = 250 + (step * 42);
+                svgContent += `
+                    <line x1="${pos}" y1="40" x2="${pos}" y2="460" stroke="rgba(88, 166, 255, 0.12)" stroke-dasharray="2,2"/>
+                    <line x1="40" y1="${pos}" x2="460" y2="${pos}" stroke="rgba(88, 166, 255, 0.12)" stroke-dasharray="2,2"/>
+                `;
+            }
+
+            // Rohové štítky kvadrantů
+            svgContent += `
+                <text x="46" y="56" font-family="'Press Start 2P', monospace" font-size="7" fill="rgba(88, 166, 255, 0.5)">LEVICOVÁ SVOBODA</text>
+                <text x="454" y="56" text-anchor="end" font-family="'Press Start 2P', monospace" font-size="7" fill="rgba(168, 85, 247, 0.5)">PRAVICOVÁ SVOBODA</text>
+                <text x="46" y="454" font-family="'Press Start 2P', monospace" font-size="7" fill="rgba(239, 68, 68, 0.5)">LEVICOVÁ AUTORITA</text>
+                <text x="454" y="454" text-anchor="end" font-family="'Press Start 2P', monospace" font-size="7" fill="rgba(234, 179, 8, 0.5)">PRAVICOVÁ AUTORITA</text>
+
+                <!-- Hlavní osy -->
+                <line x1="30" y1="250" x2="470" y2="250" stroke="#58a6ff" stroke-width="2.5"/>
+                <line x1="250" y1="30" x2="250" y2="470" stroke="#58a6ff" stroke-width="2.5"/>
+
+                <!-- Šipky a popisky os -->
+                <text x="250" y="24" text-anchor="middle" font-family="'Press Start 2P', monospace" font-size="8" fill="#58a6ff">▲ SPOLEČENSKÁ SVOBODA</text>
+                <text x="250" y="488" text-anchor="middle" font-family="'Press Start 2P', monospace" font-size="8" fill="#58a6ff">▼ STÁTNÍ AUTORITA</text>
+                <text x="35" y="242" font-family="'Press Start 2P', monospace" font-size="7.5" fill="#58a6ff">◄ LEVICE</text>
+                <text x="465" y="242" text-anchor="end" font-family="'Press Start 2P', monospace" font-size="7.5" fill="#58a6ff">PRAVICE ►</text>
+            `;
+
+            // Projekční čáry pro vybraného politika
+            if (activePol) {
+                const actSvgX = 250 + (activePol.x * 200);
+                const actSvgY = 250 - (activePol.y * 200);
+                svgContent += `
+                    <line x1="${actSvgX}" y1="250" x2="${actSvgX}" y2="${actSvgY}" stroke="#ffd700" stroke-dasharray="4,3" stroke-width="1.5" opacity="0.85"/>
+                    <line x1="250" y1="${actSvgY}" x2="${actSvgX}" y2="${actSvgY}" stroke="#ffd700" stroke-dasharray="4,3" stroke-width="1.5" opacity="0.85"/>
+                    <circle cx="${actSvgX}" cy="${actSvgY}" r="22" fill="none" stroke="#ffd700" stroke-width="1.5" stroke-dasharray="4,2" opacity="0.8">
+                        <animate attributeName="r" values="18;26;18" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                `;
+            }
+
+            // Body jednotlivých politiků
+            pols.forEach((pol, pIdx) => {
+                const svgX = 250 + (pol.x * 200);
+                const svgY = 250 - (pol.y * 200);
+                const isSelected = pIdx === selectedPoliticianIndex;
+
+                svgContent += `
+                    <g class="compass-node" onclick="selectPolitician(${pIdx})" onmouseenter="selectPolitician(${pIdx})">
+                        <circle cx="${svgX}" cy="${svgY}" r="${isSelected ? 14 : 10}" fill="${pol.color}" stroke="${isSelected ? '#ffd700' : '#ffffff'}" stroke-width="${isSelected ? 3 : 1.5}"/>
+                        <text x="${svgX}" y="${svgY + 3.5}" text-anchor="middle" font-family="'Press Start 2P', monospace" font-size="${isSelected ? '7' : '6'}" fill="#000000" font-weight="bold">${pol.short}</text>
+                        <text x="${svgX}" y="${svgY > 250 ? svgY + 22 : svgY - 14}" text-anchor="middle" font-family="'VT323', monospace" font-size="16" fill="${isSelected ? '#ffd700' : '#ffffff'}" font-weight="${isSelected ? 'bold' : 'normal'}">${pol.name}</text>
+                    </g>
+                `;
+            });
+
+            svg.innerHTML = svgContent;
+
+            // Vykreslení čipů osobností
+            const chipsContainer = document.getElementById('compass-politicians-chips');
+            if (chipsContainer) {
+                chipsContainer.innerHTML = '';
+                pols.forEach((pol, pIdx) => {
+                    const chip = document.createElement('div');
+                    chip.className = `politician-chip ${pIdx === selectedPoliticianIndex ? 'active' : ''}`;
+                    chip.innerHTML = `<span style="color:${pol.color}">■</span> <strong>${pol.name}</strong> (${pol.short})`;
+                    chip.onclick = () => selectPolitician(pIdx);
+                    chip.onmouseenter = () => selectPolitician(pIdx);
+                    chipsContainer.appendChild(chip);
+                });
+            }
+
+            // Aktualizace dossier karty
+            updatePoliticianDossier(activePol);
+        }
+
+        function selectPolitician(pIdx) {
+            if (selectedPoliticianIndex === pIdx && isCompassOpen) return;
+            selectedPoliticianIndex = pIdx;
+            playRadarPing();
+            renderCompassGraph(currentCompassMilestone);
+        }
+
+        function updatePoliticianDossier(pol) {
+            if (!pol) return;
+            const avatarEl = document.getElementById('dossier-avatar');
+            const nameEl = document.getElementById('dossier-name');
+            const roleEl = document.getElementById('dossier-role');
+            const coordsEl = document.getElementById('dossier-coords');
+            const quadEl = document.getElementById('dossier-quadrant');
+            const bioEl = document.getElementById('dossier-bio');
+            const reasonEl = document.getElementById('dossier-reason');
+
+            if (avatarEl) {
+                avatarEl.textContent = pol.short;
+                avatarEl.style.color = pol.color;
+                avatarEl.style.borderColor = pol.color;
+            }
+            if (nameEl) nameEl.textContent = pol.name;
+            if (roleEl) roleEl.textContent = pol.role;
+            if (coordsEl) coordsEl.textContent = `POZICE: [X: ${pol.x >= 0 ? '+' : ''}${pol.x.toFixed(2)} | Y: ${pol.y >= 0 ? '+' : ''}${pol.y.toFixed(2)}]`;
+            if (quadEl) quadEl.textContent = getQuadrantTitle(pol.x, pol.y);
+            if (bioEl) bioEl.textContent = pol.bio;
+            if (reasonEl) reasonEl.textContent = pol.reason;
+        }
+
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const welcomeModal = document.getElementById('welcome-modal');
                 if (welcomeModal && welcomeModal.style.display === 'flex') { closeWelcomeModal(); return; }
+                if (isElectionsOpen) { closeElectionsModal(); return; }
+                if (isCompassOpen) { closeCompassModal(); return; }
                 if (isDilemmaOpen) { closeDilemma(); return; }
                 if (isLoreOpen) { closeLoreModal(); return; }
                 if (isQuizOpen) { closeQuiz(); return; }
@@ -4022,11 +6365,13 @@
             }
             const welcomeModal = document.getElementById('welcome-modal');
             const lightbox = document.getElementById('card-lightbox');
-            if (isDilemmaOpen || isQuizOpen || isLoreOpen || (lightbox && lightbox.style.display === 'flex') || (welcomeModal && welcomeModal.style.display === 'flex')) return;
+            if (isElectionsOpen || isCompassOpen || isDilemmaOpen || isQuizOpen || isLoreOpen || (lightbox && lightbox.style.display === 'flex') || (welcomeModal && welcomeModal.style.display === 'flex')) return;
             if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') move(1);
             if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') move(-1);
             if (e.key === 'e' || e.key === 'E') toggleCodex();
             if (e.key === 'v' || e.key === 'V') togglePartyModal();
+            if (e.key === 'l' || e.key === 'L') openElectionsModal();
+            if (e.key === 'k' || e.key === 'K') openCompassModal();
             if (e.key === 'm' || e.key === 'M') toggleSound();
         });
 // LOGIKA KVÍZU
