@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cesta českou ústavností</title>
-    <meta name="description" content="Interaktivní historická časová osa a archivářský kvíz mapující vývoj českých a československých ústav od roku 1918 po současnost.">
-    <meta property="og:title" content="Cesta českou ústavností">
-    <meta property="og:description" content="Interaktivní historická časová osa a archivářský kvíz mapující vývoj českých a československých ústav od roku 1918 po současnost.">
+    <title>Cesta českou ústavností · Pracovní verze</title>
+    <meta name="description" content="Interaktivní historická časová osa mapující vývoj české a československé ústavnosti od roku 1918 po současnost v pracovní verzi.">
+    <meta property="og:title" content="Cesta českou ústavností · Pracovní verze">
+    <meta property="og:description" content="Interaktivní historická časová osa mapující vývoj české a československé ústavnosti od roku 1918 po současnost v pracovní verzi.">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
         
@@ -190,46 +190,217 @@
             100% { transform: scale(1.2); opacity: 1; }
         }
 
+        /* VYSOUVACÍ PANEL MILNÍKU / KODEX */
         .codex {
-            width: 600px;
-            flex-shrink: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 580px;
+            max-width: 92vw;
             background-color: var(--bg-panel);
             border-left: 6px solid var(--accent);
-            box-shadow: -12px 0px 0px rgba(0,0,0,0.5);
-            padding: 2.5rem;
-            padding-bottom: 12rem;
+            box-shadow: -14px 0px 35px rgba(0,0,0,0.85);
+            padding: 2rem 2.2rem;
+            padding-bottom: 7rem;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
-            position: relative;
-            z-index: 50;
-            transition: background-color 0.5s step-end, border-color 0.5s step-end;
+            z-index: 9250;
+            transform: translateX(110%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s step-end, border-color 0.5s step-end;
+        }
+
+        .codex.is-open {
+            transform: translateX(0);
         }
         
-        .codex::-webkit-scrollbar { width: 16px; }
-        .codex::-webkit-scrollbar-track { background: var(--bg-panel); border-left: 4px solid var(--text-muted); }
-        .codex::-webkit-scrollbar-thumb { background: var(--accent); border: 4px solid var(--bg-panel); }
+        .codex::-webkit-scrollbar { width: 12px; }
+        .codex::-webkit-scrollbar-track { background: var(--bg-panel); border-left: 2px solid var(--text-muted); }
+        .codex::-webkit-scrollbar-thumb { background: var(--accent); }
 
+        .codex-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.9rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px dashed var(--text-muted);
+            gap: 0.8rem;
+        }
+
+        .codex-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .codex-header-badge {
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .codex-header-year {
+            font-family: var(--font-ui);
+            font-size: 0.72rem;
+            color: var(--text-main);
+            background: rgba(255,255,255,0.06);
+            padding: 0.25rem 0.55rem;
+            border: 1px solid var(--text-muted);
+        }
+
+        .panel-close-btn {
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            padding: 0.45rem 0.75rem;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.6);
+            transition: all 0.15s;
+            flex-shrink: 0;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .panel-close-btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-base);
+            transform: translate(1px, 1px);
+        }
+
+        .codex-nav-footer {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 2rem;
+            padding-top: 1.2rem;
+            border-top: 2px dashed var(--text-muted);
+        }
+
+        .codex-nav-btn {
+            flex: 1;
+            font-size: 0.65rem;
+            padding: 0.7rem 0.5rem;
+            text-align: center;
+        }
+
+        .btn-close-footer {
+            background-color: transparent;
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .btn-close-footer:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        /* ZTMAVOVACÍ POZADÍ (BACKDROP) PRO BOČNÍ PANELY */
+        .panel-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(2px);
+            z-index: 9200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .panel-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ČISTÝ DESKTOPOVÝ HUD */
         .hud {
             position: absolute;
-            top: 2rem;
-            left: 2rem;
+            top: 1.5rem;
+            left: 1.5rem;
             z-index: 100;
             text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            pointer-events: none;
+        }
+
+        .hud > * {
+            pointer-events: auto;
         }
 
         h1 {
             font-family: var(--font-ui);
-            font-size: 1.5rem;
+            font-size: 1.35rem;
             color: var(--accent);
-            line-height: 1.5;
-            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            margin: 0;
             text-transform: uppercase;
         }
 
         .subtitle {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .hud-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            align-items: center;
+        }
+
+        .hud-action-btn {
+            background-color: var(--bg-panel);
+            border: 3px solid var(--accent);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            padding: 0.6rem 0.95rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.6);
+            transition: transform 0.1s, background-color 0.2s, border-color 0.2s, color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .hud-action-btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-base);
+            border-color: var(--accent);
+        }
+
+        .hud-action-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.6);
+        }
+
+        .hud-action-btn.active {
+            background-color: var(--accent);
+            color: var(--bg-base);
+            border-color: var(--text-main);
+            box-shadow: inset 2px 2px 0 rgba(0,0,0,0.4);
+        }
+
+        .hud-help-btn {
+            border-color: var(--text-muted);
+            color: var(--text-muted);
+        }
+
+        .hud-help-btn:hover {
+            border-color: var(--accent);
+            color: var(--bg-base);
+            background-color: var(--accent);
         }
 
         .controls {
@@ -267,22 +438,24 @@
         }
 
         .sound-toggle-btn {
-            margin-top: 0.8rem;
             background-color: var(--bg-panel);
-            border: 2px solid var(--accent);
-            color: var(--accent);
+            border: 3px solid var(--text-muted);
+            color: var(--text-muted);
             font-family: var(--font-ui);
             font-size: 0.65rem;
-            padding: 0.5rem 0.8rem;
+            padding: 0.6rem 0.95rem;
             cursor: pointer;
             box-shadow: 4px 4px 0px rgba(0,0,0,0.6);
-            transition: transform 0.1s, background-color 0.2s step-end;
-            display: inline-block;
+            transition: transform 0.1s, background-color 0.2s step-end, border-color 0.2s, color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            user-select: none;
+            touch-action: manipulation;
         }
 
         .sound-toggle-btn:hover {
-            background-color: var(--accent);
-            color: var(--bg-base);
+            border-color: var(--accent);
+            color: var(--accent);
         }
 
         .sound-toggle-btn:active {
@@ -298,26 +471,68 @@
             background-color: var(--bg-base);
         }
 
+        /* VYSOUVACÍ PANEL VLÁDY / VEDENÍ STÁTU */
         .party-hud {
-            position: absolute;
-            top: 2rem;
-            right: 2rem;
-            z-index: 100;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 460px;
+            max-width: 92vw;
+            z-index: 9260;
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
             background-color: var(--bg-panel);
-            border: 4px solid var(--text-muted);
-            padding: 1.5rem;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.5);
-            min-width: 320px;
-            max-height: calc(100vh - 4rem);
+            border-left: 6px solid var(--accent);
+            padding: 2rem;
+            padding-bottom: 7rem;
+            box-shadow: -14px 0px 35px rgba(0,0,0,0.85);
             overflow-y: auto;
+            transform: translateX(110%);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s step-end, border-color 0.5s step-end;
         }
 
-        .party-hud::-webkit-scrollbar { width: 8px; }
+        .party-hud.is-open {
+            transform: translateX(0);
+        }
+
+        .party-hud::-webkit-scrollbar { width: 10px; }
         .party-hud::-webkit-scrollbar-track { background: var(--bg-panel); border-left: 2px solid var(--text-muted); }
         .party-hud::-webkit-scrollbar-thumb { background: var(--accent); }
+
+        .party-hud-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px dashed var(--text-muted);
+            padding-bottom: 0.9rem;
+            margin-bottom: 0.4rem;
+            gap: 0.8rem;
+        }
+
+        .party-header-left {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .party-hud-title {
+            font-family: var(--font-ui);
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+        }
+
+        .party-header-year {
+            font-family: var(--font-ui);
+            font-size: 0.68rem;
+            color: var(--text-main);
+            background: rgba(255,255,255,0.06);
+            padding: 0.2rem 0.5rem;
+            border: 1px solid var(--text-muted);
+        }
 
         .leader-card {
             display: flex;
@@ -609,8 +824,9 @@
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 2000;
+            background: rgba(0,0,0,0.88);
+            backdrop-filter: blur(4px);
+            z-index: 9990;
             display: none;
             justify-content: center;
             align-items: center;
@@ -620,24 +836,86 @@
             background: var(--bg-panel);
             border: 6px solid var(--accent);
             padding: 2.5rem;
-            max-width: 700px;
-            width: 90%;
-            box-shadow: 16px 16px 0px rgba(0,0,0,0.8);
+            max-width: 780px;
+            width: 92%;
+            box-shadow: 16px 16px 0px rgba(0,0,0,0.85);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-badge-tag {
+            font-family: var(--font-ui);
+            font-size: 0.62rem;
+            color: var(--accent);
+            background: rgba(0, 0, 0, 0.45);
+            border: 2px solid var(--accent);
+            padding: 0.35rem 0.75rem;
+            display: inline-block;
+            align-self: flex-start;
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
         }
         
         .modal-title {
             font-family: var(--font-ui);
             font-size: 1.2rem;
             color: var(--accent);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
             text-transform: uppercase;
             line-height: 1.5;
+            letter-spacing: 0.5px;
         }
         
         .modal-text {
             font-size: 1.3rem;
             line-height: 1.5;
             color: var(--text-main);
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .modal-intro-lead {
+            font-size: 1.45rem;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.9rem;
+            border-bottom: 2px dashed var(--text-muted);
+        }
+
+        .modal-feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.28);
+            border: 2px solid rgba(255, 255, 255, 0.08);
+            padding: 0.9rem 1.1rem;
+            font-size: 1.25rem;
+            line-height: 1.45;
+            color: var(--text-main);
+        }
+
+        .modal-feature-item strong {
+            color: var(--accent);
+            display: block;
+            margin-bottom: 0.25rem;
+            font-family: var(--font-ui);
+            font-size: 0.68rem;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-feature-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
         }
         
         /* KVÍZ A TLAČÍTKA */
@@ -1627,14 +1905,30 @@
             }
 
             .codex { 
+                position: fixed;
+                top: auto;
+                bottom: 0;
+                left: 0;
+                right: 0;
                 width: 100%; 
-                height: auto;
-                flex: 1; 
+                max-width: 100%;
+                min-width: 0;
+                height: 82vh; 
+                max-height: 85vh;
                 border-left: none; 
+                border-top: 5px solid var(--accent);
                 padding: 1.2rem; 
-                padding-bottom: 6rem;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
+                padding-bottom: 6rem; 
+                overflow-y: auto; 
+                -webkit-overflow-scrolling: touch; 
+                z-index: 9400;
+                transform: translateY(115%);
+                transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+                box-shadow: 0 -12px 30px rgba(0,0,0,0.85);
+            }
+
+            .codex.is-open {
+                transform: translateY(0);
             }
 
             .mobile-tab-hidden {
@@ -1895,43 +2189,79 @@
     <!-- Uvítací modal -->
     <div class="modal-overlay" id="welcome-modal" style="display: flex;">
         <div class="modal-box">
-            <div class="modal-title">Archivářská edice: Připravované funkce</div>
+            <div class="modal-badge-tag">PRACOVNÍ VERZE</div>
+            <div class="modal-title">Cesta českou ústavností</div>
             <div class="modal-text">
-                Vítejte v časové ose. Aplikace bude brzy rozšířena o interaktivní mechaniky. Co vás čeká:
-                <br><br>
-                <ul class="c-bullets" style="margin-bottom: 0;">
-                    <li><strong>Pohyb:</strong> Klávesami A/D nebo šipkami se posouváte po časové ose.</li>
-                    <li><strong>Skryté prameny:</strong> Na mapě se objeví tajné symboly. Jejich prozkoumáním aktivujete historický kvíz.</li>
-                    <li><strong>Dobové fragmenty:</strong> Volně na mapě leží autentické historické tisky a zákony. Kliknutím si otevřete jejich dobový přepis s odkazem na původní pramen.</li>
-                    <li><strong>Inventář:</strong> Za správné odpovědi získáte karty historických dokumentů do svého archivu.</li>
-                    <li><strong>Oprava historie:</strong> Některé uzly na ose budou zablokované (poškozené). Přetáhnutím správných karet z inventáře na uzel obnovíte historická data a odemknete další postup.</li>
-                </ul>
+                <div class="modal-intro-lead">
+                    Vítejte v interaktivní časové ose mapující klíčové etapy vývoje české a československé ústavnosti od roku 1918 po současnost.
+                </div>
+                <div class="modal-feature-list">
+                    <div class="modal-feature-item">
+                        <span class="modal-feature-icon">🏛️</span>
+                        <div>
+                            <strong>Časová osa:</strong> Procházejte obdobími pomocí kláves <code>[A] / [D]</code> nebo šipek (na mobilu tlačítky nebo přejetím prstu do stran).
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
+                        <span class="modal-feature-icon">📜</span>
+                        <div>
+                            <strong>Čisté rozhraní & Detaily na kliknutí:</strong> Podrobné informace o ústavních zákonech i nejvyšších představitelích státu jsou schované za tlačítky <em>[DETAIL MILNÍKU]</em> a <em>[NEJVYŠŠÍ PŘEDSTAVITELÉ]</em> v horní liště – vysunou se jedním kliknutím nebo klávesami <code>[E]</code> a <code>[V]</code>. Detail milníku otevřete také kliknutím přímo na aktivní uzel na mapě.
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
+                        <span class="modal-feature-icon">⚖️</span>
+                        <div>
+                            <strong>RPG historická dilemata První republiky:</strong> Postavte se před skutečná státnická rozcestí a prozkoumejte jejich reálné ústavní i politické následky.
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
+                        <span class="modal-feature-icon">🔍</span>
+                        <div>
+                            <strong>Tajné prameny & Archivářské kvízy:</strong> Přímo na mapě hledejte skryté pečetě. Jejich prozkoumáním otevřete historický kvíz – za správné odpovědi získáte vzácné dokumenty do svého archivu.
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
+                        <span class="modal-feature-icon">📰</span>
+                        <div>
+                            <strong>Dobové texty & citace (Lore):</strong> Na mapě leží autentické novinové články a přepisy klíčových historických prohlášení.
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
+                        <span class="modal-feature-icon">💡</span>
+                        <div>
+                            <strong>Rychlý přehled ovládání:</strong>
+                            <code>A / D</code> posun v čase &nbsp;•&nbsp; 
+                            <code>E</code> detail milníku &nbsp;•&nbsp; 
+                            <code>V</code> nejvyšší představitelé &nbsp;•&nbsp; 
+                            <code>M</code> zapnutí/vypnutí zvuku &nbsp;•&nbsp; 
+                            <code>Esc</code> zavření panelů &nbsp;•&nbsp; 
+                            Tlačítkem <em>[❓ PRŮVODCE]</em> vlevo nahoře můžete tyto informace kdykoliv znovu zobrazit.
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class="btn" style="width: 100%; margin-top: 2rem;" onclick="playClickSound(); document.getElementById('welcome-modal').style.display='none'">ZAHÁJIT PROHLÍDKU</button>
+            <button class="btn" style="width: 100%; margin-top: 1.3rem;" onclick="closeWelcomeModal()">VSTOUPIT DO ČASOVÉ OSY</button>
         </div>
     </div>
 
-    <!-- MOBILNÍ HORNÍ LIŠTA A PŘEPÍNAČ POHLEDŮ (Zobrazuje se pouze na telefonu) -->
+    <!-- MOBILNÍ HORNÍ LIŠTA (Zobrazuje se pouze na telefonu) -->
     <header class="mobile-nav-bar" id="mobile-nav-bar">
         <div class="mobile-nav-top">
             <div class="mobile-brand">
                 <span class="mobile-brand-icon">🏛️</span>
-                <span class="mobile-brand-title">Ústavní cesta</span>
+                <span class="mobile-brand-title">Ústavní cesta · Pracovní verze</span>
             </div>
             <div class="mobile-top-actions">
+                <button class="mobile-action-btn" id="mobile-codex-btn" onclick="toggleCodex()" title="Informace o milníku">📜 MILNÍK</button>
+                <button class="mobile-action-btn" id="mobile-party-btn" onclick="togglePartyModal()" title="Nejvyšší představitelé a vedení státu">🏛️ PŘEDSTAVITELÉ</button>
                 <button class="mobile-action-btn" id="mobile-sound-btn" onclick="toggleSound()" title="Zapnout / Vypnout zvuk">🔊 ZVUK</button>
-                <button class="mobile-action-btn" id="mobile-party-btn" onclick="togglePartyModal()" title="Vláda a vedení státu">🏛️ VLÁDA</button>
+                <button class="mobile-action-btn" id="mobile-info-btn" onclick="openWelcomeModal()" title="Průvodce aplikací">❓ INFO</button>
             </div>
         </div>
-        <div class="mobile-tabs" role="tablist">
-            <button class="mobile-tab-btn active" id="tab-btn-map" onclick="setMobileTab('map')">
-                <span class="tab-icon">🗺️</span> ČASOVÁ OSA
-            </button>
-            <button class="mobile-tab-btn" id="tab-btn-codex" onclick="setMobileTab('codex')">
-                <span class="tab-icon">📜</span> KODEX & FAKTA
-            </button>
-        </div>
     </header>
+
+    <!-- ZTMAVOVACÍ POZADÍ PŘI OTEVŘENÍ BOČNÍCH PANELŮ -->
+    <div class="panel-backdrop" id="panel-backdrop" onclick="closeAllPanels()"></div>
 
     <!-- HERNÍ PLOCHA A MAPA -->
     <div class="game-view" id="game-view">
@@ -1943,25 +2273,20 @@
         <div class="theme-fx"></div>
 
         <!-- Mobilní indikátor aktivního uzlu na mapě -->
-        <div class="mobile-node-banner" id="mobile-node-banner" onclick="setMobileTab('codex')" title="Přejít do podrobného textu v kodexu">
+        <div class="mobile-node-banner" id="mobile-node-banner" onclick="toggleCodex(true)" title="Klepnutím otevřete podrobnosti o milníku">
             <span class="mobile-banner-pill" id="mobile-banner-year">1918–1920</span>
             <span class="mobile-banner-title" id="mobile-banner-title">Vznik republiky</span>
-            <span class="mobile-banner-link">KODEX ➔</span>
+            <span class="mobile-banner-link">DETAIL ➔</span>
         </div>
 
         <div class="hud">
             <h1>Ústavní cesta</h1>
-            <div class="subtitle">Pracovní Edice</div>
-            <button class="sound-toggle-btn" id="sound-toggle-btn" onclick="toggleSound()" title="Zapnout/Vypnout zvukové efekty">🔊 ZVUK: ZAP</button>
-        </div>
-
-        <div class="party-hud" id="party-hud">
-            <div class="party-hud-header" id="party-hud-header">
-                <span class="party-hud-title">🏛️ VEDENÍ STÁTU A VLÁDA</span>
-                <button class="party-close-btn" onclick="togglePartyModal()" title="Zavřít panel vlády">[✕ ZAVŘÍT]</button>
-            </div>
-            <div class="party-hud-body" id="party-hud-body">
-                <!-- Dynamicky generováno -->
+            <div class="subtitle">Pracovní verze</div>
+            <div class="hud-buttons">
+                <button class="hud-action-btn" id="btn-toggle-codex" onclick="toggleCodex()" title="Zobrazit podrobné informace o aktuálním milníku (Klávesa E)">📜 DETAIL MILNÍKU [E]</button>
+                <button class="hud-action-btn" id="btn-toggle-party" onclick="togglePartyModal()" title="Zobrazit nejvyšší představitele státu a vládu (Klávesa V)">🏛️ NEJVYŠŠÍ PŘEDSTAVITELÉ [V]</button>
+                <button class="sound-toggle-btn" id="sound-toggle-btn" onclick="toggleSound()" title="Zapnout/Vypnout zvukové efekty (Klávesa M)">🔊 ZVUK: ZAP</button>
+                <button class="hud-action-btn hud-help-btn" id="btn-open-welcome" onclick="openWelcomeModal()" title="Zobrazit informace o aplikaci a ovládání">❓ PRŮVODCE</button>
             </div>
         </div>
 
@@ -1982,8 +2307,30 @@
         </div>
     </div>
 
-    <!-- KODEX / PRAVÝ PANEL -->
+    <!-- VYSOUVACÍ PANEL VLÁDY / VEDENÍ STÁTU -->
+    <div class="party-hud" id="party-hud">
+        <div class="party-hud-header" id="party-hud-header">
+            <div class="party-header-left">
+                <span class="party-hud-title">🏛️ NEJVYŠŠÍ PŘEDSTAVITELÉ A VLÁDA</span>
+                <span class="party-header-year" id="party-header-year">1918–1920</span>
+            </div>
+            <button class="panel-close-btn" onclick="togglePartyModal(false)" title="Zavřít panel představitelů">[✕ ZAVŘÍT]</button>
+        </div>
+        <div class="party-hud-body" id="party-hud-body">
+            <!-- Dynamicky generováno -->
+        </div>
+    </div>
+
+    <!-- KODEX / VYSOUVACÍ PANEL MILNÍKU -->
     <div class="codex" id="codex">
+        <div class="codex-header-bar">
+            <div class="codex-header-left">
+                <span class="codex-header-badge" id="c-header-type">DETAIL MILNÍKU</span>
+                <span class="codex-header-year" id="c-header-year">1918–1920</span>
+            </div>
+            <button class="panel-close-btn" onclick="toggleCodex(false)" title="Zavřít panel milníku">[✕ ZAVŘÍT]</button>
+        </div>
+
         <div class="c-type" id="c-type">SYS.INFO</div>
         <h2 class="c-title" id="c-title">Název</h2>
         <div class="c-act" id="c-act">Zákon</div>
@@ -2006,11 +2353,11 @@
             <p class="fact-text" id="c-fact-content">Zajímavost</p>
         </div>
 
-        <!-- Mobilní navigace uvnitř kodexu -->
-        <div class="mobile-codex-nav" id="mobile-codex-nav">
-            <button class="btn mobile-codex-btn" id="mob-codex-prev" onclick="playClickSound(); move(-1);">◀ [A] PŘEDCHOZÍ</button>
-            <button class="btn mobile-codex-btn btn-map-return" onclick="playClickSound(); setMobileTab('map');">🗺️ ZPĚT NA MAPU</button>
-            <button class="btn mobile-codex-btn" id="mob-codex-next" onclick="playClickSound(); move(1);">DALŠÍ [D] ▶</button>
+        <!-- Rychlá navigace uvnitř panelu milníku -->
+        <div class="codex-nav-footer" id="codex-nav-footer">
+            <button class="btn codex-nav-btn" id="mob-codex-prev" onclick="playClickSound(); move(-1);" title="Předchozí období">◀ [A] PŘEDCHOZÍ</button>
+            <button class="btn codex-nav-btn btn-close-footer" onclick="toggleCodex(false);" title="Zavřít panel">✕ ZAVŘÍT</button>
+            <button class="btn codex-nav-btn" id="mob-codex-next" onclick="playClickSound(); move(1);" title="Následující období">DALŠÍ [D] ▶</button>
         </div>
     </div>
 
@@ -3135,6 +3482,8 @@
                 node.onclick = () => {
                     if (currentIndex !== index) {
                         goTo(index);
+                    } else {
+                        toggleCodex();
                     }
                 };
                 item.element = node;
@@ -3280,15 +3629,14 @@
                     `;
                     partyBody.appendChild(card);
                 });
-                if (window.innerWidth > 800) {
-                    partyHud.style.display = 'flex';
-                }
                 partyHud.scrollTop = 0;
-            } else {
-                if (window.innerWidth > 800) {
-                    partyHud.style.display = 'none';
-                }
             }
+
+            // Aktualizace záhlaví vysouvacích panelů
+            const cHeaderYear = document.getElementById('c-header-year');
+            if (cHeaderYear) cHeaderYear.textContent = data.year;
+            const partyHeaderYear = document.getElementById('party-header-year');
+            if (partyHeaderYear) partyHeaderYear.textContent = data.year;
 
             // Aktualizace mobilního banneru na mapě
             const mobYear = document.getElementById('mobile-banner-year');
@@ -3296,7 +3644,7 @@
             if (mobYear) mobYear.textContent = data.year;
             if (mobTitle) mobTitle.textContent = data.title;
             
-            // Aktualizace tlačítek v mobilním kodexu
+            // Aktualizace tlačítek v kodexu
             const mobPrev = document.getElementById('mob-codex-prev');
             const mobNext = document.getElementById('mob-codex-next');
             if (mobPrev) mobPrev.disabled = currentIndex === 0;
@@ -3369,32 +3717,111 @@
             goTo(currentIndex + direction);
         }
 
+        // ================= VYSOUVACÍ PANELY (DRAWER & OVERLAY) =================
+        let isCodexOpen = false;
+        let isPartyOpen = false;
+
+        function updatePanelBackdrop() {
+            const backdrop = document.getElementById('panel-backdrop');
+            if (backdrop) {
+                if (isCodexOpen || isPartyOpen) {
+                    backdrop.classList.add('active');
+                } else {
+                    backdrop.classList.remove('active');
+                }
+            }
+            const btnCodex = document.getElementById('btn-toggle-codex');
+            if (btnCodex) btnCodex.classList.toggle('active', isCodexOpen);
+            const btnParty = document.getElementById('btn-toggle-party');
+            if (btnParty) btnParty.classList.toggle('active', isPartyOpen);
+            const mobCodex = document.getElementById('mobile-codex-btn');
+            if (mobCodex) mobCodex.classList.toggle('active', isCodexOpen);
+            const mobParty = document.getElementById('mobile-party-btn');
+            if (mobParty) mobParty.classList.toggle('active', isPartyOpen);
+        }
+
+        function toggleCodex(force) {
+            playClickSound();
+            const codexEl = document.getElementById('codex');
+            if (!codexEl) return;
+            
+            if (force !== undefined) {
+                isCodexOpen = force;
+            } else {
+                isCodexOpen = !isCodexOpen;
+            }
+
+            if (isCodexOpen) {
+                // Pokud je otevřena vláda, zavřeme ji, aby se nepřekrývaly
+                if (isPartyOpen) {
+                    togglePartyModal(false);
+                }
+                codexEl.classList.add('is-open');
+                codexEl.classList.remove('mobile-tab-hidden');
+            } else {
+                codexEl.classList.remove('is-open');
+            }
+            updatePanelBackdrop();
+        }
+
+        function togglePartyModal(force) {
+            playClickSound();
+            const partyHudEl = document.getElementById('party-hud');
+            if (!partyHudEl) return;
+
+            if (force !== undefined) {
+                isPartyOpen = force;
+            } else {
+                isPartyOpen = !isPartyOpen;
+            }
+
+            if (isPartyOpen) {
+                // Pokud je otevřen milník, zavřeme ho
+                if (isCodexOpen) {
+                    toggleCodex(false);
+                }
+                partyHudEl.classList.add('is-open');
+                partyHudEl.classList.add('mobile-active');
+            } else {
+                partyHudEl.classList.remove('is-open');
+                partyHudEl.classList.remove('mobile-active');
+            }
+            updatePanelBackdrop();
+        }
+
+        function closeAllPanels() {
+            playClickSound();
+            if (isCodexOpen) toggleCodex(false);
+            if (isPartyOpen) togglePartyModal(false);
+        }
+
+        function openWelcomeModal() {
+            playClickSound();
+            const modal = document.getElementById('welcome-modal');
+            if (modal) modal.style.display = 'flex';
+        }
+
+        function closeWelcomeModal() {
+            playClickSound();
+            const modal = document.getElementById('welcome-modal');
+            if (modal) modal.style.display = 'none';
+        }
+
         // ================= MOBILNÍ FUNKCE A INTERAKTIVITA =================
         let activeMobileTab = 'map';
         function setMobileTab(tab) {
             activeMobileTab = tab;
             const tabMap = document.getElementById('tab-btn-map');
             const tabCodex = document.getElementById('tab-btn-codex');
-            const gameView = document.getElementById('game-view');
-            const codex = document.getElementById('codex');
             
             if (tab === 'map') {
                 if (tabMap) tabMap.classList.add('active');
                 if (tabCodex) tabCodex.classList.remove('active');
-                if (gameView) gameView.classList.remove('mobile-tab-hidden');
-                if (codex) codex.classList.add('mobile-tab-hidden');
-                
-                // Přecentrování kamery na aktivní uzel při návratu na mapu
-                setTimeout(() => {
-                    const targetX = timeline[currentIndex].x;
-                    const targetY = timeline[currentIndex].y;
-                    world.style.transform = `translate(calc(${gameView.clientWidth / 2}px - ${targetX}px), calc(${gameView.clientHeight / 2}px - ${targetY}px))`;
-                }, 40);
+                toggleCodex(false);
             } else {
                 if (tabMap) tabMap.classList.remove('active');
                 if (tabCodex) tabCodex.classList.add('active');
-                if (gameView) gameView.classList.add('mobile-tab-hidden');
-                if (codex) codex.classList.remove('mobile-tab-hidden');
+                toggleCodex(true);
             }
         }
 
@@ -3411,15 +3838,6 @@
             const hint = document.getElementById('inv-hint');
             if (hint) {
                 hint.textContent = inv.classList.contains('is-open') ? '▼ ZAVŘÍT ARCHIV ▼' : '▲ ROZBALIT ARCHIV ▲';
-            }
-        }
-
-        // Otevření / zavření panelu vlády na mobilu
-        function togglePartyModal() {
-            playClickSound();
-            const partyHudEl = document.getElementById('party-hud');
-            if (partyHudEl) {
-                partyHudEl.classList.toggle('mobile-active');
             }
         }
 
@@ -3592,14 +4010,24 @@
 
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                const welcomeModal = document.getElementById('welcome-modal');
+                if (welcomeModal && welcomeModal.style.display === 'flex') { closeWelcomeModal(); return; }
                 if (isDilemmaOpen) { closeDilemma(); return; }
                 if (isLoreOpen) { closeLoreModal(); return; }
                 if (isQuizOpen) { closeQuiz(); return; }
-                if (document.getElementById('card-lightbox').style.display === 'flex') { closeCardDetail(); return; }
+                const lightbox = document.getElementById('card-lightbox');
+                if (lightbox && lightbox.style.display === 'flex') { closeCardDetail(); return; }
+                if (isCodexOpen) { toggleCodex(false); return; }
+                if (isPartyOpen) { togglePartyModal(false); return; }
             }
-            if (isDilemmaOpen || isQuizOpen || isLoreOpen || document.getElementById('card-lightbox').style.display === 'flex' || document.getElementById('welcome-modal').style.display === 'flex') return;
+            const welcomeModal = document.getElementById('welcome-modal');
+            const lightbox = document.getElementById('card-lightbox');
+            if (isDilemmaOpen || isQuizOpen || isLoreOpen || (lightbox && lightbox.style.display === 'flex') || (welcomeModal && welcomeModal.style.display === 'flex')) return;
             if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') move(1);
             if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') move(-1);
+            if (e.key === 'e' || e.key === 'E') toggleCodex();
+            if (e.key === 'v' || e.key === 'V') togglePartyModal();
+            if (e.key === 'm' || e.key === 'M') toggleSound();
         });
 // LOGIKA KVÍZU
         function openQuiz(item) {
