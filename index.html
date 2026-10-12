@@ -1811,6 +1811,15 @@
             color: #1a160d;
             border-color: #ffd700;
         }
+        .hud-calc-btn {
+            border-color: #a371f7;
+            color: #d2a8ff;
+        }
+        .hud-calc-btn:hover {
+            background-color: #a371f7;
+            color: #100a1c;
+            border-color: #bc8cff;
+        }
 
         /* NÁSTROJE V KODEXU */
         .codex-tools-bar {
@@ -1860,6 +1869,14 @@
         .codex-tool-compass:hover {
             background: #e3b341;
             color: #1a160d;
+        }
+        .codex-tool-calc {
+            border-color: #a371f7;
+            color: #d2a8ff;
+        }
+        .codex-tool-calc:hover {
+            background: #a371f7;
+            color: #100a1c;
         }
 
         /* TLAČÍTKA NA MOBILNÍM BANNERU */
@@ -2418,6 +2435,395 @@
             transform: translateY(-1px);
         }
 
+        /* ================= MODÁLNÍ OKNO: DOBOVÁ POLITICKÁ KALKULAČKA ================= */
+        .calc-dialog-box {
+            background-color: #0d0a14;
+            background-image: 
+                radial-gradient(ellipse at center, rgba(55, 25, 85, 0.45) 0%, rgba(13, 10, 20, 0.95) 100%),
+                repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 0, 0, 0.35) 2px, rgba(0, 0, 0, 0.35) 4px);
+            border: 4px solid #a371f7;
+            box-shadow: 0 0 45px rgba(163, 113, 247, 0.3), 16px 16px 0px rgba(0, 0, 0, 0.85);
+            padding: 2.2rem;
+            max-width: 960px;
+            width: 96%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            color: var(--text-main);
+        }
+        .calc-dialog-box::-webkit-scrollbar { width: 8px; }
+        .calc-dialog-box::-webkit-scrollbar-track { background: #0b0812; border-left: 1px solid #a371f7; }
+        .calc-dialog-box::-webkit-scrollbar-thumb { background: #a371f7; }
+
+        .calc-era-tabs {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+        }
+        .calc-tab-btn {
+            background: rgba(0, 0, 0, 0.45);
+            border: 2px solid var(--text-muted);
+            color: var(--text-muted);
+            font-family: var(--font-ui);
+            font-size: 0.58rem;
+            padding: 0.5rem 0.8rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+        .calc-tab-btn.active, .calc-tab-btn:hover {
+            border-color: #bc8cff;
+            color: #bc8cff;
+            background: rgba(188, 140, 255, 0.15);
+        }
+
+        .calc-progress-wrap {
+            margin-bottom: 1.2rem;
+        }
+        .calc-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-ui);
+            font-size: 0.55rem;
+            color: #d2a8ff;
+            margin-bottom: 0.4rem;
+        }
+        .calc-progress-track {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #a371f7;
+            position: relative;
+            overflow: hidden;
+        }
+        .calc-progress-fill {
+            height: 100%;
+            background: #a371f7;
+            box-shadow: 0 0 8px #bc8cff;
+            transition: width 0.3s ease;
+        }
+
+        .calc-question-card {
+            background: rgba(22, 16, 36, 0.9);
+            border: 3px solid #a371f7;
+            box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.7);
+            padding: 1.6rem;
+            margin-bottom: 1.4rem;
+        }
+        .calc-q-badge-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.9rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .calc-q-badge {
+            font-family: var(--font-ui);
+            font-size: 0.54rem;
+            color: #bc8cff;
+            background: rgba(188, 140, 255, 0.12);
+            border: 1px solid #bc8cff;
+            padding: 0.25rem 0.6rem;
+        }
+        .calc-weight-btn {
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--text-muted);
+            color: var(--text-muted);
+            padding: 0.25rem 0.6rem;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .calc-weight-btn.active {
+            border-color: #ffd700;
+            color: #ffd700;
+            background: rgba(255, 215, 0, 0.18);
+        }
+
+        .calc-q-statement {
+            font-size: 1.35rem;
+            line-height: 1.4;
+            color: #ffffff;
+            margin-bottom: 0.9rem;
+            font-weight: 500;
+        }
+        .calc-q-context-box {
+            background: rgba(0, 0, 0, 0.45);
+            border-left: 3px solid #bc8cff;
+            padding: 0.8rem 1rem;
+            font-size: 1.12rem;
+            line-height: 1.4;
+            color: #c9d1d9;
+            margin-bottom: 1.4rem;
+        }
+
+        .calc-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.9rem;
+            margin-bottom: 1.4rem;
+        }
+        .calc-opt-btn {
+            background: rgba(10, 8, 16, 0.85);
+            border: 2px solid var(--text-muted);
+            color: var(--text-main);
+            padding: 1.1rem 0.8rem;
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.45rem;
+            transition: all 0.15s;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.5);
+            touch-action: manipulation;
+        }
+        .calc-opt-btn:hover {
+            transform: translateY(-2px);
+        }
+        .calc-opt-btn.opt-agree {
+            border-color: #2ea043;
+            color: #a6f3b7;
+        }
+        .calc-opt-btn.opt-agree:hover, .calc-opt-btn.opt-agree.selected {
+            background: rgba(46, 160, 67, 0.25);
+            border-color: #39ff14;
+            color: #39ff14;
+            box-shadow: 0 0 14px rgba(57, 255, 20, 0.4);
+        }
+        .calc-opt-btn.opt-neutral {
+            border-color: #8b949e;
+            color: #c9d1d9;
+        }
+        .calc-opt-btn.opt-neutral:hover, .calc-opt-btn.opt-neutral.selected {
+            background: rgba(139, 148, 158, 0.25);
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 14px rgba(255, 255, 255, 0.3);
+        }
+        .calc-opt-btn.opt-disagree {
+            border-color: #da3633;
+            color: #ff7b72;
+        }
+        .calc-opt-btn.opt-disagree:hover, .calc-opt-btn.opt-disagree.selected {
+            background: rgba(218, 54, 51, 0.25);
+            border-color: #ff4d4f;
+            color: #ff4d4f;
+            box-shadow: 0 0 14px rgba(255, 77, 79, 0.4);
+        }
+        .calc-opt-icon {
+            font-size: 1.25rem;
+        }
+
+        .calc-nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            border-top: 1px dashed rgba(255, 255, 255, 0.15);
+            padding-top: 1.1rem;
+        }
+        .calc-nav-dots {
+            display: flex;
+            gap: 0.4rem;
+            align-items: center;
+        }
+        .calc-dot {
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--text-muted);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .calc-dot.active {
+            border-color: #bc8cff;
+            color: #bc8cff;
+            background: rgba(188, 140, 255, 0.2);
+        }
+        .calc-dot.answered {
+            border-color: #39ff14;
+            color: #39ff14;
+        }
+
+        /* Výsledková část kalkulačky */
+        .calc-hero-match-card {
+            background: rgba(26, 18, 42, 0.95);
+            border: 4px solid #bc8cff;
+            box-shadow: 0 0 35px rgba(188, 140, 255, 0.3), 8px 8px 0 rgba(0, 0, 0, 0.8);
+            padding: 1.6rem;
+            margin-bottom: 1.6rem;
+            position: relative;
+        }
+        .calc-hero-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1.2rem;
+            border-bottom: 2px dashed rgba(255, 255, 255, 0.18);
+            padding-bottom: 1.1rem;
+            margin-bottom: 1.1rem;
+            flex-wrap: wrap;
+        }
+        .calc-hero-badge {
+            font-family: var(--font-ui);
+            font-size: 0.65rem;
+            color: #ffd700;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.5px;
+        }
+        .calc-hero-party-name {
+            font-size: 1.55rem;
+            font-weight: bold;
+            color: #ffffff;
+            line-height: 1.25;
+        }
+        .calc-hero-party-leader {
+            font-size: 1.15rem;
+            color: #a6f3b7;
+            margin-top: 0.3rem;
+        }
+        .calc-hero-pct-display {
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .calc-hero-pct-num {
+            font-family: var(--font-ui);
+            font-size: 2.2rem;
+            color: #ffd700;
+            text-shadow: 0 0 16px rgba(255, 215, 0, 0.5);
+            line-height: 1;
+        }
+        .calc-hero-pct-sub {
+            font-family: var(--font-ui);
+            font-size: 0.52rem;
+            color: #d2a8ff;
+            margin-top: 0.3rem;
+        }
+        .calc-hero-summary-text {
+            font-size: 1.2rem;
+            line-height: 1.45;
+            color: #e6edf3;
+        }
+
+        .calc-parties-ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 1.6rem;
+        }
+        .calc-ranking-row {
+            background: rgba(14, 11, 20, 0.85);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            padding: 0.8rem 1rem;
+            transition: all 0.15s;
+        }
+        .calc-ranking-row.top-match {
+            border-color: #bc8cff;
+            background: rgba(188, 140, 255, 0.08);
+        }
+        .calc-ranking-row-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.45rem;
+        }
+        .calc-ranking-name {
+            font-size: 1.18rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #fff;
+        }
+        .calc-ranking-pct {
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            color: #ffd700;
+        }
+        .calc-ranking-track {
+            width: 100%;
+            height: 14px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+        }
+        .calc-ranking-fill {
+            height: 100%;
+            background: var(--party-color, #bc8cff);
+            transition: width 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: inset 0 0 6px rgba(0,0,0,0.4);
+        }
+
+        .calc-breakdown-card {
+            background: rgba(12, 9, 18, 0.8);
+            border: 2px solid rgba(163, 113, 247, 0.3);
+            padding: 1.2rem;
+            margin-bottom: 1.6rem;
+        }
+        .calc-breakdown-title {
+            font-family: var(--font-ui);
+            font-size: 0.62rem;
+            color: #d2a8ff;
+            margin-bottom: 0.8rem;
+        }
+        .calc-breakdown-item {
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+            padding: 0.75rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .calc-breakdown-item:last-child {
+            border-bottom: none;
+        }
+        .calc-breakdown-q {
+            font-size: 1.15rem;
+            color: #fff;
+            font-weight: 500;
+        }
+        .calc-breakdown-comparison {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.05rem;
+            flex-wrap: wrap;
+        }
+        .calc-breakdown-tag {
+            padding: 0.15rem 0.45rem;
+            border-radius: 2px;
+            font-size: 0.95rem;
+        }
+        .tag-agree { background: rgba(46, 160, 67, 0.25); color: #39ff14; border: 1px solid #2ea043; }
+        .tag-neutral { background: rgba(139, 148, 158, 0.25); color: #c9d1d9; border: 1px solid #8b949e; }
+        .tag-disagree { background: rgba(218, 54, 51, 0.25); color: #ff7b72; border: 1px solid #da3633; }
+
+        .calc-results-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+            border-top: 2px dashed rgba(255,255,255,0.15);
+            padding-top: 1.2rem;
+            flex-wrap: wrap;
+        }
+
         /* ================= KOMPLETNÍ MOBILNÍ ROZHRANÍ PRO TELEFONY ================= */
         @media (max-width: 800px) {
             body { 
@@ -2828,6 +3234,13 @@
             .dossier-role { font-size: 1rem; }
             .dossier-bio-text { font-size: 1.05rem; }
             .dossier-reason-text { font-size: 1.05rem; }
+
+            .calc-dialog-box { padding: 1.2rem; max-width: 96vw; max-height: 90vh; }
+            .calc-options-grid { grid-template-columns: 1fr; gap: 0.6rem; }
+            .calc-hero-header { flex-direction: column; align-items: flex-start; }
+            .calc-hero-pct-display { text-align: left; }
+            .calc-q-statement { font-size: 1.15rem; }
+            .calc-hero-party-name { font-size: 1.25rem; }
         }
     </style>
 </head>
@@ -2867,6 +3280,12 @@
                         </div>
                     </div>
                     <div class="modal-feature-item">
+                        <span class="modal-feature-icon">🧮</span>
+                        <div>
+                            <strong>Dobová politická kalkulačka:</strong> Nevíte, koho byste v dané době volili? Odpovězte na 5 dobových otázek (pozemková reforma, role církve, znárodnění, privatizace či NATO) a kalkulačka vám spočítá přesnou procentuální shodu se všemi kandidujícími stranami! Tlačítko <em>[KALKULAČKA]</em> nebo klávesa <code>[P]</code>.
+                        </div>
+                    </div>
+                    <div class="modal-feature-item">
                         <span class="modal-feature-icon">⚖️</span>
                         <div>
                             <strong>Historická dilemata</strong> Postavte se před skutečná státnická rozcestí a prozkoumejte jejich reálné ústavní i politické následky.
@@ -2893,6 +3312,7 @@
                             <code>V</code> nejvyšší představitelé &nbsp;•&nbsp; 
                             <code>L</code> volby &nbsp;•&nbsp; 
                             <code>K</code> politický kompas &nbsp;•&nbsp; 
+                            <code>P</code> volební kalkulačka &nbsp;•&nbsp; 
                             <code>M</code> zapnutí/vypnutí zvuku &nbsp;•&nbsp; 
                             <code>Esc</code> zavření panelů &nbsp;•&nbsp; 
                             Tlačítkem <em>[❓ PRŮVODCE]</em> vlevo nahoře můžete tyto informace kdykoliv znovu zobrazit.
@@ -2916,6 +3336,7 @@
                 <button class="mobile-action-btn" id="mobile-party-btn" onclick="togglePartyModal()" title="Nejvyšší představitelé a vedení státu">🏛️ PŘEDSTAVITELÉ</button>
                 <button class="mobile-action-btn" id="mobile-elections-btn" onclick="openElectionsModal()" title="Historické volby nanečisto">🗳️ VOLBY</button>
                 <button class="mobile-action-btn" id="mobile-compass-btn" onclick="openCompassModal()" title="Dobový politický kompas">🧭 KOMPAS</button>
+                <button class="mobile-action-btn" id="mobile-calc-btn" onclick="openCalcModal()" title="Dobová politická kalkulačka">🧮 KALKULAČKA</button>
                 <button class="mobile-action-btn" id="mobile-sound-btn" onclick="toggleSound()" title="Zapnout / Vypnout zvuk">🔊 ZVUK</button>
                 <button class="mobile-action-btn" id="mobile-info-btn" onclick="openWelcomeModal()" title="Průvodce aplikací">❓ INFO</button>
             </div>
@@ -2940,6 +3361,7 @@
             <span class="mobile-banner-title" id="mobile-banner-title" onclick="toggleCodex(true)">Vznik republiky</span>
             <button class="mobile-banner-btn" onclick="openElectionsModal()" title="Otevřít volby">🗳️</button>
             <button class="mobile-banner-btn" onclick="openCompassModal()" title="Otevřít politický kompas">🧭</button>
+            <button class="mobile-banner-btn" onclick="openCalcModal()" title="Otevřít politickou kalkulačku">🧮</button>
             <span class="mobile-banner-link" onclick="toggleCodex(true)">DETAIL ➔</span>
         </div>
 
@@ -2951,6 +3373,7 @@
                 <button class="hud-action-btn" id="btn-toggle-party" onclick="togglePartyModal()" title="Zobrazit nejvyšší představitele státu a vládu (Klávesa V)">🏛️ NEJVYŠŠÍ PŘEDSTAVITELÉ [V]</button>
                 <button class="hud-action-btn hud-elections-btn" id="btn-toggle-elections" onclick="openElectionsModal()" title="Vyzkoušet dobové historické volby nanečisto (Klávesa L)">🗳️ VOLBY [L]</button>
                 <button class="hud-action-btn hud-compass-btn" id="btn-toggle-compass" onclick="openCompassModal()" title="Zobrazit dobový politický kompas (Klávesa K)">🧭 POLITICKÝ KOMPAS [K]</button>
+                <button class="hud-action-btn hud-calc-btn" id="btn-toggle-calc" onclick="openCalcModal()" title="Spustit dobovou politickou kalkulačku (Klávesa P)">🧮 KALKULAČKA [P]</button>
                 <button class="sound-toggle-btn" id="sound-toggle-btn" onclick="toggleSound()" title="Zapnout/Vypnout zvukové efekty (Klávesa M)">🔊 ZVUK: ZAP</button>
                 <button class="hud-action-btn hud-help-btn" id="btn-open-welcome" onclick="openWelcomeModal()" title="Zobrazit informace o aplikaci a ovládání">❓ PRŮVODCE</button>
             </div>
@@ -3005,6 +3428,7 @@
         <div class="codex-tools-bar">
             <button class="codex-tool-btn codex-tool-elections" id="c-tool-elections" onclick="openElectionsModal()" title="Vyzkoušet dobové historické volby nanečisto">🗳️ VOLBY NANEČISTO</button>
             <button class="codex-tool-btn codex-tool-compass" id="c-tool-compass" onclick="openCompassModal()" title="Zobrazit dobový politický kompas">🧭 POLITICKÝ KOMPAS</button>
+            <button class="codex-tool-btn codex-tool-calc" id="c-tool-calc" onclick="openCalcModal()" title="Spustit dobovou politickou kalkulačku">🧮 VOLEBNÍ KALKULAČKA</button>
         </div>
         
         <p class="c-desc" id="c-desc">Popis</p>
@@ -3163,7 +3587,10 @@
                 <div class="parties-grid" id="parties-list-container"></div>
 
                 <div class="elections-vote-bar">
-                    <div class="elections-selection-hint" id="elections-selected-label">Klikněte na stranu, kterou chcete zvolit.</div>
+                    <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+                        <div class="elections-selection-hint" id="elections-selected-label">Klikněte na stranu, kterou chcete zvolit.</div>
+                        <button class="btn" style="border-color: #a371f7; color: #d2a8ff; font-size: 0.54rem; padding: 0.35rem 0.6rem; align-self: flex-start;" onclick="openCalcModal(currentElectionYear)" title="Spustit volební kalkulačku pro toto období">🧮 Nevíte, koho volit? Spustit kalkulačku</button>
+                    </div>
                     <button class="elections-vote-btn" id="elections-submit-vote-btn" onclick="submitVote()" disabled>
                         <span>🗳️ ODVOLIT (ODEVZDAT HLAS)</span> ➔
                     </button>
@@ -3181,7 +3608,10 @@
                 <div class="results-bars-list" id="elections-results-bars"></div>
 
                 <div class="elections-results-footer">
-                    <button class="btn" style="border-color: #2ea043; color: #a6f3b7;" onclick="resetVote()">🗳️ HLASOVAT ZNOVU</button>
+                    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                        <button class="btn" style="border-color: #2ea043; color: #a6f3b7;" onclick="resetVote()">🗳️ HLASOVAT ZNOVU</button>
+                        <button class="btn" style="border-color: #a371f7; color: #d2a8ff;" onclick="openCalcModal(currentElectionYear)">🧮 SPUSTIT KALKULAČKU</button>
+                    </div>
                     <button class="btn btn-close-footer" onclick="closeElectionsModal()">✕ ZAVŘÍT VOLBY</button>
                 </div>
             </div>
@@ -3246,9 +3676,115 @@
                         </div>
                     </div>
 
-                    <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.6rem;">
+                        <button class="btn" style="border-color: #a371f7; color: #d2a8ff;" onclick="openCalcModal()">🧮 SPOČÍTAT SVŮJ HLAS V KALKULAČCE</button>
                         <button class="btn btn-close-footer" onclick="closeCompassModal()">✕ ZAVŘÍT KOMPAS</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODÁLNÍ OKNO: DOBOVÁ POLITICKÁ KALKULAČKA -->
+    <div class="modal-overlay" id="calc-modal" onclick="onCalcOverlayClick(event)">
+        <div class="calc-dialog-box" onclick="event.stopPropagation()">
+            <div class="dilemma-term-header" style="border-bottom-color: #a371f7;">
+                <div class="term-header-left">
+                    <span class="term-status-dot" style="background-color: #bc8cff; box-shadow: 0 0 8px #bc8cff;"></span>
+                    <span class="term-header-title" style="color: #bc8cff;">DOBOVÁ POLITICKÁ KALKULAČKA // HISTORICKÝ VOLEBNÍ PORADCE</span>
+                </div>
+                <button class="dilemma-term-close" style="border-color: #a371f7; color: #d2a8ff;" onclick="closeCalcModal()" title="Zavřít kalkulačku">[✕]</button>
+            </div>
+
+            <!-- Přepínač volebních období pro kalkulačku -->
+            <div class="calc-era-tabs" id="calc-era-tabs"></div>
+
+            <!-- FÁZE 1: OTÁZKY KALKULAČKY -->
+            <div id="calc-questions-view">
+                <div class="calc-progress-wrap">
+                    <div class="calc-progress-header">
+                        <span id="calc-progress-text">OTÁZKA 1 Z 5</span>
+                        <span id="calc-answered-count">Zodpovězeno: 0 / 5</span>
+                    </div>
+                    <div class="calc-progress-track">
+                        <div class="calc-progress-fill" id="calc-progress-fill" style="width: 20%;"></div>
+                    </div>
+                </div>
+
+                <div class="calc-question-card" id="calc-question-card">
+                    <div class="calc-q-badge-row">
+                        <span class="calc-q-badge" id="calc-q-badge">TÉMA 1: POZEMKOVÁ REFORMA</span>
+                        <button class="calc-weight-btn" id="calc-weight-btn" onclick="toggleCalcQuestionWeight()" title="Dvojnásobný vliv této otázky na celkovou shodu">
+                            <span id="calc-weight-star">☆</span> DŮLEŽITÉ TÉMA PRO MĚ (2x váha)
+                        </button>
+                    </div>
+
+                    <div class="calc-q-statement" id="calc-q-statement">Otázka...</div>
+                    <div class="calc-q-context-box" id="calc-q-context">Historický kontext otázky...</div>
+
+                    <div class="calc-options-grid">
+                        <button class="calc-opt-btn opt-agree" id="calc-opt-agree" onclick="answerCalcQuestion(1)">
+                            <span class="calc-opt-icon">🟢</span>
+                            <span>SOUHLASÍM</span>
+                        </button>
+                        <button class="calc-opt-btn opt-neutral" id="calc-opt-neutral" onclick="answerCalcQuestion(0)">
+                            <span class="calc-opt-icon">⚪</span>
+                            <span>NEVÍM / NEUTRÁLNÍ</span>
+                        </button>
+                        <button class="calc-opt-btn opt-disagree" id="calc-opt-disagree" onclick="answerCalcQuestion(-1)">
+                            <span class="calc-opt-icon">🔴</span>
+                            <span>NESOUHLASÍM</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="calc-nav-bar">
+                    <button class="btn" id="calc-prev-btn" onclick="prevCalcQuestion()">◀ PŘEDCHOZÍ</button>
+                    <div class="calc-nav-dots" id="calc-nav-dots"></div>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <button class="btn" id="calc-next-btn" onclick="nextCalcQuestion()">DALŠÍ ▶</button>
+                        <button class="btn" id="calc-eval-btn" style="border-color: #39ff14; color: #39ff14; font-weight: bold;" onclick="calculateAndShowResults()">✨ VYHODNOTIT VÝSLEDKY</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FÁZE 2: VÝSLEDKY A DOPORUČENÁ STRANA -->
+            <div id="calc-results-view" style="display: none;">
+                <div class="calc-hero-match-card" id="calc-hero-card">
+                    <div class="calc-hero-header">
+                        <div>
+                            <div class="calc-hero-badge">🥇 VAŠE NEJBLIŽŠÍ HISTORICKÁ STRANA</div>
+                            <div class="calc-hero-party-name" id="calc-hero-party-name">Název strany</div>
+                            <div class="calc-hero-party-leader" id="calc-hero-party-leader">Lídr strany</div>
+                        </div>
+                        <div class="calc-hero-pct-display">
+                            <div class="calc-hero-pct-num" id="calc-hero-pct-num">88 %</div>
+                            <div class="calc-hero-pct-sub">CELKOVÁ SHODA</div>
+                        </div>
+                    </div>
+                    <div class="calc-hero-summary-text" id="calc-hero-summary">
+                        V roce 1920 byste nejspíše volili...
+                    </div>
+                </div>
+
+                <div class="dilemma-prompt-line" style="color: #d2a8ff; margin-bottom: 0.8rem;">
+                    <span class="prompt-arrow" style="color: #bc8cff;">&gt;&gt;</span> SHODA SE VŠEMI KANDIDUJÍCÍMI STRANAMI V DANÝCH VOLBÁCH:
+                </div>
+
+                <div class="calc-parties-ranking-list" id="calc-ranking-list"></div>
+
+                <div class="calc-breakdown-card">
+                    <div class="calc-breakdown-title">► DETAILNÍ SROVNÁNÍ VAŠICH ODPOVĚDÍ S VÍTĚZNOU STRANOU:</div>
+                    <div id="calc-breakdown-list"></div>
+                </div>
+
+                <div class="calc-results-footer">
+                    <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                        <button class="btn" style="border-color: #2ea043; color: #a6f3b7;" id="calc-vote-direct-btn" onclick="voteTopPartyFromCalc()">🗳️ ODVOLIT PRO TUTO STRANU NANEČISTO</button>
+                        <button class="btn" style="border-color: #e3b341; color: #fff3a3;" onclick="compassFromCalc()">🧭 UKÁZAT OSOBNOSTI V KOMPASU</button>
+                        <button class="btn" style="border-color: #a371f7; color: #d2a8ff;" onclick="resetCalc()">🔄 SPUSTIT ZNOVU</button>
+                    </div>
+                    <button class="btn btn-close-footer" onclick="closeCalcModal()">✕ ZAVŘÍT KALKULAČKU</button>
                 </div>
             </div>
         </div>
@@ -3756,6 +4292,29 @@
                 gain.connect(ctx.destination);
                 osc.start(now);
                 osc.stop(now + 0.13);
+            } catch (e) {
+                console.warn('Audio playback error', e);
+            }
+        }
+
+        // 10. Zvuk volební kalkulačky (retro sci-fi výpočetní pípnutí)
+        function playCalcBeep() {
+            if (!soundEnabled) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+            try {
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(587.33, now); // D5
+                osc.frequency.setValueAtTime(880, now + 0.05); // A5
+                gain.gain.setValueAtTime(0.07, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.15);
             } catch (e) {
                 console.warn('Audio playback error', e);
             }
@@ -5260,12 +5819,13 @@
             7: "V normalizačním období (1968–1989) se konaly rituální pseudovolby s 99.8% účastí. Odmítnutí hlasovat pro kandidáty Národní fronty znamenalo existenční postih a perzekuci rodiny."
         };
 
-        function openElectionsModal(targetYear) {
+        function openElectionsModal(targetYear, targetPartyId) {
             playClickSound();
             isElectionsOpen = true;
             if (isCodexOpen) toggleCodex(false);
             if (isPartyOpen) togglePartyModal(false);
             if (isCompassOpen) closeCompassModal();
+            if (isCalcOpen) closeCalcModal();
 
             if (targetYear && electionsData[targetYear]) {
                 currentElectionYear = targetYear;
@@ -5280,6 +5840,10 @@
             selectedPartyId = null;
             renderElectionsTabs();
             renderElectionsBallot(currentElectionYear);
+
+            if (targetPartyId) {
+                selectParty(targetPartyId);
+            }
 
             document.getElementById('elections-ballot-view').style.display = 'block';
             document.getElementById('elections-results-view').style.display = 'none';
@@ -6162,6 +6726,7 @@
             if (isCodexOpen) toggleCodex(false);
             if (isPartyOpen) togglePartyModal(false);
             if (isElectionsOpen) closeElectionsModal();
+            if (isCalcOpen) closeCalcModal();
 
             if (milestoneIndex !== undefined && milestoneIndex >= 0 && milestoneIndex < compassData.length) {
                 currentCompassMilestone = milestoneIndex;
@@ -6349,10 +6914,671 @@
             if (reasonEl) reasonEl.textContent = pol.reason;
         }
 
+        // =========================================================================
+        // =============== POŽADAVEK: DOBOVÁ POLITICKÁ KALKULAČKA =================
+        // =========================================================================
+        let isCalcOpen = false;
+        let currentCalcYear = "1920";
+        let currentCalcQuestionIdx = 0;
+        let calcUserAnswers = {}; // { [qIdx]: { val: -1|0|1, important: boolean } }
+        let calculatedTopPartyId = null;
+
+        const calcData = {
+            "1920": {
+                year: "1920",
+                title: "První republika (Volby 1920)",
+                eraLabel: "1920: První republika",
+                description: "Zrod demokratické republiky. Zodpovězte 5 klíčových otázek doby a zjistěte, který z proudů První republiky nejlépe vystihuje vaše názory.",
+                questions: [
+                    {
+                        id: "q1_1920",
+                        title: "TÉMA 1: POZEMKOVÁ REFORMA A VYVLASTNĚNÍ ŠLECHTY",
+                        statement: "Měl by stát radikálně zabavit rozsáhlé velkostatky aristokracie i církve a půdu rozdělit drobným rolníkům a bezzemkům?",
+                        context: "V roce 1919 byl přijat Záborový zákon. Rolníci a levice žádali rozsáhlou parcelaci půdy šlechty, zatímco konzervativní kruhy a církev varovaly před porušováním vlastnických práv.",
+                        stances: {
+                            cssd20: { val: 1, note: "ČSSD plně podporovala radikální pozemkovou reformu bez náhrady pro šlechtu." },
+                            agr20: { val: 1, note: "Agrárníci stavěli na heslu 'Půda patří těm, kdo na ní pracují'." },
+                            csl20: { val: -0.5, note: "Lidovci odmítali vyvlastňování církevního majetku a žádali ochranu křesťanských statků." },
+                            csnd20: { val: -0.5, note: "Národní demokraté trvali na nedotknutelnosti majetku a přiměřených kompenzacích." },
+                            css20: { val: 1, note: "Národní socialisté prosazovali zestátnění a rozdělení půdy pracujícímu lidu." }
+                        }
+                    },
+                    {
+                        id: "q2_1920",
+                        title: "TÉMA 2: ODLUKA CÍRKVE OD STÁTU A ŠKOLSTVÍ",
+                        statement: "Má být provedena úplná odluka katolické církve od státu, zavedeno povinné civilní oddávání a odstraněno náboženství ze státních škol?",
+                        context: "Po pádu Habsburků vypukl ostrý spor o vliv katolické církve spojený s heslem 'Pryč od Říma' a vznikem Církve československé.",
+                        stances: {
+                            cssd20: { val: 1, note: "ČSSD žádala plně sekulární republiku a školství prosté náboženského vlivu." },
+                            agr20: { val: 0, note: "Agrárníci volili pragmatický střed, aby nepolarizovali věřící venkov." },
+                            csl20: { val: -1, note: "Lidovci nekompromisně bránili náboženskou výuku na školách a postavení církve." },
+                            csnd20: { val: 0, note: "Národní demokraté byli zdrženliví a odmítali náboženský radikalismus." },
+                            css20: { val: 1, note: "Národní socialisté patřili k nejhlasitějším zastáncům hesla 'Pryč od Říma'." }
+                        }
+                    },
+                    {
+                        id: "q3_1920",
+                        title: "TÉMA 3: ZÁKONNÁ 8HODINOVÁ PRACOVNÍ DOBA",
+                        statement: "Má stát zákonem nařídit 8hodinovou pracovní dobu a povinné pojištění dělnictva, i když to zvýší náklady podnikatelů?",
+                        context: "Československo patřilo mezi první země světa, které v prosinci 1918 uzákonily 8hodinovou pracovní dobu bez krácení mezd.",
+                        stances: {
+                            cssd20: { val: 1, note: "Pro sociální demokracii šlo o základní historické vítězství dělnického hnutí." },
+                            agr20: { val: 0, note: "Agrárníci v průmyslu souhlasili, ale na polích žádali výjimky pro sezónní práce." },
+                            csl20: { val: 0.5, note: "Lidovci podporovali křesťansko-sociální ochranu rodin a dělnictva." },
+                            csnd20: { val: -1, note: "Kramářova strana varovala před oslabením českého exportního průmyslu." },
+                            css20: { val: 1, note: "Národní socialisté stáli na straně sociálních a odborových práv zaměstnanců." }
+                        }
+                    },
+                    {
+                        id: "q4_1920",
+                        title: "TÉMA 4: POSTAVENÍ NÁRODNOSTNÍCH MENŠIN",
+                        statement: "Mělo by Československo budovat striktně národní stát a odmítnout jakékoliv ústupky německé a maďarské menšině v pohraničí?",
+                        context: "Více než 3 miliony Němců tvořily téměř čtvrtinu obyvatelstva ČSR. Otázkou bylo, zda s nimi spolupracovat, nebo budovat 'národní stát Čechoslováků'.",
+                        stances: {
+                            cssd20: { val: -0.5, note: "ČSSD podporovala mezinárodní spolupráci s německými sociálními demokraty." },
+                            agr20: { val: -0.5, note: "Švehla byl mistrem kompromisu a připravoval vstup německých stran do vlády." },
+                            csl20: { val: 0, note: "Lidovci spolupracovali s německými křesťanskými sociály." },
+                            csnd20: { val: 1, note: "Kramářova Národní demokracie trvala na striktním heslu: 'Československý stát patří nám!'" },
+                            css20: { val: 0.5, note: "Národní socialisté kladli silný důraz na československé národní vlastenectví." }
+                        }
+                    },
+                    {
+                        id: "q5_1920",
+                        title: "TÉMA 5: SILNÁ KORUNA A RAŠÍNOVA DEFLACE",
+                        statement: "Měl by stát provádět přísné rozpočtové škrty a držet silnou korunu i za cenu poklesu mezd a nezaměstnanosti?",
+                        context: "Ministr financí Alois Rašín prosadil politiku silné měny (deflaci), což zabránilo hyperinflaci, ale vyvolalo sociální napětí a stávky.",
+                        stances: {
+                            cssd20: { val: -1, note: "ČSSD protestovala proti tlaku na snižování mezd a omezování sociálních výdajů." },
+                            agr20: { val: 0, note: "Agrárníci vyvažovali stabilitu měny s podporou cen zemědělských plodin." },
+                            csl20: { val: 0, note: "Lidovci varovali před sociálním napětím, ale ctili rozpočtovou disciplínu." },
+                            csnd20: { val: 1, note: "Alois Rašín byl ikonou Národní demokracie: 'Pracovat a šetřit!'" },
+                            css20: { val: -0.5, note: "Národní socialisté kritizovali sociální dopady deflační politiky na pracující." }
+                        }
+                    }
+                ]
+            },
+            "1946": {
+                year: "1946",
+                title: "Třetí republika (Volby 1946)",
+                eraLabel: "1946: Třetí republika",
+                description: "Osudové poválečné volby. Rozhodovalo se mezi komunistickým směřováním k SSSR a obranou západní parlamentní demokracie.",
+                questions: [
+                    {
+                        id: "q1_1946",
+                        title: "TÉMA 1: ROZSAH ZNÁRODNĚNÍ HOSPODÁŘSTVÍ",
+                        statement: "Měl by stát po těžkém průmyslu a bankách převzít a znárodnit i střední podniky, velkoobchod a stavebnictví?",
+                        context: "Dekrety prezidenta Beneše znárodnily doly, energetiku a velké továrny. KSČ však tlačila na likvidaci i středního soukromého podnikání.",
+                        stances: {
+                            ksc: { val: 1, note: "KSČ prosazovala centrální plánování a konec vykořisťování soukromým kapitálem." },
+                            csns46: { val: -0.5, note: "ČSNS trvala na zachování živnostníků, soukromých dílen a středních podniků." },
+                            csl46: { val: -1, note: "Lidovci bránili soukromé vlastnictví a svobodné rodinné podnikání." },
+                            ds46: { val: -1, note: "Demokratická strana na Slovensku hájila tržní principy proti státnímu monopolu." },
+                            cssd46: { val: 0.5, note: "ČSSD (křídlo Z. Fierlingera) podporovala další socializaci hospodářství." }
+                        }
+                    },
+                    {
+                        id: "q2_1946",
+                        title: "TÉMA 2: VÝCHODNÍ VS. ZÁPADNÍ SPOJENECTVÍ",
+                        statement: "Má být bezpečnost a budoucnost Československa pevně a bezvýhradně svázána se Sovětským svazem jako hlavním garantem?",
+                        context: "Po zkušenosti z Mnichova 1938 panovala velká vděčnost SSSR za osvobození, demokratické strany však chtěly zůstat mostem k Západu.",
+                        stances: {
+                            ksc: { val: 1, note: "KSČ stavěla na absolutní loajalitě k Moskvě a generalissimu Stalinovi." },
+                            csns46: { val: -0.5, note: "ČSNS a Edvard Beneš prosazovali teorii 'mostu mezi Východem a Západem'." },
+                            csl46: { val: -1, note: "Lidovci varovali před sovětizací a hájili kulturní sounáležitost se Západem." },
+                            ds46: { val: -1, note: "Slovenská Demokratická strana byla jednoznačně prozápadně orientována." },
+                            cssd46: { val: 0.5, note: "Sociální demokraté zdůrazňovali bratrské slovanské spojenectví se SSSR." }
+                        }
+                    },
+                    {
+                        id: "q3_1946",
+                        title: "TÉMA 3: NESTRANNOST BEZPEČNOSTNÍCH SLOŽEK",
+                        statement: "Měly by bezpečnostní sbory (SNB) a justice podléhat přísné nestranické kontrole a zabránit nadvládě jedné politické strany?",
+                        context: "Ministerstvo vnitra ovládal komunista Václav Nosek a postupně obsazoval klíčová místa v SNB členy KSČ, což vedlo k politickým provokacím.",
+                        stances: {
+                            ksc: { val: -1, note: "KSČ budovala v policii stranickou oporu pro převzetí moci v zemi." },
+                            csns46: { val: 1, note: "Ministr spravedlnosti Prokop Drtina vedl neohrožený boj za nezávislost vyšetřování." },
+                            csl46: { val: 1, note: "Lidovci varovali před přeměnou Československa v policejní stát." },
+                            ds46: { val: 1, note: "Demokratická strana čelila vykonstruovaným útokům komunistické StB." },
+                            cssd46: { val: 0, note: "ČSSD byla v hodnocení policejního aparátu vnitřně rozdělena." }
+                        }
+                    },
+                    {
+                        id: "q4_1946",
+                        title: "TÉMA 4: AUTONOMIE CÍRKVÍ A NÁBOŽENSKÁ SVOBODA",
+                        statement: "Měl by stát garantovat plnou autonomii církví, zachovat církevní školy a odmítnout marxistický ateismus?",
+                        context: "Poválečná společnost procházela sekularizací a KSČ připravovala půdu pro potlačení vlivu církví ve veřejném životě.",
+                        stances: {
+                            ksc: { val: -1, note: "KSČ vnímala církev jako reakční sílu spojenou se starým režimem." },
+                            csns46: { val: 0, note: "ČSNS podporovala laický stát při respektování svobody svědomí." },
+                            csl46: { val: 1, note: "Jan Šrámek považoval křesťanskou víru a církevní školství za pilíř národní morálky." },
+                            ds46: { val: 1, note: "Demokratická strana na Slovensku se opírala o silný katolický a luterský voličský základ." },
+                            cssd46: { val: -0.5, note: "Sociální demokraté preferovali sekulární a jednotné státní školství." }
+                        }
+                    },
+                    {
+                        id: "q5_1946",
+                        title: "TÉMA 5: SLOVENSKÁ NÁRODNÍ SAMOSPRÁVA",
+                        statement: "Mělo by mít Slovensko širokou autonomii a vlastní zákonodárný sbor (Slovenskou národní radu) nezávislý na pražské vládě?",
+                        context: "Po Slovenském národním povstání 1944 žádali Slováci rovnocenné postavení v obnoveném státě. Praha však usilovala o centralizaci.",
+                        stances: {
+                            ksc: { val: -0.5, note: "KSČ po porážce na Slovensku omezila pravomoci SNR tzv. pražskými dohodami." },
+                            csns46: { val: -0.5, note: "ČSNS stála na tradici československého unitárního státu." },
+                            csl46: { val: 0, note: "Lidovci hledali kompromis mezi jednotou státu a autonomií." },
+                            ds46: { val: 1, note: "Demokratická strana drtivě zvítězila na Slovensku s 62 % hlasů za slovenskou samosprávu." },
+                            cssd46: { val: -0.5, note: "ČSSD prosazovala jednotné celostátní řízení z pražského centra." }
+                        }
+                    }
+                ]
+            },
+            "1990": {
+                year: "1990",
+                title: "Sametová revoluce (Volby 1990)",
+                eraLabel: "1990: Sametová revoluce",
+                description: "První svobodné polistopadové volby. Hlasování o definitivním odmítnutí totality a návratu Československa do Evropy.",
+                questions: [
+                    {
+                        id: "q1_1990",
+                        title: "TÉMA 1: RYCHLOST TRŽNÍ TRANSFORMACE",
+                        statement: "Měl by přechod na tržní ekonomiku proběhnout co nejrychleji prostřednictvím rychlé privatizace a liberalizace cen bez ohledu na dočasné otřesy?",
+                        context: "Vláda národního porozumění řešila klíčové dilema: radikální tržní šoková transformace Václava Klause vs. opatrná postupná cesta prognostiků.",
+                        stances: {
+                            of: { val: 1, note: "OF a Klaus prosadili rychlý návrat k trhu: 'Trh bez přívlastků!'" },
+                            ksc90: { val: -1, note: "KSČ odmítala rozprodej národního bohatství a varovala před masovou nezaměstnaností." },
+                            kdu90: { val: 0.5, note: "KDU podporovala trh, avšak s důrazem na sociální a křesťansko-etický rozměr." },
+                            hsd90: { val: 0, note: "HSD-SMS se obávalo dopadů transformace na moravské a slezské podniky." },
+                            sns90: { val: -0.5, note: "SNS varovala před zhroucením slovenského těžkého a zbrojního průmyslu." }
+                        }
+                    },
+                    {
+                        id: "q2_1990",
+                        title: "TÉMA 2: ZÁKONNÉ LUSTRACE A OČISTA STÁTU",
+                        statement: "Měli by bývalí agenti StB a funkcionáři KSČ mít zákonem zakázáno vykonávat vedoucí funkce ve státní správě?",
+                        context: "Veřejnost volala po důsledné očistě institucí od exponentů komunistické moci, zatímco odpůrci varovali před kolektivní vinou.",
+                        stances: {
+                            of: { val: 0.5, note: "OF podpořilo přijetí lustračního zákona pro ochranu nově se rodící demokracie." },
+                            ksc90: { val: -1, note: "Komunisté lustrace ostře odsuzovali jako 'politický hon na čarodějnice'." },
+                            kdu90: { val: 1, note: "Křesťanští demokraté požadovali nekompromisní morální a právní očistu státu." },
+                            hsd90: { val: 0.5, note: "HSD-SMS podporovalo personální obnovu veřejné správy." },
+                            sns90: { val: 0, note: "SNS se soustředila na otázku slovenské suverenity, lustrace pro ni nebyly prioritou." }
+                        }
+                    },
+                    {
+                        id: "q3_1990",
+                        title: "TÉMA 3: ZEMSKÁ SAMOSPRÁVA MORAVY A SLEZSKA",
+                        statement: "Mělo by být obnoveno historické zemské zřízení a vzniknout samosprávná Země moravskoslezská s vlastním parlamentem?",
+                        context: "Po listopadu 1989 se na Moravě zvedla silná vlna za nápravu komunistického zrušení zemí z roku 1949 a proti pražskému centralismu.",
+                        stances: {
+                            of: { val: -0.5, note: "OF dávalo přednost okresům a obcím a obávalo se dalšího štěpení federace." },
+                            ksc90: { val: 0, note: "KSČ zastávala neutrální postoj k administrativnímu členění." },
+                            kdu90: { val: 0.5, note: "Moravská KDU podporovala zemskou samosprávu a subsidiaritu." },
+                            hsd90: { val: 1, note: "Pro Boleslava Bártu a HSD-SMS to byl absolutní ústřední smysl existence strany." },
+                            sns90: { val: 0, note: "SNS respektovala moravské snahy, ale soustředila se na Slovensko." }
+                        }
+                    },
+                    {
+                        id: "q4_1990",
+                        title: "TÉMA 4: SLOVENSKÁ NÁRODNÍ SVRCHOVANOST",
+                        statement: "Mělo by mít Slovensko svrchované právo vyhlásit vlastní zákony nadřazené federálním a směřovat k samostatnosti?",
+                        context: "Tzv. pomlčková válka o název státu odhalila hluboké rozpory v představách o soužití Čechů a Slováků ve společném státě.",
+                        stances: {
+                            of: { val: -1, note: "OF a VPN bojovaly za zachování společného federálního demokratického státu." },
+                            ksc90: { val: -0.5, note: "KSČ obhajovala zachování československé federace." },
+                            kdu90: { val: 0, note: "Česká část KDU chtěla federaci, slovenské KDH mluvilo o 'vlastní židličce v Evropě'." },
+                            hsd90: { val: 0, note: "HSD-SMS navrhovalo kompromisní model trojfederace (Čechy, Morava, Slovensko)." },
+                            sns90: { val: 1, note: "Slovenská národná strana měla vyhlášení samostatného Slovenska za hlavní cíl." }
+                        }
+                    },
+                    {
+                        id: "q5_1990",
+                        title: "TÉMA 5: RESTITUCE CÍRKEVNÍHO MAJETKU",
+                        statement: "Měl by stát bezodkladně vrátit církvím budovy, kláštery a pozemky zabavené po roce 1948?",
+                        context: "Po obnovení svobody náboženství stála společnost před otázkou, v jakém rozsahu odčinit křivdy spáchané na církvích a řádech.",
+                        stances: {
+                            of: { val: 0.5, note: "OF podpořilo vrácení řeholních domů jako základní princip nápravy křivd." },
+                            ksc90: { val: -1, note: "KSČ byla rezolutně proti vracení půdy a majetku církvím." },
+                            kdu90: { val: 1, note: "Pro křesťanské demokraty šlo o základní morální pilíř a prioritu." },
+                            hsd90: { val: 0.5, note: "HSD-SMS podporovalo spravedlivé restituce." },
+                            sns90: { val: 0.5, note: "SNS se hlásila ke křesťanským cyrilometodějským kořenům Slovenska." }
+                        }
+                    }
+                ]
+            },
+            "1996": {
+                year: "1996",
+                title: "Samostatná ČR (Volby 1996)",
+                eraLabel: "1996: Samostatná ČR",
+                description: "Legendární střet Klause a Zemana. První volby v samostatné ČR. Zjistěte, ke komu měly vaše názory nejblíže.",
+                questions: [
+                    {
+                        id: "q1_1996",
+                        title: "TÉMA 1: ŠTÍHLÝ STÁT VS. SOCIÁLNÍ JISTOTY",
+                        statement: "Měl by stát snižovat daně a deregulovat trh, i když to omezí rozsah státem garantovaných sociálních jistot?",
+                        context: "Základní ideologický souboj roku 1996: Klausův koncept ekonomického zázraku a minimálního státu proti Zemanově sociálnědemokratické obraně občanů.",
+                        stances: {
+                            ods: { val: 1, note: "Klausova ODS stavěla na heslu: 'Dokázali jsme, že to dokážeme' a štíhlém státu." },
+                            cssd96: { val: -1, note: "Zeman s heslem 'Lidskost proti sobectví' žádal spravedlivý a silný sociální stát." },
+                            kscm96: { val: -1, note: "KSČM striktně odmítala kapitalistický trh a požadovala jistoty pro všechny." },
+                            kdu96: { val: 0, note: "Josef Lux hájil vyvážené sociálně-tržní hospodářství jako 'klidná síla'." },
+                            spr96: { val: -0.5, note: "Sládkovi republikáni spojovali nacionální populismus se sociální demagogií." },
+                            oda96: { val: 1, note: "ODA byla ještě pravicovější a tržnější než ODS s důrazem na rovné daně." }
+                        }
+                    },
+                    {
+                        id: "q2_1996",
+                        title: "TÉMA 2: RYCHLÝ VSTUP DO NATO",
+                        statement: "Měla by se Česká republika urychleně stát plnoprávným členem Severoatlantické aliance (NATO)?",
+                        context: "Česká diplomacie usilovala o pevné bezpečnostní zakotvení v euroatlantickém prostoru po odchodu sovětských vojsk.",
+                        stances: {
+                            ods: { val: 1, note: "ODS měla vstup do NATO a EU jako základní pilíř své zahraniční politiky." },
+                            cssd96: { val: 0.5, note: "ČSSD vstup podporovala, navrhovala však rozhodnutí potvrdit referendem." },
+                            kscm96: { val: -1, note: "KSČM kategoricky odmítala 'agresivní pakt NATO' a žádala neutralitu." },
+                            kdu96: { val: 1, note: "KDU-ČSL jednoznačně podporovala integraci do západních bezpečnostních struktur." },
+                            spr96: { val: -1, note: "SPR-RSČ odmítala NATO i EU pod heslem 'Cizí vojáky v ČR nechceme'." },
+                            oda96: { val: 1, note: "ODA byla nejradikálnějším zastáncem rychlého vstupu do NATO bez odkladů." }
+                        }
+                    },
+                    {
+                        id: "q3_1996",
+                        title: "TÉMA 3: BOJ S KORUPCÍ A AKCE 'ČISTÉ RUCE'",
+                        statement: "Měl by stát spustit rozsáhlé vyšetřování podezřelých privatizačních kauz, tunelování bank a tvrdě potírat hospodářskou kriminalitu?",
+                        context: "V polovině 90. let propukly skandály kolem tunelování privatizovaných fondů a bank, což vedlo k rozčarování části veřejnosti.",
+                        stances: {
+                            ods: { val: -0.5, note: "Klaus bagatelizoval 'špinavé peníze' a bránil výsledky velké privatizace." },
+                            cssd96: { val: 1, note: "Miloš Zeman udělal z akce 'Čisté ruce' a boje proti korupci klíč kampaně." },
+                            kscm96: { val: 1, note: "KSČM kritizovala 'rozkradení republiky' a požadovala potrestání viníků." },
+                            kdu96: { val: 0.5, note: "Lidovci žádali posílení právního státu a etiky v ekonomice." },
+                            spr96: { val: 1, note: "Sládek hrozil všem polistopadovým politikům vězením a soudy." },
+                            oda96: { val: 0.5, note: "Ministr spravedlnosti Jan Kalvoda prosazoval nezávislé soudnictví a vymahatelnost práva." }
+                        }
+                    },
+                    {
+                        id: "q4_1996",
+                        title: "TÉMA 4: ZDRAVOTNICTVÍ A ŠKOLSTVÍ BEZ POPLATKŮ",
+                        statement: "Měly by nemocnice a veřejné vysoké školy zůstat bezplatné pro všechny občany bez zavádění poplatků a školného?",
+                        context: "Pravicová vláda zvažovala deregulaci zdravotnictví a zavedení finanční spoluúčasti, proti čemuž se ostře postavila levice.",
+                        stances: {
+                            ods: { val: -1, note: "ODS podporovala privatizaci nemocnic a zavedení spoluúčasti pacientů." },
+                            cssd96: { val: 1, note: "ČSSD kategoricky odmítala placené zdravotnictví a školné na VŠ." },
+                            kscm96: { val: 1, note: "KSČM prosazovala bezplatnou péči i studium jako nezadatelné právo." },
+                            kdu96: { val: 0.5, note: "KDU-ČSL trvala na solidárním a dostupném zdravotnictví pro všechny rodiny." },
+                            spr96: { val: 0.5, note: "Republikáni slibovali bezplatnou péči, avšak pouze pro české občany." },
+                            oda96: { val: -1, note: "ODA podporovala reformu univerzit včetně zavedení studentského školného." }
+                        }
+                    },
+                    {
+                        id: "q5_1996",
+                        title: "TÉMA 5: PODPORA VENKOVA A RODIN S DĚTMI",
+                        statement: "Měl by stát poskytovat masivní daňové úlevy a příspěvky rodinám s dětmi a chránit tuzemské zemědělství i za cenu dotací?",
+                        context: "Venkov a rodiny čelily tlaku tržních cen, ministr zemědělství Josef Lux proto prosazoval ochranu českých zemědělců a rodinných farem.",
+                        stances: {
+                            ods: { val: -0.5, note: "ODS odmítala selektivní dotace a preferovala jednotný trh bez výjimek." },
+                            cssd96: { val: 0.5, note: "ČSSD podporovala rodinné přídavky a záchranu zemědělských družstev." },
+                            kscm96: { val: 0.5, note: "KSČM žádala rozsáhlé státní dotace do venkova a zemědělství." },
+                            kdu96: { val: 1, note: "Podpora venkova, rodin a dětí byla jádrem úspěchu Luxovy KDU-ČSL." },
+                            spr96: { val: 0, note: "Republikáni nabízeli populistická hesla bez uceleného programu pro venkov." },
+                            oda96: { val: -0.5, note: "ODA odmítala protekcionismus v zemědělství a hájila volnou soutěž." }
+                        }
+                    }
+                ]
+            }
+        };
+
+        function openCalcModal(targetYear) {
+            playCalcBeep();
+            isCalcOpen = true;
+            if (isCodexOpen) toggleCodex(false);
+            if (isPartyOpen) togglePartyModal(false);
+            if (isElectionsOpen) closeElectionsModal();
+            if (isCompassOpen) closeCompassModal();
+
+            if (targetYear && calcData[targetYear]) {
+                currentCalcYear = targetYear;
+            } else {
+                if (currentIndex <= 1) currentCalcYear = "1920";
+                else if (currentIndex === 4) currentCalcYear = "1946";
+                else if (currentIndex === 8) currentCalcYear = "1990";
+                else if (currentIndex === 9) currentCalcYear = "1996";
+                else currentCalcYear = "1920";
+            }
+
+            currentCalcQuestionIdx = 0;
+            calcUserAnswers = {};
+            calculatedTopPartyId = null;
+
+            renderCalcTabs();
+            renderCalcQuestion();
+
+            document.getElementById('calc-questions-view').style.display = 'block';
+            document.getElementById('calc-results-view').style.display = 'none';
+            document.getElementById('calc-modal').style.display = 'flex';
+        }
+
+        function closeCalcModal() {
+            playClickSound();
+            document.getElementById('calc-modal').style.display = 'none';
+            isCalcOpen = false;
+        }
+
+        function onCalcOverlayClick(e) {
+            if (e.target && e.target.id === 'calc-modal') {
+                closeCalcModal();
+            }
+        }
+
+        function switchCalcYear(year) {
+            playClickSound();
+            currentCalcYear = year;
+            currentCalcQuestionIdx = 0;
+            calcUserAnswers = {};
+            calculatedTopPartyId = null;
+            renderCalcTabs();
+            renderCalcQuestion();
+            document.getElementById('calc-questions-view').style.display = 'block';
+            document.getElementById('calc-results-view').style.display = 'none';
+        }
+
+        function renderCalcTabs() {
+            const tabsContainer = document.getElementById('calc-era-tabs');
+            if (!tabsContainer) return;
+            tabsContainer.innerHTML = '';
+
+            const availableYears = [
+                { year: "1920", label: "1920: První republika" },
+                { year: "1946", label: "1946: Třetí republika" },
+                { year: "1990", label: "1990: Sametová revoluce" },
+                { year: "1996", label: "1996: Samostatná ČR" }
+            ];
+
+            availableYears.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = `calc-tab-btn ${item.year === currentCalcYear ? 'active' : ''}`;
+                btn.textContent = `🧮 ${item.label}`;
+                btn.onclick = () => switchCalcYear(item.year);
+                tabsContainer.appendChild(btn);
+            });
+        }
+
+        function renderCalcQuestion() {
+            const era = calcData[currentCalcYear];
+            if (!era) return;
+            const questions = era.questions;
+            const q = questions[currentCalcQuestionIdx];
+            if (!q) return;
+
+            // Header & progress
+            const totalQ = questions.length;
+            const curNum = currentCalcQuestionIdx + 1;
+            document.getElementById('calc-progress-text').textContent = `OTÁZKA ${curNum} Z ${totalQ}`;
+
+            const answeredCount = Object.keys(calcUserAnswers).length;
+            document.getElementById('calc-answered-count').textContent = `Zodpovězeno: ${answeredCount} / ${totalQ}`;
+
+            const fillPct = Math.round((curNum / totalQ) * 100);
+            document.getElementById('calc-progress-fill').style.width = `${fillPct}%`;
+
+            // Badge & weight
+            document.getElementById('calc-q-badge').textContent = q.title;
+            const currentAns = calcUserAnswers[currentCalcQuestionIdx];
+            const isImportant = currentAns && currentAns.important;
+
+            const weightBtn = document.getElementById('calc-weight-btn');
+            const weightStar = document.getElementById('calc-weight-star');
+            if (weightBtn && weightStar) {
+                if (isImportant) {
+                    weightBtn.classList.add('active');
+                    weightStar.textContent = '★';
+                } else {
+                    weightBtn.classList.remove('active');
+                    weightStar.textContent = '☆';
+                }
+            }
+
+            // Question statement & context
+            document.getElementById('calc-q-statement').textContent = q.statement;
+            document.getElementById('calc-q-context').innerHTML = `<strong>Dobový kontext:</strong> ${q.context}`;
+
+            // Buttons state
+            const agreeBtn = document.getElementById('calc-opt-agree');
+            const neutralBtn = document.getElementById('calc-opt-neutral');
+            const disagreeBtn = document.getElementById('calc-opt-disagree');
+
+            [agreeBtn, neutralBtn, disagreeBtn].forEach(b => b.classList.remove('selected'));
+
+            if (currentAns !== undefined) {
+                if (currentAns.val === 1) agreeBtn.classList.add('selected');
+                else if (currentAns.val === 0) neutralBtn.classList.add('selected');
+                else if (currentAns.val === -1) disagreeBtn.classList.add('selected');
+            }
+
+            // Navigation dots
+            const dotsContainer = document.getElementById('calc-nav-dots');
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalQ; i++) {
+                const dot = document.createElement('div');
+                const isCur = i === currentCalcQuestionIdx;
+                const isAns = calcUserAnswers[i] !== undefined;
+                dot.className = `calc-dot ${isCur ? 'active' : ''} ${isAns ? 'answered' : ''}`;
+                dot.textContent = isAns ? (calcUserAnswers[i].val === 1 ? '✓' : (calcUserAnswers[i].val === -1 ? '✗' : '—')) : (i + 1);
+                dot.title = `Přejít na otázku ${i + 1}`;
+                dot.onclick = () => goToCalcQuestion(i);
+                dotsContainer.appendChild(dot);
+            }
+
+            // Prev / Next buttons
+            const prevBtn = document.getElementById('calc-prev-btn');
+            const nextBtn = document.getElementById('calc-next-btn');
+            prevBtn.disabled = currentCalcQuestionIdx === 0;
+            nextBtn.disabled = currentCalcQuestionIdx === totalQ - 1;
+        }
+
+        function answerCalcQuestion(val) {
+            playClickSound(680, 0.05);
+            const isImportant = calcUserAnswers[currentCalcQuestionIdx] ? calcUserAnswers[currentCalcQuestionIdx].important : false;
+            calcUserAnswers[currentCalcQuestionIdx] = { val: val, important: isImportant };
+
+            const totalQ = calcData[currentCalcYear].questions.length;
+            if (currentCalcQuestionIdx < totalQ - 1) {
+                currentCalcQuestionIdx++;
+                renderCalcQuestion();
+            } else {
+                renderCalcQuestion();
+            }
+        }
+
+        function toggleCalcQuestionWeight() {
+            playClickSound(750, 0.03);
+            if (!calcUserAnswers[currentCalcQuestionIdx]) {
+                calcUserAnswers[currentCalcQuestionIdx] = { val: 0, important: true };
+            } else {
+                calcUserAnswers[currentCalcQuestionIdx].important = !calcUserAnswers[currentCalcQuestionIdx].important;
+            }
+            renderCalcQuestion();
+        }
+
+        function goToCalcQuestion(idx) {
+            playClickSound();
+            currentCalcQuestionIdx = idx;
+            renderCalcQuestion();
+        }
+
+        function nextCalcQuestion() {
+            const totalQ = calcData[currentCalcYear].questions.length;
+            if (currentCalcQuestionIdx < totalQ - 1) {
+                playClickSound();
+                currentCalcQuestionIdx++;
+                renderCalcQuestion();
+            }
+        }
+
+        function prevCalcQuestion() {
+            if (currentCalcQuestionIdx > 0) {
+                playClickSound();
+                currentCalcQuestionIdx--;
+                renderCalcQuestion();
+            }
+        }
+
+        function calculateAndShowResults() {
+            const era = calcData[currentCalcYear];
+            const elections = electionsData[currentCalcYear];
+            if (!era || !elections) return;
+
+            playVoteFanfare();
+
+            const questions = era.questions;
+            const parties = elections.parties;
+
+            // Výpočet shody pro každou stranu
+            const scores = parties.map(party => {
+                let totalWeight = 0;
+                let weightedMatch = 0;
+
+                questions.forEach((q, qIdx) => {
+                    const userEntry = calcUserAnswers[qIdx] || { val: 0, important: false };
+                    const uVal = userEntry.val;
+                    const weight = userEntry.important ? 2 : 1;
+                    totalWeight += weight;
+
+                    const stance = (q.stances && q.stances[party.id]) ? q.stances[party.id].val : 0;
+                    // Vzdálenost mezi uVal [-1, 1] a stance [-1, 1] je max 2
+                    const diff = Math.abs(uVal - stance);
+                    const matchFraction = 1 - (diff / 2); // 1 = 100%, 0 = 0%
+                    weightedMatch += weight * matchFraction;
+                });
+
+                const finalPct = totalWeight > 0 ? Math.round((weightedMatch / totalWeight) * 100) : 50;
+
+                return {
+                    party: party,
+                    pct: finalPct
+                };
+            });
+
+            // Seřadit sestupně podle shody
+            scores.sort((a, b) => b.pct - a.pct);
+            const topMatch = scores[0];
+            calculatedTopPartyId = topMatch.party.id;
+
+            // Zobrazení hero karty
+            document.getElementById('calc-hero-party-name').textContent = `${topMatch.party.name} (${topMatch.party.short})`;
+            document.getElementById('calc-hero-party-name').style.color = topMatch.party.color;
+            document.getElementById('calc-hero-party-leader').textContent = `👤 Lídr: ${topMatch.party.leader}`;
+            document.getElementById('calc-hero-pct-num').textContent = `${topMatch.pct} %`;
+
+            document.getElementById('calc-hero-summary').innerHTML = `
+                Na základě vašich odpovědí na klíčové otázky doby by vaše politické preference v roce <strong>${currentCalcYear}</strong> nejlépe reprezentovala strana <strong>${topMatch.party.name}</strong>.<br><br>
+                📜 <strong>Její dobové priority:</strong> <em>"${topMatch.party.points[0]}"</em>
+            `;
+
+            // Žebříček všech stran
+            const rankingList = document.getElementById('calc-ranking-list');
+            rankingList.innerHTML = '';
+
+            scores.forEach((item, sIdx) => {
+                const row = document.createElement('div');
+                row.className = `calc-ranking-row ${sIdx === 0 ? 'top-match' : ''}`;
+                row.style.setProperty('--party-color', item.party.color);
+
+                row.innerHTML = `
+                    <div class="calc-ranking-row-header">
+                        <div class="calc-ranking-name">
+                            <span style="color:${item.party.color}">■</span>
+                            <strong>${item.party.short}</strong> – ${item.party.name}
+                            ${sIdx === 0 ? '<span style="font-size:0.6rem; color:#ffd700; border:1px solid #ffd700; padding:0.1rem 0.35rem; margin-left:0.4rem;">★ NEJVYŠŠÍ SHODA</span>' : ''}
+                        </div>
+                        <div class="calc-ranking-pct">${item.pct} %</div>
+                    </div>
+                    <div class="calc-ranking-track">
+                        <div class="calc-ranking-fill" style="width: 0%;" data-calc-target="${item.pct}%"></div>
+                    </div>
+                `;
+
+                rankingList.appendChild(row);
+            });
+
+            // Rozpis otázek pro vítěznou stranu
+            const breakdownList = document.getElementById('calc-breakdown-list');
+            breakdownList.innerHTML = '';
+
+            questions.forEach((q, qIdx) => {
+                const userEntry = calcUserAnswers[qIdx] || { val: 0, important: false };
+                const uVal = userEntry.val;
+                const stanceObj = (q.stances && q.stances[topMatch.party.id]) ? q.stances[topMatch.party.id] : { val: 0, note: "Středový postoj." };
+
+                const item = document.createElement('div');
+                item.className = 'calc-breakdown-item';
+
+                let userTagClass = 'tag-neutral';
+                let userTagText = '⚪ NEUTRÁLNÍ';
+                if (uVal === 1) { userTagClass = 'tag-agree'; userTagText = '🟢 SOUHLASÍM'; }
+                else if (uVal === -1) { userTagClass = 'tag-disagree'; userTagText = '🔴 NESOUHLASÍM'; }
+
+                let partyTagClass = 'tag-neutral';
+                let partyTagText = '⚪ NEUTRÁLNÍ';
+                if (stanceObj.val > 0.2) { partyTagClass = 'tag-agree'; partyTagText = '🟢 PRO'; }
+                else if (stanceObj.val < -0.2) { partyTagClass = 'tag-disagree'; partyTagText = '🔴 PROTI'; }
+
+                item.innerHTML = `
+                    <div class="calc-breakdown-q">${qIdx + 1}. ${q.statement} ${userEntry.important ? '<span style="color:#ffd700;">[★ Důležité]</span>' : ''}</div>
+                    <div class="calc-breakdown-comparison">
+                        <div>Váš postoj: <span class="calc-breakdown-tag ${userTagClass}">${userTagText}</span></div>
+                        <div>Postoj ${topMatch.party.short}: <span class="calc-breakdown-tag ${partyTagClass}">${partyTagText}</span></div>
+                    </div>
+                    <div style="font-size:0.95rem; color:#8b949e; margin-top:0.2rem;">${stanceObj.note}</div>
+                `;
+
+                breakdownList.appendChild(item);
+            });
+
+            // Přepnutí na výsledky
+            document.getElementById('calc-questions-view').style.display = 'none';
+            document.getElementById('calc-results-view').style.display = 'block';
+
+            // Animace pruhů
+            setTimeout(() => {
+                document.querySelectorAll('.calc-ranking-fill').forEach(fill => {
+                    const target = fill.getAttribute('data-calc-target');
+                    if (target) fill.style.width = target;
+                });
+            }, 60);
+
+            const dialogBox = document.querySelector('.calc-dialog-box');
+            if (dialogBox) dialogBox.scrollTop = 0;
+        }
+
+        function resetCalc() {
+            playClickSound();
+            currentCalcQuestionIdx = 0;
+            calcUserAnswers = {};
+            calculatedTopPartyId = null;
+            renderCalcQuestion();
+            document.getElementById('calc-results-view').style.display = 'none';
+            document.getElementById('calc-questions-view').style.display = 'block';
+            const dialogBox = document.querySelector('.calc-dialog-box');
+            if (dialogBox) dialogBox.scrollTop = 0;
+        }
+
+        function voteTopPartyFromCalc() {
+            if (!calculatedTopPartyId) return;
+            closeCalcModal();
+            openElectionsModal(currentCalcYear, calculatedTopPartyId);
+        }
+
+        function compassFromCalc() {
+            closeCalcModal();
+            let compassEraIdx = 0;
+            if (currentCalcYear === "1920") compassEraIdx = 0;
+            else if (currentCalcYear === "1946") compassEraIdx = 4;
+            else if (currentCalcYear === "1990") compassEraIdx = 6;
+            else if (currentCalcYear === "1996") compassEraIdx = 7;
+            openCompassModal(compassEraIdx);
+        }
+
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 const welcomeModal = document.getElementById('welcome-modal');
                 if (welcomeModal && welcomeModal.style.display === 'flex') { closeWelcomeModal(); return; }
+                if (isCalcOpen) { closeCalcModal(); return; }
                 if (isElectionsOpen) { closeElectionsModal(); return; }
                 if (isCompassOpen) { closeCompassModal(); return; }
                 if (isDilemmaOpen) { closeDilemma(); return; }
@@ -6365,13 +7591,14 @@
             }
             const welcomeModal = document.getElementById('welcome-modal');
             const lightbox = document.getElementById('card-lightbox');
-            if (isElectionsOpen || isCompassOpen || isDilemmaOpen || isQuizOpen || isLoreOpen || (lightbox && lightbox.style.display === 'flex') || (welcomeModal && welcomeModal.style.display === 'flex')) return;
+            if (isCalcOpen || isElectionsOpen || isCompassOpen || isDilemmaOpen || isQuizOpen || isLoreOpen || (lightbox && lightbox.style.display === 'flex') || (welcomeModal && welcomeModal.style.display === 'flex')) return;
             if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') move(1);
             if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') move(-1);
             if (e.key === 'e' || e.key === 'E') toggleCodex();
             if (e.key === 'v' || e.key === 'V') togglePartyModal();
             if (e.key === 'l' || e.key === 'L') openElectionsModal();
             if (e.key === 'k' || e.key === 'K') openCompassModal();
+            if (e.key === 'p' || e.key === 'P') openCalcModal();
             if (e.key === 'm' || e.key === 'M') toggleSound();
         });
 // LOGIKA KVÍZU
